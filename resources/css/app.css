@@ -1,0 +1,513 @@
+@import 'tailwindcss';
+
+@import "tw-animate-css";
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+/* Cormorant Garamond - Serif font for headings */
+/* Only load critical weight 600 initially - other weights loaded on demand */
+@font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap; /* Critical font - swap prevents blocking while allowing font to load */
+    src: url('../fonts/cormorant-garamond/cormorant-garamond-600.woff2') format('woff2');
+}
+
+/* Non-critical weights - loaded only when needed, won't block render */
+@font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-weight: 400;
+    font-display: optional; /* Won't block - only loads if already available */
+    src: url('../fonts/cormorant-garamond/cormorant-garamond-400.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-weight: 500;
+    font-display: optional;
+    src: url('../fonts/cormorant-garamond/cormorant-garamond-500.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-weight: 700;
+    font-display: optional;
+    src: url('../fonts/cormorant-garamond/cormorant-garamond-700.woff2') format('woff2');
+}
+
+/* Montserrat - Sans-serif font for body text */
+/* Critical weights load with swap, non-critical with optional to reduce blocking */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap; /* Critical - body text, swap prevents blocking */
+    src: url('../fonts/montserrat/montserrat-400.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap; /* Critical - semibold used frequently, swap prevents blocking */
+    src: url('../fonts/montserrat/montserrat-600.woff2') format('woff2');
+}
+
+/* Non-critical weights - won't block render, may cause minor layout shift */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 300;
+    font-display: optional; /* Only used occasionally */
+    src: url('../fonts/montserrat/montserrat-300.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap; /* font-medium banyak digunakan, ubah ke swap */
+    src: url('../fonts/montserrat/montserrat-500.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-display: optional; /* Only used occasionally */
+    src: url('../fonts/montserrat/montserrat-700.woff2') format('woff2');
+}
+
+@theme {
+    --font-sans:
+        ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+
+    --font-serif:
+        'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+
+    --font-body:
+        'Montserrat', ui-sans-serif, system-ui, sans-serif;
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+
+    --color-brand-gold: #D4AF37;
+    --color-brand-dark: #0A0A0A;
+    --color-brand-charcoal: #171717;
+    --color-brand-gray: #262626;
+}
+
+:root {
+    /* Premium Black, Slate & White - Light Mode */
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.08 0 0);
+    --card: oklch(0.99 0 0);
+    --card-foreground: oklch(0.08 0 0);
+    --popover: oklch(0.99 0 0);
+    --popover-foreground: oklch(0.08 0 0);
+    --primary: oklch(0.08 0 0);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.95 0.003 250);
+    --secondary-foreground: oklch(0.08 0 0);
+    --muted: oklch(0.95 0.003 250);
+    --muted-foreground: oklch(0.50 0.005 250);
+    --accent: oklch(0.30 0.005 250);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.55 0.22 25);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.85 0.005 250);
+    --input: oklch(0.90 0.005 250);
+    --ring: oklch(0.30 0.005 250);
+    --chart-1: oklch(0.50 0.005 250);
+    --chart-2: oklch(0.55 0.005 250);
+    --chart-3: oklch(0.60 0.005 250);
+    --chart-4: oklch(0.45 0.005 250);
+    --chart-5: oklch(0.65 0.005 250);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.98 0.002 250);
+    --sidebar-foreground: oklch(0.08 0 0);
+    --sidebar-primary: oklch(0.08 0 0);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.30 0.005 250);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.85 0.005 250);
+    --sidebar-ring: oklch(0.30 0.005 250);
+}
+
+.dark {
+    /* Premium Black, Slate & White - Dark Mode */
+    --background: oklch(0.05 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.12 0.005 250);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.12 0.005 250);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(1 0 0);
+    --primary-foreground: oklch(0.05 0 0);
+    --secondary: oklch(0.20 0.005 250);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.20 0.005 250);
+    --muted-foreground: oklch(0.65 0.005 250);
+    --accent: oklch(0.40 0.005 250);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.55 0.22 25);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.25 0.005 250);
+    --input: oklch(0.15 0.005 250);
+    --ring: oklch(0.40 0.005 250);
+    --chart-1: oklch(0.55 0.005 250);
+    --chart-2: oklch(0.60 0.005 250);
+    --chart-3: oklch(0.65 0.005 250);
+    --chart-4: oklch(0.50 0.005 250);
+    --chart-5: oklch(0.70 0.005 250);
+    --sidebar: oklch(0.12 0.005 250);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(1 0 0);
+    --sidebar-primary-foreground: oklch(0.05 0 0);
+    --sidebar-accent: oklch(0.40 0.005 250);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.25 0.005 250);
+    --sidebar-ring: oklch(0.40 0.005 250);
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    html {
+        overflow-x: hidden;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+        color-scheme: light dark;
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+        font-family: var(--font-body);
+        font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        letter-spacing: 0.01em;
+    }
+
+    /* Typography Scale */
+    h1, .h1 {
+        font-family: var(--font-serif);
+        font-size: 2rem;
+        line-height: 1.2;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+    }
+
+    @media (min-width: 640px) {
+        h1, .h1 {
+            font-size: 2.25rem;
+            line-height: 1.15;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        h1, .h1 {
+            font-size: 2.5rem;
+            line-height: 1.12;
+        }
+    }
+
+    @media (min-width: 1280px) {
+        h1, .h1 {
+            font-size: 2.75rem;
+            line-height: 1.1;
+        }
+    }
+
+    @media (min-width: 1536px) {
+        h1, .h1 {
+            font-size: 3rem;
+            line-height: 1.08;
+        }
+    }
+
+    h2, .h2 {
+        font-family: var(--font-serif);
+        font-size: 1.5rem;
+        line-height: 1.3;
+        font-weight: 600;
+        letter-spacing: 0.015em;
+    }
+
+    @media (min-width: 640px) {
+        h2, .h2 {
+            font-size: 1.75rem;
+            line-height: 1.25;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        h2, .h2 {
+            font-size: 2rem;
+            line-height: 1.2;
+        }
+    }
+
+    @media (min-width: 1280px) {
+        h2, .h2 {
+            font-size: 2.25rem;
+            line-height: 1.15;
+        }
+    }
+
+    h3, .h3 {
+        font-family: var(--font-serif);
+        font-size: 1.5rem;
+        line-height: 1.35;
+        font-weight: 600;
+        letter-spacing: 0.015em;
+    }
+
+    @media (min-width: 640px) {
+        h3, .h3 {
+            font-size: 1.75rem;
+            line-height: 1.3;
+        }
+    }
+
+    h4, .h4 {
+        font-family: var(--font-serif);
+        font-size: 1.125rem;
+        line-height: 1.4;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+    }
+
+    @media (min-width: 640px) {
+        h4, .h4 {
+            font-size: 1.25rem;
+            line-height: 1.35;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        h4, .h4 {
+            font-size: 1.375rem;
+            line-height: 1.3;
+        }
+    }
+
+    h5, .h5 {
+        font-family: var(--font-serif);
+        font-size: 1.125rem;
+        line-height: 1.45;
+        font-weight: 600;
+        letter-spacing: 0.005em;
+    }
+
+    h6, .h6 {
+        font-family: var(--font-serif);
+        font-size: 1rem;
+        line-height: 1.5;
+        font-weight: 600;
+    }
+
+    p, .body {
+        font-family: var(--font-body);
+        font-size: 1rem;
+        line-height: 1.75;
+        font-weight: 400;
+        letter-spacing: 0.01em;
+    }
+
+    .body-lg {
+        font-family: var(--font-body);
+        font-size: 1rem;
+        line-height: 1.75;
+        font-weight: 400;
+        letter-spacing: 0.01em;
+    }
+
+    @media (min-width: 640px) {
+        .body-lg {
+            font-size: 1.125rem;
+            line-height: 1.8;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .body-lg {
+            font-size: 1.25rem;
+            line-height: 1.85;
+        }
+    }
+
+    /* Lead text for intro paragraphs */
+    .lead {
+        font-family: var(--font-body);
+        font-size: 1.125rem;
+        line-height: 1.7;
+        font-weight: 400;
+        letter-spacing: 0.01em;
+        color: var(--muted-foreground);
+    }
+
+    @media (min-width: 640px) {
+        .lead {
+            font-size: 1.25rem;
+            line-height: 1.75;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .lead {
+            font-size: 1.375rem;
+            line-height: 1.8;
+        }
+    }
+
+    .body-sm {
+        font-family: var(--font-body);
+        font-size: 0.875rem;
+        line-height: 1.6;
+        font-weight: 400;
+        letter-spacing: 0.005em;
+    }
+
+    .body-xs {
+        font-family: var(--font-body);
+        font-size: 0.75rem;
+        line-height: 1.5;
+        font-weight: 400;
+    }
+
+    /* Hide scrollbar for horizontal scroll containers */
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Smooth scroll behavior - disable on mobile for better performance */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    @media (max-width: 768px) {
+        html {
+            scroll-behavior: auto;
+        }
+    }
+
+    /* Respect reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+        /* Exception: Allow marquee animation for partner logos */
+        .partner-marquee {
+            animation-duration: var(--animation-duration, 15s) !important;
+            animation-iteration-count: infinite !important;
+        }
+    }
+
+    /* Focus ring animations */
+    *:focus-visible {
+        transition: box-shadow 0.15s ease-out;
+    }
+
+    /* Fade in up animation - optimize for mobile */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(1rem) translateZ(0);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) translateZ(0);
+        }
+    }
+
+    /* Respect reduced motion for animations */
+    @media (prefers-reduced-motion: reduce) {
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    }
+
+    /* Marquee animation for partner logos */
+    @keyframes marquee {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+}
+

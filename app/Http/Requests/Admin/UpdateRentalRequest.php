@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Http\Requests\Admin;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateRentalRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        $rental = $this->route('rental');
+        $rentalId = $rental instanceof \App\Models\Rental ? $rental->id : $rental;
+
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255', Rule::unique('rentals', 'slug')->ignore($rentalId)],
+            'description' => ['nullable', 'string'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'city' => ['nullable', 'string', 'max:255'],
+            'province' => ['nullable', 'string', 'max:255'],
+            'country' => ['nullable', 'string', 'max:255'],
+            'postal_code' => ['nullable', 'string', 'max:20'],
+            'phone' => ['nullable', 'string', 'max:50'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'website' => ['nullable', 'url', 'max:255'],
+            'latitude' => ['nullable', 'numeric', 'between:-90,90'],
+            'longitude' => ['nullable', 'numeric', 'between:-180,180'],
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'The name field is required.',
+            'name.max' => 'The name must not exceed 255 characters.',
+            'slug.unique' => 'The slug has already been taken.',
+            'email.email' => 'The email must be a valid email address.',
+            'website.url' => 'The website must be a valid URL.',
+            'latitude.between' => 'The latitude must be between -90 and 90.',
+            'longitude.between' => 'The longitude must be between -180 and 180.',
+        ];
+    }
+}
