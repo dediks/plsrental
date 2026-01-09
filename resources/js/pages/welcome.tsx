@@ -46,7 +46,7 @@ export default function Welcome({
                     <main className="flex w-full max-w-[335px] flex-col-reverse lg:max-w-4xl lg:flex-row">
                         <div className="flex-1 rounded-br-lg rounded-bl-lg bg-card p-6 pb-12 text-[13px] leading-[20px] shadow-[inset_0px_0px_0px_1px_hsl(var(--border))] lg:rounded-tl-lg lg:rounded-br-none lg:p-20 text-card-foreground">
                             <h1 className="mb-1 font-medium">
-                                Welcome to UAProfessional
+                                Welcome to PLSRental
                             </h1>
                             <p className="mb-2 text-muted-foreground">
                                 We design and manufacture high-performance sound reinforcement systems.
@@ -130,7 +130,7 @@ export default function Welcome({
                             <div className="flex h-full w-full items-center justify-center p-8">
                                 <img
                                     src="/images/hero/hero-uap.webp"
-                                    alt="UAProfessional Sound Systems"
+                                    alt="PLSRental Sound Systems"
                                     className="w-full h-full object-contain"
                                 />
                             </div>

@@ -40,7 +40,7 @@ class HandleInertiaRequests extends Middleware
     {
         $quotes = [
             'Sound is the foundation of human experience - We design systems that elevate it',
-            'Engineering excellence meets acoustic artistry - UAProfessional',
+            'Engineering excellence meets acoustic artistry - PLSRental',
             'Every detail matters in sound reinforcement - Precision is our promise',
         ];
 
@@ -49,7 +49,7 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'name' => config('app.name'),
-            'quote' => ['message' => $randomQuote, 'author' => 'UAProfessional'],
+            'quote' => ['message' => $randomQuote, 'author' => 'PLSRental'],
             'auth' => [
                 'user' => $request->user(),
             ],

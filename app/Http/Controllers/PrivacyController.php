@@ -12,7 +12,7 @@ class PrivacyController extends Controller
         $sections = [
             [
                 'title' => 'Introduction',
-                'content' => 'UAProfessional ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.',
+                'content' => 'PLSRental ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.',
             ],
             [
                 'title' => 'Information We Collect',

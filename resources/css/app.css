@@ -1,3 +1,6 @@
+/* Import Manrope font from Google Fonts - must be first */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+
 @import 'tailwindcss';
 
 @import "tw-animate-css";
@@ -13,7 +16,8 @@
     font-family: 'Cormorant Garamond';
     font-style: normal;
     font-weight: 600;
-    font-display: swap; /* Critical font - swap prevents blocking while allowing font to load */
+    font-display: swap;
+    /* Critical font - swap prevents blocking while allowing font to load */
     src: url('../fonts/cormorant-garamond/cormorant-garamond-600.woff2') format('woff2');
 }
 
@@ -22,7 +26,8 @@
     font-family: 'Cormorant Garamond';
     font-style: normal;
     font-weight: 400;
-    font-display: optional; /* Won't block - only loads if already available */
+    font-display: optional;
+    /* Won't block - only loads if already available */
     src: url('../fonts/cormorant-garamond/cormorant-garamond-400.woff2') format('woff2');
 }
 
@@ -48,7 +53,8 @@
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 400;
-    font-display: swap; /* Critical - body text, swap prevents blocking */
+    font-display: swap;
+    /* Critical - body text, swap prevents blocking */
     src: url('../fonts/montserrat/montserrat-400.woff2') format('woff2');
 }
 
@@ -56,7 +62,8 @@
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
-    font-display: swap; /* Critical - semibold used frequently, swap prevents blocking */
+    font-display: swap;
+    /* Critical - semibold used frequently, swap prevents blocking */
     src: url('../fonts/montserrat/montserrat-600.woff2') format('woff2');
 }
 
@@ -65,7 +72,8 @@
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 300;
-    font-display: optional; /* Only used occasionally */
+    font-display: optional;
+    /* Only used occasionally */
     src: url('../fonts/montserrat/montserrat-300.woff2') format('woff2');
 }
 
@@ -73,7 +81,8 @@
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
-    font-display: swap; /* font-medium banyak digunakan, ubah ke swap */
+    font-display: swap;
+    /* font-medium banyak digunakan, ubah ke swap */
     src: url('../fonts/montserrat/montserrat-500.woff2') format('woff2');
 }
 
@@ -81,13 +90,14 @@
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 700;
-    font-display: optional; /* Only used occasionally */
+    font-display: optional;
+    /* Only used occasionally */
     src: url('../fonts/montserrat/montserrat-700.woff2') format('woff2');
 }
 
 @theme {
     --font-sans:
-        ui-sans-serif, system-ui, sans-serif,
+        'Manrope', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
 
@@ -95,7 +105,7 @@
         'Cormorant Garamond', Georgia, 'Times New Roman', serif;
 
     --font-body:
-        'Montserrat', ui-sans-serif, system-ui, sans-serif;
+        'Manrope', ui-sans-serif, system-ui, sans-serif;
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -247,7 +257,8 @@
     }
 
     /* Typography Scale */
-    h1, .h1 {
+    h1,
+    .h1 {
         font-family: var(--font-serif);
         font-size: 2rem;
         line-height: 1.2;
@@ -256,34 +267,43 @@
     }
 
     @media (min-width: 640px) {
-        h1, .h1 {
+
+        h1,
+        .h1 {
             font-size: 2.25rem;
             line-height: 1.15;
         }
     }
 
     @media (min-width: 1024px) {
-        h1, .h1 {
+
+        h1,
+        .h1 {
             font-size: 2.5rem;
             line-height: 1.12;
         }
     }
 
     @media (min-width: 1280px) {
-        h1, .h1 {
+
+        h1,
+        .h1 {
             font-size: 2.75rem;
             line-height: 1.1;
         }
     }
 
     @media (min-width: 1536px) {
-        h1, .h1 {
+
+        h1,
+        .h1 {
             font-size: 3rem;
             line-height: 1.08;
         }
     }
 
-    h2, .h2 {
+    h2,
+    .h2 {
         font-family: var(--font-serif);
         font-size: 1.5rem;
         line-height: 1.3;
@@ -292,27 +312,34 @@
     }
 
     @media (min-width: 640px) {
-        h2, .h2 {
+
+        h2,
+        .h2 {
             font-size: 1.75rem;
             line-height: 1.25;
         }
     }
 
     @media (min-width: 1024px) {
-        h2, .h2 {
+
+        h2,
+        .h2 {
             font-size: 2rem;
             line-height: 1.2;
         }
     }
 
     @media (min-width: 1280px) {
-        h2, .h2 {
+
+        h2,
+        .h2 {
             font-size: 2.25rem;
             line-height: 1.15;
         }
     }
 
-    h3, .h3 {
+    h3,
+    .h3 {
         font-family: var(--font-serif);
         font-size: 1.5rem;
         line-height: 1.35;
@@ -321,13 +348,16 @@
     }
 
     @media (min-width: 640px) {
-        h3, .h3 {
+
+        h3,
+        .h3 {
             font-size: 1.75rem;
             line-height: 1.3;
         }
     }
 
-    h4, .h4 {
+    h4,
+    .h4 {
         font-family: var(--font-serif);
         font-size: 1.125rem;
         line-height: 1.4;
@@ -336,20 +366,25 @@
     }
 
     @media (min-width: 640px) {
-        h4, .h4 {
+
+        h4,
+        .h4 {
             font-size: 1.25rem;
             line-height: 1.35;
         }
     }
 
     @media (min-width: 1024px) {
-        h4, .h4 {
+
+        h4,
+        .h4 {
             font-size: 1.375rem;
             line-height: 1.3;
         }
     }
 
-    h5, .h5 {
+    h5,
+    .h5 {
         font-family: var(--font-serif);
         font-size: 1.125rem;
         line-height: 1.45;
@@ -357,14 +392,16 @@
         letter-spacing: 0.005em;
     }
 
-    h6, .h6 {
+    h6,
+    .h6 {
         font-family: var(--font-serif);
         font-size: 1rem;
         line-height: 1.5;
         font-weight: 600;
     }
 
-    p, .body {
+    p,
+    .body {
         font-family: var(--font-body);
         font-size: 1rem;
         line-height: 1.75;
@@ -456,6 +493,7 @@
 
     /* Respect reduced motion preference */
     @media (prefers-reduced-motion: reduce) {
+
         *,
         *::before,
         *::after {
@@ -464,6 +502,7 @@
             transition-duration: 0.01ms !important;
             scroll-behavior: auto !important;
         }
+
         /* Exception: Allow marquee animation for partner logos */
         .partner-marquee {
             animation-duration: var(--animation-duration, 15s) !important;
@@ -482,6 +521,7 @@
             opacity: 0;
             transform: translateY(1rem) translateZ(0);
         }
+
         to {
             opacity: 1;
             transform: translateY(0) translateZ(0);
@@ -494,6 +534,7 @@
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
@@ -505,9 +546,9 @@
         0% {
             transform: translateX(0);
         }
+
         100% {
             transform: translateX(-50%);
         }
     }
 }
-

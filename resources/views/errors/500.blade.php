@@ -46,7 +46,7 @@
             }
         </style>
 
-        <title>Server Error - UAProfessional</title>
+        <title>Server Error - PLSRental</title>
 
         <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -73,12 +73,12 @@
                         <div class="flex items-center">
                             <img
                                 src="/images/black-logo.svg"
-                                alt="UAProfessional"
+                                alt="PLSRental"
                                 class="h-10 w-auto dark:hidden"
                             />
                             <img
                                 src="/images/white-logo.svg"
-                                alt="UAProfessional"
+                                alt="PLSRental"
                                 class="h-10 w-auto hidden dark:block"
                             />
                         </div>

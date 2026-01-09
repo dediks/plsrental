@@ -51,12 +51,12 @@
                         <div class="flex items-center">
                             <img
                                 src="/images/black-logo.svg"
-                                alt="UAProfessional"
+                                alt="PLSRental"
                                 class="h-10 w-auto dark:hidden"
                             />
                             <img
                                 src="/images/white-logo.svg"
-                                alt="UAProfessional"
+                                alt="PLSRental"
                                 class="h-10 w-auto hidden dark:block"
                             />
                         </div>

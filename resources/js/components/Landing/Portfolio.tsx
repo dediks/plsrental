@@ -1,73 +1,71 @@
 import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { PortfolioItem } from './types';
 
-export default function Portfolio({ heading, subheading, items }: any) {
-    const defaultItems = [
-        {
-            title: "National Leadership Summit 2023",
-            category: "Corporate Conference",
-            imageUrl: "https://picsum.photos/id/449/800/600"
-        },
-        {
-            title: "Gala Dinner BUMN",
-            category: "Gala & Awarding",
-            imageUrl: "https://picsum.photos/id/158/800/600"
-        },
-        {
-            title: "Konser Outdoor City Festival",
-            category: "Live Music Production",
-            imageUrl: "https://picsum.photos/id/452/800/600"
-        }
-    ];
+const portfolioItems: PortfolioItem[] = [
+  {
+    id: 1,
+    title: "National Leadership Summit 2023",
+    category: "Corporate Conference",
+    imageUrl: "https://picsum.photos/id/449/800/600"
+  },
+  {
+    id: 2,
+    title: "Gala Dinner BUMN",
+    category: "Gala & Awarding",
+    imageUrl: "https://picsum.photos/id/158/800/600"
+  },
+  {
+    id: 3,
+    title: "Konser Outdoor City Festival",
+    category: "Live Music Production",
+    imageUrl: "https://picsum.photos/id/452/800/600"
+  },
+];
 
-    const portfolioItems = items && items.length > 0 ? items : defaultItems;
+const Portfolio: React.FC = () => {
+  return (
+    <section id="portfolio" className="py-24 bg-brand-dark">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12">
+          <div className="max-w-xl">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Pengalaman Nyata di Lapangan</h2>
+            <p className="text-neutral-400">
+              Menangani berbagai skala acara dengan konsistensi kualitas, mulai dari ruang meeting eksklusif hingga panggung outdoor megah.
+            </p>
+          </div>
+          <a href="#contact" className="hidden md:flex items-center text-brand-gold hover:text-white transition-colors font-medium mt-6 md:mt-0">
+            Lihat Pengalaman Kami <ArrowRight className="ml-2 w-4 h-4" />
+          </a>
+        </div>
 
-    return (
-        <section className="py-24 bg-brand-dark border-t border-white/5">
-            <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-                    <div className="max-w-2xl">
-                        <span className="text-brand-gold font-semibold tracking-wider text-sm uppercase mb-3 block">Selected Works</span>
-                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                            {heading || 'Pengalaman Nyata di Lapangan'}
-                        </h2>
-                        <p className="text-gray-400 text-lg">
-                            {subheading || 'Menangani berbagai skala acara dengan konsistensi kualitas, mulai dari ruang meeting eksklusif hingga panggung outdoor megah.'}
-                        </p>
-                    </div>
-                    <a href="#" className="hidden md:flex items-center gap-2 text-white border-b border-brand-gold pb-1 hover:text-brand-gold transition-colors">
-                        Lihat Semua Project <ArrowUpRight className="w-4 h-4" />
-                    </a>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {portfolioItems.map((project: any, index: number) => (
-                        <div key={index} className="group relative cursor-pointer">
-                            <div className="relative overflow-hidden rounded-xl aspect-[4/3] mb-6">
-                                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors z-10" />
-                                <img
-                                    src={project.imageUrl}
-                                    alt={project.title}
-                                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                                />
-                                <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
-                                    <div className="w-10 h-10 rounded-full bg-brand-gold flex items-center justify-center">
-                                        <ArrowUpRight className="w-5 h-5 text-black" />
-                                    </div>
-                                </div>
-                            </div>
-                            <span className="text-brand-gold text-sm tracking-wider uppercase font-medium">{project.category}</span>
-                            <h3 className="text-white text-xl font-bold mt-2 group-hover:underline decoration-brand-gold underline-offset-4">{project.title}</h3>
-                        </div>
-                    ))}
-                </div>
-
-                <div className="mt-12 text-center md:hidden">
-                    <a href="#" className="inline-flex items-center gap-2 text-white border-b border-brand-gold pb-1 hover:text-brand-gold transition-colors">
-                        Lihat Semua Project <ArrowUpRight className="w-4 h-4" />
-                    </a>
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {portfolioItems.map((item) => (
+            <div key={item.id} className="group relative overflow-hidden rounded-sm cursor-pointer">
+              <div className="aspect-[4/3] w-full bg-neutral-800">
+                <img 
+                  src={item.imageUrl} 
+                  alt={item.title} 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                <span className="text-brand-gold text-xs font-semibold uppercase tracking-wider mb-2">{item.category}</span>
+                <h3 className="text-white text-xl font-bold">{item.title}</h3>
+              </div>
             </div>
-        </section>
-    );
-}
+          ))}
+        </div>
+
+        <div className="mt-8 md:hidden text-center">
+           <a href="#contact" className="inline-flex items-center text-brand-gold font-medium">
+            Lihat Pengalaman Kami <ArrowRight className="ml-2 w-4 h-4" />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Portfolio;

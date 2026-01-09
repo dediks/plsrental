@@ -139,7 +139,7 @@ export function Footer() {
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                         <div className="flex flex-col items-center md:items-start gap-1">
                             <p className="body-xs text-slate-400 text-center md:text-left">
-                                &copy; {new Date().getFullYear()} UAProfessional. All Rights Reserved
+                                &copy; {new Date().getFullYear()} PLSRental. All Rights Reserved
                             </p>
                             <p className="body-xs text-slate-500 text-center md:text-left">
                                 Designed by{' '}

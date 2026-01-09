@@ -12,7 +12,7 @@ class TermsController extends Controller
         $sections = [
             [
                 'title' => 'Introduction',
-                'content' => 'These Terms of Service ("Terms") govern your access to and use of the UAProfessional website (the "Service") operated by UAProfessional ("we", "us", or "our"). By accessing or using our Service, you agree to be bound by these Terms. If you disagree with any part of these Terms, then you may not access the Service.',
+                'content' => 'These Terms of Service ("Terms") govern your access to and use of the PLSRental website (the "Service") operated by PLSRental ("we", "us", or "our"). By accessing or using our Service, you agree to be bound by these Terms. If you disagree with any part of these Terms, then you may not access the Service.',
             ],
             [
                 'title' => 'Acceptance of Terms',
@@ -20,7 +20,7 @@ class TermsController extends Controller
             ],
             [
                 'title' => 'Use License',
-                'content' => 'Permission is granted to temporarily access the materials on UAProfessional\'s website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+                'content' => 'Permission is granted to temporarily access the materials on PLSRental\'s website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
 
 • Modify or copy the materials
 • Use the materials for any commercial purpose or for any public display (commercial or non-commercial)
@@ -28,11 +28,11 @@ class TermsController extends Controller
 • Remove any copyright or other proprietary notations from the materials
 • Transfer the materials to another person or "mirror" the materials on any other server
 
-This license shall automatically terminate if you violate any of these restrictions and may be terminated by UAProfessional at any time.',
+This license shall automatically terminate if you violate any of these restrictions and may be terminated by PLSRental at any time.',
             ],
             [
                 'title' => 'Intellectual Property Rights',
-                'content' => 'The Service and its original content, features, and functionality are and will remain the exclusive property of UAProfessional and its licensors. The Service is protected by copyright, trademark, and other laws. Our trademarks and trade dress may not be used in connection with any product or service without our prior written consent.',
+                'content' => 'The Service and its original content, features, and functionality are and will remain the exclusive property of PLSRental and its licensors. The Service is protected by copyright, trademark, and other laws. Our trademarks and trade dress may not be used in connection with any product or service without our prior written consent.',
             ],
             [
                 'title' => 'User Accounts',
@@ -44,7 +44,7 @@ This license shall automatically terminate if you violate any of these restricti
 
 • In any way that violates any applicable national or international law or regulation
 • To transmit, or procure the sending of, any advertising or promotional material, spam, or unsolicited communications without our prior written consent
-• To impersonate or attempt to impersonate UAProfessional, a company employee, another user, or any other person or entity
+• To impersonate or attempt to impersonate PLSRental, a company employee, another user, or any other person or entity
 • To submit false, misleading, or fraudulent information through our contact form
 • In any way that infringes upon the rights of others, including intellectual property rights
 • To engage in any activity that is illegal, threatening, fraudulent, harmful, or that could damage, disable, or impair the website
@@ -70,15 +70,15 @@ This license shall automatically terminate if you violate any of these restricti
             ],
             [
                 'title' => 'Limitation of Liability',
-                'content' => 'In no event shall UAProfessional, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of the Service.',
+                'content' => 'In no event shall PLSRental, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of the Service.',
             ],
             [
                 'title' => 'Indemnification',
-                'content' => 'You agree to defend, indemnify, and hold harmless UAProfessional and its licensee and licensors, and their employees, contractors, agents, officers and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney\'s fees).',
+                'content' => 'You agree to defend, indemnify, and hold harmless PLSRental and its licensee and licensors, and their employees, contractors, agents, officers and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney\'s fees).',
             ],
             [
                 'title' => 'Links to Other Websites',
-                'content' => 'Our Service may contain links to third-party websites or services that are not owned or controlled by UAProfessional. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You further acknowledge and agree that UAProfessional shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods, or services available on or through any such websites or services.',
+                'content' => 'Our Service may contain links to third-party websites or services that are not owned or controlled by PLSRental. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You further acknowledge and agree that PLSRental shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods, or services available on or through any such websites or services.',
             ],
             [
                 'title' => 'Termination',
@@ -96,7 +96,7 @@ This license shall automatically terminate if you violate any of these restricti
                 'title' => 'Contact Information',
                 'content' => 'If you have any questions about these Terms of Service, please contact us at:
 
-UAProfessional
+PLSRental
 Indonesia
 Email: uapsound@yahoo.com',
             ],

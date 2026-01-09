@@ -123,7 +123,7 @@ class SeoService
     public static function forSuppliersIndex(): array
     {
         $title = Setting::get('suppliers_meta_title') ?: 'Suppliers';
-        $description = Setting::get('suppliers_meta_description') ?: 'Find authorized UAProfessional distributors, dealers, and partners near you, ensuring trusted service, genuine products, and professional audio solutions.';
+        $description = Setting::get('suppliers_meta_description') ?: 'Find authorized PLSRental distributors, dealers, and partners near you, ensuring trusted service, genuine products, and professional audio solutions.';
         $url = self::makeAbsoluteUrl(route('suppliers.index'));
 
         $structuredData = [
@@ -169,7 +169,7 @@ class SeoService
     public static function forRentalsIndex(): array
     {
         $title = Setting::get('rentals_meta_title') ?: 'Rentals';
-        $description = Setting::get('rentals_meta_description') ?: 'Find trusted UAProfessional rental partners near you, offering professional loudspeaker systems and audio equipment for events, installations, and productions.';
+        $description = Setting::get('rentals_meta_description') ?: 'Find trusted PLSRental rental partners near you, offering professional loudspeaker systems and audio equipment for events, installations, and productions.';
         $url = self::makeAbsoluteUrl(route('rentals.index'));
 
         $structuredData = [
@@ -213,7 +213,7 @@ class SeoService
     public static function forContact(): array
     {
         $title = Setting::get('contact_meta_title') ?: 'Contact Us';
-        $description = Setting::get('contact_meta_description') ?: 'Get in touch with UAProfessional for product inquiries, technical support, partnerships, or information about our professional audio solutions.';
+        $description = Setting::get('contact_meta_description') ?: 'Get in touch with PLSRental for product inquiries, technical support, partnerships, or information about our professional audio solutions.';
         $url = self::makeAbsoluteUrl(route('contact.index'));
 
         $structuredData = [
@@ -236,7 +236,7 @@ class SeoService
     public static function forAbout(): array
     {
         $title = Setting::get('about_meta_title') ?: 'About Us';
-        $description = Setting::get('about_meta_description') ?: 'Learn about UAProfessional, a loudspeaker manufacturer dedicated to acoustic engineering excellence, delivering innovative, reliable, and high-performance professional audio solutions.';
+        $description = Setting::get('about_meta_description') ?: 'Learn about PLSRental, a loudspeaker manufacturer dedicated to acoustic engineering excellence, delivering innovative, reliable, and high-performance professional audio solutions.';
         $url = self::makeAbsoluteUrl(route('about'));
 
         $structuredData = [

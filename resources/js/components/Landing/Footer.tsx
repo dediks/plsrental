@@ -1,92 +1,82 @@
 import React from 'react';
-import { Facebook, Instagram, Linkedin, Twitter, MapPin, Mail, Phone, Clock } from 'lucide-react';
+import { MapPin, Mail, Phone, Instagram, Linkedin } from 'lucide-react';
 
-export default function Footer({ 
-    brandName, 
-    brandDescription, 
-    address, 
-    phone, 
-    email, 
-    socialLinks, 
-    copyrightText 
-}: any) {
-    return (
-        <footer className="bg-black pt-20 pb-10 border-t border-white/10">
-            <div className="container mx-auto px-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-                    {/* Brand */}
-                    <div className="space-y-6">
-                        <h3 className="text-2xl font-bold text-white tracking-tight">
-                            {brandName || 'PLS Rental'}
-                            <span className="text-brand-gold">.</span>
-                        </h3>
-                        <p className="text-gray-400 leading-relaxed text-sm">
-                            {brandDescription || 'Platform penyewaan sound system dan peralatan audio visual profesional nomor satu di Indonesia. Memberikan kualitas live sound tanpa kompromi.'}
-                        </p>
-                        <div className="flex gap-4">
-                            {socialLinks?.facebook && <a href={socialLinks.facebook} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-brand-gold hover:text-black transition-all"><Facebook size={18} /></a>}
-                            {socialLinks?.instagram && <a href={socialLinks.instagram} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-brand-gold hover:text-black transition-all"><Instagram size={18} /></a>}
-                            {socialLinks?.twitter && <a href={socialLinks.twitter} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-brand-gold hover:text-black transition-all"><Twitter size={18} /></a>}
-                            {socialLinks?.linkedin && <a href={socialLinks.linkedin} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-brand-gold hover:text-black transition-all"><Linkedin size={18} /></a>}
-                        </div>
-                    </div>
-
-                    {/* Quick Access */}
-                    <div>
-                        <h4 className="text-white font-bold mb-6">Layanan</h4>
-                        <ul className="space-y-4 text-sm text-gray-400">
-                            <li><a href="#" className="hover:text-brand-gold transition-colors">Sound System Rental</a></li>
-                            <li><a href="#" className="hover:text-brand-gold transition-colors">Lighting Production</a></li>
-                            <li><a href="#" className="hover:text-brand-gold transition-colors">Multimedia System</a></li>
-                            <li><a href="#" className="hover:text-brand-gold transition-colors">Live Recording</a></li>
-                            <li><a href="#" className="hover:text-brand-gold transition-colors">Rigging & Stage</a></li>
-                        </ul>
-                    </div>
-
-                     {/* Service Area */}
-                     <div>
-                        <h4 className="text-white font-bold mb-6">Area Layanan</h4>
-                        <ul className="space-y-4 text-sm text-gray-400">
-                            <li>Jakarta & Jabodetabek</li>
-                            <li>Bandung & Jawa Barat</li>
-                            <li>Surabaya & Jawa Timur</li>
-                            <li>Bali & Lombok</li>
-                            <li>Medan & Sumatera</li>
-                        </ul>
-                    </div>
-
-                    {/* Contact Info */}
-                    <div>
-                         <h4 className="text-white font-bold mb-6">Hubungi Kami</h4>
-                         <ul className="space-y-4 text-sm text-gray-400">
-                            <li className="flex gap-3 items-start">
-                                <MapPin className="shrink-0 text-brand-gold w-5 h-5" />
-                                <span>{address || 'Jl. Audio Professional No. 88, Jakarta Selatan, Indonesia'}</span>
-                            </li>
-                            <li className="flex gap-3 items-center">
-                                <Phone className="shrink-0 text-brand-gold w-5 h-5" />
-                                <span>{phone || '+62 812-3456-7890'}</span>
-                            </li>
-                            <li className="flex gap-3 items-center">
-                                <Mail className="shrink-0 text-brand-gold w-5 h-5" />
-                                <span>{email || 'info@plsrental.com'}</span>
-                            </li>
-                            <li className="flex gap-3 items-center">
-                                <Clock className="shrink-0 text-brand-gold w-5 h-5" />
-                                <span>Senin - Sabtu, 09:00 - 18:00</span>
-                            </li>
-                         </ul>
-                    </div>
-                </div>
-
-                <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
-                    <p>{copyrightText || `© ${new Date().getFullYear()} PLS Rental. All rights reserved.`}</p>
-                    <div className="flex gap-6">
-                        <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-                        <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-                    </div>
-                </div>
+const Footer: React.FC = () => {
+  return (
+    <footer className="bg-neutral-950 text-neutral-400 pt-16 pb-8 border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          
+          {/* Brand Info */}
+          <div className="md:col-span-1">
+            <a href="#" className="flex flex-col leading-none mb-6">
+              <span className="text-2xl font-bold tracking-tighter text-white">PLS</span>
+              <span className="text-[0.6rem] font-bold tracking-widest text-neutral-500 uppercase">Rental Division</span>
+            </a>
+            <p className="text-sm leading-relaxed mb-6">
+              Mitra terpercaya penyewaan sound system dan produksi audio visual premium untuk kebutuhan korporat dan instansi.
+            </p>
+            <div className="flex space-x-4">
+              <a href="#" className="hover:text-white transition-colors"><Instagram size={20} /></a>
+              <a href="#" className="hover:text-white transition-colors"><Linkedin size={20} /></a>
             </div>
-        </footer>
-    );
-}
+          </div>
+
+          {/* Area Layanan */}
+          <div className="md:col-span-2">
+            <h3 className="text-white font-semibold mb-6">Area Layanan & Cakupan</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <div className="flex items-start mb-3">
+                  <MapPin className="text-brand-gold mt-1 mr-3 h-4 w-4 flex-shrink-0" />
+                  <p className="text-sm">
+                    <strong className="text-neutral-300 block mb-1">Madiun & Sekitarnya</strong>
+                    Layanan cepat untuk area Madiun, Magetan, Ponorogo, dan Ngawi dengan dukungan logistik lokal.
+                  </p>
+                </div>
+              </div>
+              <div>
+                 <div className="flex items-start mb-3">
+                  <MapPin className="text-brand-gold mt-1 mr-3 h-4 w-4 flex-shrink-0" />
+                  <p className="text-sm">
+                    <strong className="text-neutral-300 block mb-1">Jawa Timur & Nasional</strong>
+                    Siap menangani event di seluruh Jawa Timur hingga skala nasional dengan koordinasi profesional.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="text-white font-semibold mb-6">Kontak Kami</h3>
+            <ul className="space-y-4 text-sm">
+              <li className="flex items-center">
+                <Phone className="mr-3 h-4 w-4 text-brand-gold" />
+                <span>0822-5728-9604</span>
+              </li>
+              <li className="flex items-center">
+                <Mail className="mr-3 h-4 w-4 text-brand-gold" />
+                <span>plsrental@yahoo.com</span>
+              </li>
+              <li className="flex items-start">
+                 <MapPin className="mt-1 mr-3 h-4 w-4 text-brand-gold flex-shrink-0" />
+                 <span>JL.Raya Kandangan . Kare . MADIUN - Jawa Timur.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="border-t border-white/5 pt-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-xs text-neutral-600">
+          <p>&copy; {new Date().getFullYear()} PLS Rental Division. All rights reserved.</p>
+          <div className="flex space-x-6 mt-4 md:mt-0">
+            <a href="#" className="hover:text-neutral-400">Privacy Policy</a>
+            <a href="#" className="hover:text-neutral-400">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

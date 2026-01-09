@@ -5,7 +5,7 @@ import { useIsDarkMode } from '@/hooks/use-is-dark-mode';
 import { type SharedData } from '@/types';
 
 interface LogoProps {
-    /** Whether to show the text "UAProfessional" next to the logo */
+    /** Whether to show the text "PLSRental" next to the logo */
     showText?: boolean;
     /** Size of the logo */
     size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl';
@@ -77,7 +77,7 @@ export function Logo({
     const logoImage = (
         <img
             src={logoSrc}
-            alt="UAProfessional"
+            alt="PLSRental"
             className={cn(sizeClasses[size])}
         />
     );
@@ -92,7 +92,7 @@ export function Logo({
                 textSizeClasses[size],
             )}
         >
-            UAProfessional
+            PLSRental
         </span>
     );
 
