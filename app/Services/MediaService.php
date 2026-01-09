@@ -302,9 +302,130 @@ class MediaService
      */
     public static function isMediaInUse(Media $media): bool
     {
-        return $media->galleryable_id !== null && $media->galleryable_type !== null;
+        // Check galleryable relationship (products, articles, etc.)
+        if ($media->galleryable_id !== null && $media->galleryable_type !== null) {
+            return true;
+        }
+
+        // Check if used in Settings
+        if (self::isMediaInSettings($media)) {
+            return true;
+        }
+
+        // Check if used in PageSections
+        if (self::isMediaInPageSections($media)) {
+            return true;
+        }
+
+        return false;
     }
 
+    /**
+     * Check if media is referenced in Settings table.
+     */
+    public static function isMediaInSettings(Media $media): bool
+    {
+        // Check if media ID appears in any setting values
+        if (\App\Models\Setting::where('value', (string) $media->id)->exists()) {
+            return true;
+        }
+
+        // Check if media path appears in any setting values (legacy settings)
+        $searchTerms = [];
+        if ($media->path) {
+            $searchTerms[] = $media->path;
+            $searchTerms[] = '/storage/' . ltrim($media->path, '/');
+            $searchTerms[] = ltrim($media->path, '/');
+            
+            // Also check for just the filename as some legacy settings might store just that
+            if ($media->filename) {
+                $searchTerms[] = $media->filename;
+            }
+        }
+
+        // If Spatie media exists, add search for the Spatie media ID pattern
+        if ($media->spatie_media_id) {
+            $searchTerms[] = '/storage/'.$media->spatie_media_id.'/';
+            $searchTerms[] = '/'.$media->spatie_media_id.'/';
+        }
+
+        if (!empty($searchTerms)) {
+            // Use LIKE to find the path anywhere in the setting value (handles full URLs)
+            return \App\Models\Setting::where(function ($query) use ($searchTerms) {
+                foreach ($searchTerms as $term) {
+                    $query->orWhere('value', 'LIKE', '%' . $term . '%');
+                }
+            })->exists();
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if media path/URL is referenced in PageSection content.
+     * Uses database-agnostic approach (works with both MySQL and PostgreSQL).
+     */
+    public static function isMediaInPageSections(Media $media): bool
+    {
+        // Build search terms - various ways the media might be referenced
+        $searchTerms = [];
+        
+        // Add path variations
+        if ($media->path) {
+            $path = $media->path;
+            $storagePath = '/storage/'.ltrim($path, '/');
+
+            // Standard variations
+            $searchTerms[] = $path;
+            $searchTerms[] = $storagePath;
+            
+            // JSON escaped variations (slashes escaped as \/)
+            // json_encode escapes slashes by default, resulting in "\/"
+            // To match a literal backslash in SQL LIKE, we need four backslashes in PHP string (\\\\)
+            // which becomes two backslashes in the bound value (\\), which LIKE interprets as one literal backslash (\).
+            $searchTerms[] = str_replace('/', '\\\\/', $path);
+            $searchTerms[] = str_replace('/', '\\\\/', $storagePath);
+        }
+        
+        // Add filename (since PageSections might store just the filename)
+        if ($media->filename) {
+            $searchTerms[] = $media->filename;
+        }
+        
+        // If Spatie media exists, add search for the Spatie media ID pattern
+        // PageSections might store URLs like /storage/5/filename.webp or /storage/5/conversions/...
+        if ($media->spatie_media_id) {
+            $searchTerms[] = '/storage/'.$media->spatie_media_id.'/';
+            $searchTerms[] = '/'.$media->spatie_media_id.'/';
+            
+            // Escaped versions
+            $searchTerms[] = '\\\\/storage\\\\/'.$media->spatie_media_id.'\\\\/';
+            $searchTerms[] = '\\\\/'.$media->spatie_media_id.'\\\\/';
+        }
+
+        // Use CAST to text and ILIKE for cross-database compatibility
+        // This works in both MySQL and PostgreSQL
+        $query = \App\Models\PageSection::query();
+        
+        
+        $query->where(function ($q) use ($searchTerms) {
+            foreach ($searchTerms as $term) {
+                if (empty($term)) {
+                    continue;
+                }
+                
+                // Convert JSON to text and search for the term
+                // Works in both MySQL and PostgreSQL
+                $q->orWhereRaw("CAST(content AS TEXT) ILIKE ?", ['%'.$term.'%']);
+            }
+        });
+
+        return $query->exists();
+    }
+
+    /**
+     * Get the model name that is using this media.
+     */
     /**
      * Get the model name that is using this media.
      */
@@ -314,23 +435,115 @@ class MediaService
             return null;
         }
 
-        // Load the relationship if not already loaded
-        if (! $media->relationLoaded('galleryable')) {
-            $media->load('galleryable');
+        // 1. Check Galleryable (Polymorphic relations)
+        if ($media->galleryable_id !== null && $media->galleryable_type !== null) {
+            // Load the relationship if not already loaded
+            if (! $media->relationLoaded('galleryable')) {
+                $media->load('galleryable');
+            }
+
+            if ($media->galleryable) {
+                $model = $media->galleryable;
+                $modelName = class_basename($media->galleryable_type);
+
+                return [
+                    'type' => $modelName,
+                    'name' => $model->name ?? $model->title ?? 'Unknown',
+                    'id' => $model->id,
+                ];
+            }
         }
 
-        if (! $media->galleryable) {
-            return null;
+        // 2. Check Settings
+        // Helper to find setting usage
+        $settingUsage = self::findSettingUsage($media);
+        if ($settingUsage) {
+            return [
+                'type' => 'Setting',
+                'name' => $settingUsage->key,
+                'id' => $settingUsage->id,
+            ];
         }
 
-        $model = $media->galleryable;
-        $modelName = class_basename($media->galleryable_type);
+        // 3. Check Page Sections
+        $pageSectionUsage = self::findPageSectionUsage($media);
+        if ($pageSectionUsage) {
+            return [
+                'type' => 'Page Section',
+                'name' => "{$pageSectionUsage->page} / {$pageSectionUsage->section_key}",
+                'id' => $pageSectionUsage->id,
+            ];
+        }
 
-        return [
-            'type' => $modelName,
-            'name' => $model->name ?? $model->title ?? 'Unknown',
-            'id' => $model->id,
-        ];
+        return null;
+    }
+
+    /**
+     * Helper to find which setting is using the media.
+     */
+    private static function findSettingUsage(Media $media): ?\App\Models\Setting
+    {
+        // Check ID match
+        $setting = \App\Models\Setting::where('value', (string) $media->id)->first();
+        if ($setting) return $setting;
+
+        // Check path match (LIKE)
+        $searchTerms = [];
+        if ($media->path) {
+            $searchTerms[] = $media->path;
+            $searchTerms[] = '/storage/' . ltrim($media->path, '/');
+            $searchTerms[] = ltrim($media->path, '/');
+            if ($media->filename) $searchTerms[] = $media->filename;
+        }
+        if ($media->spatie_media_id) {
+            $searchTerms[] = '/storage/'.$media->spatie_media_id.'/';
+            $searchTerms[] = '/'.$media->spatie_media_id.'/';
+        }
+
+        if (!empty($searchTerms)) {
+            return \App\Models\Setting::where(function ($query) use ($searchTerms) {
+                foreach ($searchTerms as $term) {
+                    $query->orWhere('value', 'LIKE', '%' . $term . '%');
+                }
+            })->first();
+        }
+
+        return null;
+    }
+
+    /**
+     * Helper to find which Page Section is using the media.
+     */
+    private static function findPageSectionUsage(Media $media): ?\App\Models\PageSection
+    {
+        $searchTerms = [];
+        if ($media->path) {
+            $path = $media->path;
+            $storagePath = '/storage/'.ltrim($path, '/');
+            $searchTerms[] = $path;
+            $searchTerms[] = $storagePath;
+            $searchTerms[] = str_replace('/', '\\\\/', $path);
+            $searchTerms[] = str_replace('/', '\\\\/', $storagePath);
+        }
+        if ($media->filename) {
+            $searchTerms[] = $media->filename;
+        }
+        if ($media->spatie_media_id) {
+            $searchTerms[] = '/storage/'.$media->spatie_media_id.'/';
+            $searchTerms[] = '/'.$media->spatie_media_id.'/';
+            $searchTerms[] = '\\\\/storage\\\\/'.$media->spatie_media_id.'\\\\/';
+            $searchTerms[] = '\\\\/'.$media->spatie_media_id.'\\\\/';
+        }
+
+        if (empty($searchTerms)) return null;
+
+        return \App\Models\PageSection::where(function ($q) use ($searchTerms) {
+            foreach ($searchTerms as $term) {
+                if (!empty($term)) {
+                    $q->orWhereRaw("CAST(content AS TEXT) ILIKE ?", ['%'.$term.'%']);
+                }
+            }
+        })->first();
     }
 
     /**

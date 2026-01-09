@@ -20,7 +20,7 @@ export function FormField({
     description,
 }: FormFieldProps) {
     return (
-        <div className="space-y-2">
+        <div className="space-y-4">
             <Label htmlFor={name}>
                 {label}
                 {required && <span className="text-destructive ml-1">*</span>}
@@ -28,7 +28,9 @@ export function FormField({
             {description && (
                 <p className="text-sm text-muted-foreground">{description}</p>
             )}
+            <div className="mt-2">
             {children}
+            </div>
             <InputError message={error} />
         </div>
     );

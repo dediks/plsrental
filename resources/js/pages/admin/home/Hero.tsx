@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { FormField } from '@/components/admin/FormField';
-import { MediaSelector } from '@/components/admin/MediaSelector';
+import { MediaSelector, type MediaItem } from '@/components/admin/MediaSelector';
 import { toastSuccess, toastError } from '@/lib/toast';
 import { HeroConfig } from '@/types/home';
 import { useMemo } from 'react';
@@ -16,15 +16,6 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Hero Section', href: '#' },
 ];
 
-interface MediaItem {
-    id: number;
-    path: string;
-    url: string;
-    alt_text?: string;
-    caption?: string;
-    order: number;
-    is_featured: boolean;
-}
 
 interface HeroProps {
     hero: HeroConfig;
@@ -49,7 +40,7 @@ export default function Hero({ hero }: HeroProps) {
             alt_text: '',
             caption: '',
             order: index,
-            is_featured: false,
+
         } as MediaItem;
     };
 

@@ -2,9 +2,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import InputError from '@/components/input-error';
-import { Upload, X, Loader2, Star, GripVertical, Image as ImageIcon, Search } from 'lucide-react';
+import { Upload, X, Loader2, GripVertical, Image as ImageIcon, Search } from 'lucide-react';
 import { useState, useEffect, useId } from 'react';
-import { router } from '@inertiajs/react';
 import {
     Dialog,
     DialogContent,
@@ -13,7 +12,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 
-interface MediaItem {
+export interface MediaItem {
     id: number;
     path: string;
     url: string;
@@ -22,7 +21,6 @@ interface MediaItem {
     alt_text?: string;
     caption?: string;
     order: number;
-    is_featured: boolean;
 }
 
 interface MediaSelectorProps {
@@ -32,7 +30,6 @@ interface MediaSelectorProps {
     label?: string;
     maxImages?: number;
     context?: 'product' | 'article' | 'gallery' | 'logo';
-    allowFeatured?: boolean;
 }
 
 export function MediaSelector({
@@ -42,7 +39,6 @@ export function MediaSelector({
     label,
     maxImages = 10,
     context = 'product',
-    allowFeatured = true,
 }: MediaSelectorProps) {
     const uniqueId = useId();
     const uploadInputId = `media-upload-input-${uniqueId}`;
@@ -103,7 +99,6 @@ export function MediaSelector({
                 alt_text: data.media.alt_text || '',
                 caption: data.media.caption || '',
                 order: media.length,
-                is_featured: false,
             };
             
             const newMedia = [...media, newMediaItem];
@@ -171,39 +166,7 @@ export function MediaSelector({
         onChange(reorderedMedia);
     };
 
-    const handleToggleFeatured = (index: number) => {
-        if (!allowFeatured) return;
-        
-        const newMedia = [...media];
-        const item = newMedia[index];
-        
-        // If setting as featured, unset all others
-        if (!item.is_featured) {
-            newMedia.forEach((m, i) => {
-                m.is_featured = (i === index);
-            });
-        } else {
-            // If unsetting featured, just set this one to false
-            item.is_featured = false;
-        }
-        
-        setMedia(newMedia);
-        onChange(newMedia);
-    };
 
-    // Auto-set first image as featured if no featured image exists
-    useEffect(() => {
-        if (allowFeatured && media.length > 0) {
-            const hasFeatured = media.some(m => m.is_featured);
-            if (!hasFeatured) {
-                const newMedia = [...media];
-                newMedia[0].is_featured = true;
-                setMedia(newMedia);
-                onChange(newMedia);
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [media.length]); // Only when media count changes
 
     const handleDragStart = (index: number) => {
         setDraggedIndex(index);
@@ -292,7 +255,6 @@ export function MediaSelector({
         const newMediaItem: MediaItem = {
             ...libraryItem,
             order: media.length,
-            is_featured: false,
         };
 
         const newMedia = [...media, newMediaItem];
@@ -305,19 +267,12 @@ export function MediaSelector({
     return (
         <div className="space-y-2">
             {label && (
-                <div className="space-y-1">
-                    <Label>
-                        {label}
-                        <span className="text-muted-foreground ml-2 text-sm font-normal">
-                            (Max {maxImages} images)
-                        </span>
-                    </Label>
-                    {allowFeatured && (
-                        <p className="text-xs text-muted-foreground">
-                            Click the star icon to set an image as the thumbnail/featured image
-                        </p>
-                    )}
-                </div>
+                <Label>
+                    {label}
+                    <span className="text-muted-foreground ml-2 text-sm font-normal">
+                        (Max {maxImages} images)
+                    </span>
+                </Label>
             )}
             
             {/* Upload and Browse Buttons */}
@@ -453,28 +408,9 @@ export function MediaSelector({
                             onDragStart={() => handleDragStart(index)}
                             onDragOver={(e) => handleDragOver(e, index)}
                             onDragEnd={handleDragEnd}
-                            className={`relative border rounded-md overflow-hidden bg-muted/50 group cursor-move transition-all ${
-                                item.is_featured && allowFeatured 
-                                    ? 'ring-2 ring-primary ring-offset-2 border-primary' 
-                                    : 'border-border'
-                            }`}
+                            className="relative border rounded-md overflow-hidden bg-muted/50 group cursor-move transition-all border-border"
                         >
                             <div className="aspect-square relative">
-                                {/* Click to set as thumbnail (if not already thumbnail) */}
-                                {allowFeatured && !item.is_featured && (
-                                    <button
-                                        type="button"
-                                        onClick={() => handleToggleFeatured(index)}
-                                        className="absolute inset-0 z-0 opacity-0 hover:opacity-100 transition-opacity bg-black/20 flex items-center justify-center cursor-pointer"
-                                        title="Click to set as thumbnail"
-                                    >
-                                        <div className="bg-primary/90 text-primary-foreground rounded-md px-3 py-1.5 flex items-center gap-1.5 shadow-lg">
-                                            <Star className="h-4 w-4" />
-                                            <span className="text-xs font-medium">Set as Thumbnail</span>
-                                        </div>
-                                    </button>
-                                )}
-                                
                                 <img
                                     src={item.url}
                                     srcSet={item.srcset}
@@ -489,37 +425,9 @@ export function MediaSelector({
                                     <GripVertical className="h-4 w-4 text-white drop-shadow-lg" />
                                 </div>
 
-                                {/* Featured/Thumbnail Badge */}
-                                {item.is_featured && allowFeatured && (
-                                    <div className="absolute top-2 right-2 z-10">
-                                        <div className="bg-primary text-primary-foreground rounded-md px-2 py-1 flex items-center gap-1 shadow-lg">
-                                            <Star className="h-3 w-3 fill-current" />
-                                            <span className="text-xs font-medium">Thumbnail</span>
-                                        </div>
-                                    </div>
-                                )}
-
                                 {/* Actions Overlay */}
                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors flex items-center justify-center gap-2 z-10">
-                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
-                                        {allowFeatured && (
-                                            <Button
-                                                type="button"
-                                                variant={item.is_featured ? "default" : "secondary"}
-                                                size="sm"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    handleToggleFeatured(index);
-                                                }}
-                                                className="h-9 px-3 gap-1.5"
-                                                title={item.is_featured ? 'Remove thumbnail' : 'Set as thumbnail'}
-                                            >
-                                                <Star className={`h-4 w-4 ${item.is_featured ? 'fill-current' : ''}`} />
-                                                <span className="text-xs font-medium">
-                                                    {item.is_featured ? 'Thumbnail' : 'Set Thumbnail'}
-                                                </span>
-                                            </Button>
-                                        )}
+                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity">
                                         <Button
                                             type="button"
                                             variant="destructive"
@@ -534,13 +442,6 @@ export function MediaSelector({
                                         </Button>
                                     </div>
                                 </div>
-                                
-                                {/* Thumbnail indicator at bottom */}
-                                {item.is_featured && allowFeatured && (
-                                    <div className="absolute bottom-0 left-0 right-0 bg-primary/90 text-primary-foreground text-center py-1">
-                                        <span className="text-xs font-medium">Thumbnail Image</span>
-                                    </div>
-                                )}
                             </div>
                         </div>
                     ))}

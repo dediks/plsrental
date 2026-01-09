@@ -208,15 +208,18 @@ class MediaController extends Controller
         }
 
         // Check if media is currently assigned to a product or other model
+        // Check if media is currently assigned to a product or other model
         if (MediaService::isMediaInUse($media)) {
             $usageInfo = MediaService::getMediaUsageInfo($media);
 
-            if ($usageInfo) {
-                return response()->json([
-                    'success' => false,
-                    'message' => "Cannot delete media: This image is currently used by a {$usageInfo['type']} ({$usageInfo['name']}).",
-                ], 422);
-            }
+            $message = $usageInfo
+                ? "Cannot delete media: This image is currently used by a {$usageInfo['type']} ({$usageInfo['name']})."
+                : "Cannot delete media: This image is currently in use.";
+
+            return response()->json([
+                'success' => false,
+                'message' => $message,
+            ], 422);
         }
 
         // File deletion is handled by model event
@@ -254,14 +257,17 @@ class MediaController extends Controller
             }
 
             // Check if media is currently assigned to a product or other model
+            // Check if media is currently assigned to a product or other model
             if (MediaService::isMediaInUse($media)) {
                 $usageInfo = MediaService::getMediaUsageInfo($media);
 
-                if ($usageInfo) {
-                    $errors[] = "Media with ID {$id} is currently used by a {$usageInfo['type']} ({$usageInfo['name']}).";
+                $message = $usageInfo
+                    ? "Media with ID {$id} is currently used by a {$usageInfo['type']} ({$usageInfo['name']})."
+                    : "Media with ID {$id} is currently in use.";
 
-                    continue;
-                }
+                $errors[] = $message;
+
+                continue;
             }
 
             // File deletion is handled by model event
@@ -319,10 +325,19 @@ class MediaController extends Controller
 
         $media = $query->orderBy('created_at', 'desc')->paginate(20);
 
-        // Get count of unused media (unassigned, excluding logos which are used in settings)
-        $unusedMediaCount = Media::whereNull('galleryable_id')
+        // Get count of truly unused media using comprehensive detection
+        $allUnassignedMedia = Media::whereNull('galleryable_id')
             ->where('path', 'not like', 'logos/%')
-            ->count();
+            ->get();
+
+        $unusedMediaIds = [];
+        foreach ($allUnassignedMedia as $item) {
+            if (!MediaService::isMediaInUse($item)) {
+                $unusedMediaIds[] = $item->id;
+            }
+        }
+
+        $unusedMediaCount = count($unusedMediaIds);
 
         // Check if it's an Inertia request (page navigation)
         $isInertiaRequest = $request->header('X-Inertia') !== null ||
@@ -343,8 +358,10 @@ class MediaController extends Controller
         }
 
         // Otherwise, return Inertia page for media management
-        // Format media items
+        // Format media items with is_unused flag
         $formattedMedia = $media->getCollection()->map(function ($item) {
+            $isUnused = !MediaService::isMediaInUse($item);
+
             return [
                 'id' => $item->id,
                 'filename' => $item->filename,
@@ -356,6 +373,7 @@ class MediaController extends Controller
                 'size' => $item->size,
                 'order' => $item->order,
                 'is_featured' => $item->is_featured,
+                'is_unused' => $isUnused,
                 'galleryable_type' => $item->galleryable_type,
                 'galleryable_id' => $item->galleryable_id,
                 'galleryable' => $item->galleryable ? [

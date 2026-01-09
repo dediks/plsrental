@@ -53,6 +53,7 @@ interface MediaItem {
     size?: number;
     order: number;
     is_featured: boolean;
+    is_unused?: boolean;  // Server-calculated unused status
     galleryable_type?: string;
     galleryable_id?: number;
     galleryable?: {
@@ -354,12 +355,9 @@ export default function Index({ media, filters, unusedMediaCount = 0 }: { media:
     };
 
     const isUnused = (item: MediaItem) => {
-        // Logos are not considered unused as they're used in settings
-        if (isLogo(item.path)) return false;
-        // Items with galleryable are in use
-        if (item.galleryable) return false;
-        // Items without galleryable are unused
-        return true;
+        // Use server-calculated unused status for accuracy
+        // This accounts for Settings, PageSections, and galleryable relationships
+        return item.is_unused === true;
     };
 
     const activeFilterCount = [
@@ -671,17 +669,10 @@ export default function Index({ media, filters, unusedMediaCount = 0 }: { media:
                                                 </Button>
                                             </div>
                                         )}
-                                        {item.is_featured && (
-                                            <div className="absolute top-2 right-2 z-10">
-                                                <Badge variant="default" className="text-xs">
-                                                    Featured
-                                                </Badge>
-                                            </div>
-                                        )}
                                         {isUnused(item) && (
                                             <div className="absolute bottom-2 left-2 z-10">
                                                 <Badge variant="destructive" className="text-xs font-semibold">
-                                                    Unused
+                                                    UnusedFDF
                                                 </Badge>
                                             </div>
                                         )}
@@ -701,18 +692,26 @@ export default function Index({ media, filters, unusedMediaCount = 0 }: { media:
                                             {item.filename}
                                         </p>
                                         <div className="flex flex-wrap gap-1">
-                                            {item.galleryable ? (
-                                                <Badge variant="outline" className="text-xs">
-                                                    {getGalleryableTypeLabel(item.galleryable_type)}
-                                                </Badge>
-                                            ) : isLogo(item.path) ? (
-                                                <Badge variant="default" className="text-xs">
-                                                    Logo
-                                                </Badge>
-                                            ) : (
+                                            {item.is_unused ? (
                                                 <Badge variant="destructive" className="text-xs font-semibold">
                                                     Unused
                                                 </Badge>
+                                            ) : (
+                                                <>
+                                                    {item.galleryable ? (
+                                                        <Badge variant="outline" className="text-xs">
+                                                            {getGalleryableTypeLabel(item.galleryable_type)}
+                                                        </Badge>
+                                                    ) : isLogo(item.path) ? (
+                                                        <Badge variant="default" className="text-xs">
+                                                            Logo
+                                                        </Badge>
+                                                    ) : (
+                                                        <Badge variant="secondary" className="text-xs">
+                                                            In Use
+                                                        </Badge>
+                                                    )}
+                                                </>
                                             )}
                                         </div>
                                         <p className="text-xs text-muted-foreground">
