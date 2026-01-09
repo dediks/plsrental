@@ -18,14 +18,14 @@ interface LogoProps {
 }
 
 const sizeClasses = {
-    sm: 'h-7 w-7',
-    md: 'h-8 w-8',
-    lg: 'h-10 w-10',
-    xl: 'h-12 w-12',
-    '2xl': 'h-14 w-14',
-    '3xl': 'h-16 w-16',
-    '4xl': 'h-18 w-18',
-    '5xl': 'h-20 w-20'
+    sm: 'h-7 w-auto',
+    md: 'h-8 w-auto',
+    lg: 'h-10 w-auto',
+    xl: 'h-12 w-auto',
+    '2xl': 'h-14 w-auto',
+    '3xl': 'h-16 w-auto',
+    '4xl': 'h-18 w-auto',
+    '5xl': 'h-20 w-auto'
 } as const;
 
 const textSizeClasses = {
@@ -61,8 +61,8 @@ export function Logo({
     const { logoSettings } = usePage<SharedData>().props;
 
     // Get logo paths from settings, with fallback to default static paths
-    const defaultLightLogo = '/images/black-logo.svg';
-    const defaultDarkLogo = '/images/white-logo.svg';
+    const defaultLightLogo = '/images/logo.png';
+    const defaultDarkLogo = '/images/logo.png';
     
     const logoLight = logoSettings?.logoLight || defaultLightLogo;
     const logoDark = logoSettings?.logoDark || defaultDarkLogo;

@@ -77,7 +77,7 @@
                                 class="h-10 w-auto dark:hidden"
                             />
                             <img
-                                src="/images/white-logo.svg"
+                                src="/images/logo.png"
                                 alt="PLSRental"
                                 class="h-10 w-auto hidden dark:block"
                             />

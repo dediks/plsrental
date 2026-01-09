@@ -22,10 +22,9 @@ export default function AuthSplitLayout({
                 <div className="absolute inset-0 bg-zinc-900" />
                 <Link
                     href={home()}
-                    className="relative z-20 flex items-center text-lg font-medium"
+                    className="relative z-20"
                 >
-                    <Logo size="lg" variant="img-only" inverted={true} className="mr-2 h-16 w-auto" />
-                    {name}
+                    <Logo size="lg" variant="img-only" inverted={false} className="h-16 w-full" />
                 </Link>
                 {quote && (
                     <div className="relative z-20 mt-auto">
@@ -46,7 +45,7 @@ export default function AuthSplitLayout({
                         href={home()}
                         className="relative z-20 flex items-center justify-center"
                     >
-                        <Logo size="xl" variant="img-only" className="h-20 w-20 flex items-center justify-center shadow-sm rounded-full sm:h-24" />
+                        <Logo size="xl" variant="img-only" className="h-20 w-auto flex items-center justify-center shadow-sm rounded-full sm:h-24" />
                     </Link>
                     <div className="flex flex-col justify-center gap-2 items-center text-center">
                         <h1 className="text-xl font-medium">{title}</h1>

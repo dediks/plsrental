@@ -74,7 +74,7 @@ export default function Login({ status }: LoginProps) {
                                 data-test="login-button"
                             >
                                 {processing && <Spinner />}
-                                Log in
+                                Log ins
                             </Button>
                         </div>
                     </>

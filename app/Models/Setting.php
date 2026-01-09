@@ -158,7 +158,7 @@ class Setting extends Model
     private static function migratePathToMediaId(string $key, string $path): ?int
     {
         // Skip migration for default logo paths
-        if (in_array($path, ['/images/black-logo.svg', '/images/white-logo.svg'], true)) {
+        if (in_array($path, ['/images/logo.png'], true)) {
             return null;
         }
 

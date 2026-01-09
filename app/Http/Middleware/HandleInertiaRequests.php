@@ -64,8 +64,8 @@ class HandleInertiaRequests extends Middleware
                 ]),
             'footerCategories' => [],
             'logoSettings' => [
-                'logoLight' => $this->getLogoUrl('logo_light', '/images/black-logo.svg'),
-                'logoDark' => $this->getLogoUrl('logo_dark', '/images/white-logo.svg'),
+                'logoLight' => $this->getLogoUrl('logo_light', '/images/logo.png'),
+                'logoDark' => $this->getLogoUrl('logo_dark', '/images/logo.png'),
             ],
         ];
     }

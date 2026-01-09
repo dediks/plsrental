@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Media;
 use App\Models\PageSection;
 use App\Models\Setting;
+use App\Models\SocialMedia;
 
 use App\Services\MediaService;
 use App\Services\SeoService;
@@ -135,10 +136,10 @@ class HomeController extends Controller
             'partners' => $partners, // Legacy
             'seo' => SeoService::forHome(),
             'logoSettings' => [
-                'logoLight' => $this->getLogoUrl('logo_light', '/images/black-logo.svg'),
-                'logoDark' => $this->getLogoUrl('logo_dark', '/images/white-logo.svg'),
+                'logoLight' => $this->getLogoUrl('logo_light', '/images/logo.png'),
+                'logoDark' => $this->getLogoUrl('logo_dark', '/images/logo.png'),
             ],
-            'socialMedia' => \App\Models\SocialMedia::where('is_active', true)->orderBy('order')->get(),
+            'socialMedia' => SocialMedia::where('is_active', true)->orderBy('order')->get(),
         ];
     }
 

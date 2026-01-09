@@ -7,7 +7,7 @@
     ];
     
     // Use logo from settings if available, otherwise fallback
-    $logoSrc = $logoSettings['logoLight'] ?? '/images/white-logo.svg';
+    $logoSrc = $logoSettings['logoLight'] ?? '/images/logo.png';
     
     // Consultation link (WhatsApp)
     $consultationLink = $finalCTA['buttonLink'] ?? 'https://wa.me/6282257289604';
