@@ -6,7 +6,7 @@ export const OVERLAY_OPACITY_CAROUSEL_MULTIPLIER = 0.6;
 export const DEFAULT_OVERLAY_OPACITY = 80;
 export const DEFAULT_AUTO_PLAY_INTERVAL = 5000;
 export const DEFAULT_TRUSTED_BY_TEXT = 'Trusted by 100+ rentals';
-export const DEFAULT_HEADING = 'Acoustic Engineering Excellence';
+export const DEFAULT_HEADING = 'Premium Sound for Remarkable Events';
 export const DEFAULT_SUBHEADING =
     "Professional loudspeaker systems that deliver unparalleled clarity, precision, and power for the world's most demanding audio environments.";
 export const DEFAULT_IMAGE = '/images/hero/hero-uap.webp';

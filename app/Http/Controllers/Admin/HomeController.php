@@ -440,7 +440,7 @@ class HomeController extends Controller
             'showOverlay' => true,
             'overlayOpacity' => 80,
             'contentMaxWidth' => '4xl',
-            'heading' => 'Acoustic Engineering Excellence',
+            'heading' => 'Premium Sound for Remarkable Events',
             'subheading' => 'Professional loudspeaker systems that deliver unparalleled clarity, precision, and power for the world\'s most demanding audio environments.',
             'backgroundImage' => '',
             'showHeading' => true,

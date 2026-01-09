@@ -87,7 +87,7 @@ class SeoService
      */
     public static function forHome(): array
     {
-        $title = Setting::get('home_meta_title') ?: 'Acoustic Engineering Excellence';
+        $title = Setting::get('home_meta_title') ?: 'Premium Sound for Remarkable Events';
         $description = Setting::get('home_meta_description') ?: 'Professional loudspeaker systems that deliver unparalleled clarity, precision, and power for the world\'s most demanding audio environments.';
         $image = '/images/og-image.jpg';
         $url = self::makeAbsoluteUrl(route('home'));
@@ -236,7 +236,7 @@ class SeoService
     public static function forAbout(): array
     {
         $title = Setting::get('about_meta_title') ?: 'About Us';
-        $description = Setting::get('about_meta_description') ?: 'Learn about PLSRental, a loudspeaker manufacturer dedicated to acoustic engineering excellence, delivering innovative, reliable, and high-performance professional audio solutions.';
+        $description = Setting::get('about_meta_description') ?: 'Learn about PLSRental, a loudspeaker manufacturer dedicated to Premium Sound for Remarkable Events, delivering innovative, reliable, and high-performance professional audio solutions.';
         $url = self::makeAbsoluteUrl(route('about'));
 
         $structuredData = [

@@ -39,7 +39,7 @@ export function Footer() {
                     <div className="md:col-span-2 lg:col-span-4">
                         <Logo size="md" showText={true} variant="link" inverted={true} />
                         <p className="mt-4 body text-slate-300 dark:text-slate-300 max-w-sm">
-                            Acoustic Engineering Excellence
+                            Premium Sound for Remarkable Events
                         </p>
                         {/* Social Media */}
                         {socialMediaLinks.length > 0 && (

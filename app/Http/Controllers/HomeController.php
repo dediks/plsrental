@@ -25,7 +25,7 @@ class HomeController extends Controller
         // Load section content
         $hero = PageSection::getContent('home', 'hero', [          
             'showBadge' => true,
-            'heading' => 'Acoustic Engineering Excellence',
+            'heading' => 'Premium Sound for Remarkable Events',
             'subheading' => 'Professional loudspeaker systems that deliver unparalleled clarity, precision, and power for the world\'s most demanding audio environments.',
             'backgroundImage' => Setting::getMediaUrl('hero_background_image', '/images/hero/hero-background.jpg'),
         ]);
