@@ -57,10 +57,15 @@ class MediaService
         // Fallback to legacy path if no Spatie media or no conversion URL
         // Also ensure url is populated from path if conversion URL is empty string
         if (empty($url) && $media->path) {
-            // Generate relative URL for frontend compatibility
-            $url = str_starts_with($media->path, '/storage/')
-                ? $media->path
-                : '/storage/'.ltrim($media->path, '/');
+            // Check if it's already a full URL
+            if (str_starts_with($media->path, 'http://') || str_starts_with($media->path, 'https://')) {
+                $url = $media->path;
+            } else {
+                // Generate relative URL for frontend compatibility
+                $url = str_starts_with($media->path, '/storage/')
+                    ? $media->path
+                    : '/storage/'.ltrim($media->path, '/');
+            }
         }
 
         return [

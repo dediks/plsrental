@@ -27,19 +27,9 @@ class UpdateSettingsRequest extends FormRequest
             'logoLight' => [
                 'nullable',
                 'integer',
-                Rule::exists('media_metadata', 'id')->where(function ($query) {
-                    // Ensure the media belongs to logo context (path contains 'logos')
-                    $query->where('path', 'like', 'logos/%');
-                }),
+                Rule::exists('media_metadata', 'id'),
             ],
-            'logoDark' => [
-                'nullable',
-                'integer',
-                Rule::exists('media_metadata', 'id')->where(function ($query) {
-                    // Ensure the media belongs to logo context (path contains 'logos')
-                    $query->where('path', 'like', 'logos/%');
-                }),
-            ],
+
             'maintenanceMode' => ['nullable', 'boolean'],
         ];
     }

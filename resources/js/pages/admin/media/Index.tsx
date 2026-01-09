@@ -612,10 +612,6 @@ export default function Index({ media, filters, unusedMediaCount = 0 }: { media:
                                             alt={item.alt_text || item.filename}
                                             className="w-full h-full object-cover"
                                             loading="lazy"
-                                            onError={(e) => {
-                                                const target = e.target as HTMLImageElement;
-                                                target.src = '/placeholder-image.png';
-                                            }}
                                         />
                                         {/* Mobile: Always show actions */}
                                         {isMobile && (

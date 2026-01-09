@@ -31,7 +31,7 @@ interface MediaSelectorProps {
     error?: string;
     label?: string;
     maxImages?: number;
-    context?: 'product' | 'article' | 'gallery';
+    context?: 'product' | 'article' | 'gallery' | 'logo';
     allowFeatured?: boolean;
 }
 
@@ -96,19 +96,10 @@ export function MediaSelector({
 
             const data = await response.json();
             
-            // Ensure URL is properly formatted
-            let imageUrl = data.media.url;
-            if (!imageUrl && data.media.path) {
-                // Fallback: generate URL from path
-                imageUrl = data.media.path.startsWith('/storage/') 
-                    ? data.media.path 
-                    : '/storage/' + data.media.path.replace(/^\//, '');
-            }
-            
             const newMediaItem: MediaItem = {
                 id: data.media.id,
                 path: data.media.path,
-                url: imageUrl || data.media.path,
+                url: data.media.url || '', // Backend should guarantee url, but fallback to empty string just in case
                 alt_text: data.media.alt_text || '',
                 caption: data.media.caption || '',
                 order: media.length,
@@ -265,24 +256,7 @@ export function MediaSelector({
 
             if (response.ok) {
                 const data = await response.json();
-                // Ensure URLs are properly formatted for each item
-                const formattedData = (data.data || []).map((item: MediaItem) => {
-                    let url = item.url;
-                    if (!url && item.path) {
-                        // Fallback: generate URL from path
-                        url = item.path.startsWith('/storage/') 
-                            ? item.path 
-                            : '/storage/' + item.path.replace(/^\//, '');
-                    }
-                    return {
-                        ...item,
-                        url: url || item.path,
-                    };
-                });
-                
-                // Show all media in library, including already-selected ones
-                // They will be visually marked as selected but still visible
-                setLibraryMedia(formattedData);
+                setLibraryMedia(data.data || []);
             } else {
                 console.error('Failed to load media library:', response.status, response.statusText);
             }
@@ -433,19 +407,12 @@ export function MediaSelector({
                                     >
                                         <div className="aspect-square relative">
                                             <img
-                                                src={item.url || (item.path ? `/storage/${item.path.replace(/^\//, '')}` : '')}
+                                                src={item.url}
                                                 srcSet={item.srcset}
                                                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                                 alt={item.alt_text || `Media ${item.id}`}
                                                 className="w-full h-full object-cover"
                                                 loading="lazy"
-                                                onError={(e) => {
-                                                    // Fallback: try to generate URL from path if url fails
-                                                    const target = e.target as HTMLImageElement;
-                                                    if (item.path && !target.src.includes(item.path)) {
-                                                        target.src = `/storage/${item.path.replace(/^\//, '')}`;
-                                                    }
-                                                }}
                                             />
                                             {isSelected && (
                                                 <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
@@ -509,19 +476,12 @@ export function MediaSelector({
                                 )}
                                 
                                 <img
-                                    src={item.url || (item.path ? `/storage/${item.path.replace(/^\//, '')}` : '')}
+                                    src={item.url}
                                     srcSet={item.srcset}
                                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                     alt={item.alt_text || `Media ${index + 1}`}
                                     className="w-full h-full object-cover"
                                     loading="lazy"
-                                    onError={(e) => {
-                                        // Fallback: try to generate URL from path if url fails
-                                        const target = e.target as HTMLImageElement;
-                                        if (item.path && !target.src.includes(item.path)) {
-                                            target.src = `/storage/${item.path.replace(/^\//, '')}`;
-                                        }
-                                    }}
                                 />
                                 
                                 {/* Drag Handle */}

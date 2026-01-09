@@ -61,33 +61,35 @@ class MediaUploadService
             default => 'default',
         };
 
-        // Get or create MediaLibrary instance for unassigned media
-        $mediaLibrary = MediaLibrary::firstOrCreate([]);
+        return \Illuminate\Support\Facades\DB::transaction(function () use ($file, $context, $collection, $altText, $caption, $extension) {
+            // Get or create MediaLibrary instance for unassigned media
+            $mediaLibrary = MediaLibrary::firstOrCreate([]);
 
-        // Generate consistent filename
-        $filename = $this->generateFilename($extension);
+            // Generate consistent filename
+            $filename = $this->generateFilename($extension);
 
-        // Add media using Spatie
-        $spatieMedia = $mediaLibrary
-            ->addMedia($file->getRealPath())
-            ->usingName($file->getClientOriginalName())
-            ->usingFileName($filename)
-            ->toMediaCollection($collection);
+            // Add media using Spatie
+            $spatieMedia = $mediaLibrary
+                ->addMedia($file->getRealPath())
+                ->usingName($file->getClientOriginalName())
+                ->usingFileName($filename)
+                ->toMediaCollection($collection);
 
-        // Construct relative path for backward compatibility
-        // Spatie stores files as: {collection}/{id}/{filename}
-        $relativePath = $collection.'/'.$spatieMedia->id.'/'.$spatieMedia->file_name;
+            // Construct relative path for backward compatibility
+            // Spatie stores files as: {collection}/{id}/{filename}
+            $relativePath = $collection.'/'.$spatieMedia->id.'/'.$spatieMedia->file_name;
 
-        // Create Media metadata record
-        return Media::create([
-            'spatie_media_id' => $spatieMedia->id,
-            'path' => $relativePath, // Keep for backward compatibility
-            'filename' => $spatieMedia->file_name,
-            'mime_type' => $spatieMedia->mime_type,
-            'size' => $spatieMedia->size,
-            'alt_text' => $altText,
-            'caption' => $caption,
-        ]);
+            // Create Media metadata record
+            return Media::create([
+                'spatie_media_id' => $spatieMedia->id,
+                'path' => $relativePath, // Keep for backward compatibility
+                'filename' => $spatieMedia->file_name,
+                'mime_type' => $spatieMedia->mime_type,
+                'size' => $spatieMedia->size,
+                'alt_text' => $altText,
+                'caption' => $caption,
+            ]);
+        });
     }
 
     /**
@@ -111,22 +113,24 @@ class MediaUploadService
         // Generate consistent filename
         $filename = $this->generateFilename($extension);
 
-        // Store file
-        $path = $file->storeAs($folder, $filename, 'public');
+        return \Illuminate\Support\Facades\DB::transaction(function () use ($file, $folder, $filename, $altText, $caption) {
+            // Store file
+            $path = $file->storeAs($folder, $filename, 'public');
 
-        if (! $path) {
-            throw new \Exception('Failed to store video file.');
-        }
+            if (! $path) {
+                throw new \Exception('Failed to store video file.');
+            }
 
-        // Create media record
-        return Media::create([
-            'path' => $path,
-            'filename' => $filename,
-            'mime_type' => $file->getMimeType(),
-            'size' => $file->getSize(),
-            'alt_text' => $altText,
-            'caption' => $caption,
-        ]);
+            // Create media record
+            return Media::create([
+                'path' => $path,
+                'filename' => $filename,
+                'mime_type' => $file->getMimeType(),
+                'size' => $file->getSize(),
+                'alt_text' => $altText,
+                'caption' => $caption,
+            ]);
+        });
     }
 
     /**
@@ -233,5 +237,4 @@ class MediaUploadService
         }
 
         return true;
-    }
-}
+    }}

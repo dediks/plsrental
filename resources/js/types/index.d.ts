@@ -38,7 +38,6 @@ export interface SharedData {
     }>;
     logoSettings?: {
         logoLight: string;
-        logoDark: string;
     };
     [key: string]: unknown;
 }

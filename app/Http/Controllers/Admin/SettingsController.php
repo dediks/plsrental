@@ -19,23 +19,17 @@ class SettingsController extends Controller
 
         // Get logo media IDs (with automatic migration from paths)
         $logoLightMediaId = Setting::getMediaId('logo_light');
-        $logoDarkMediaId = Setting::getMediaId('logo_dark');
 
         // Format logo data for frontend
         $logoLight = $this->formatLogoForFrontend($logoLightMediaId, '/images/black-logo.svg');
-        $logoDark = $this->formatLogoForFrontend($logoDarkMediaId, '/images/white-logo.svg');
         
         // If no media, return fallback path as string for backward compatibility
         if ($logoLight === null) {
             $logoLight = '/images/black-logo.svg';
         }
-        if ($logoDark === null) {
-            $logoDark = '/images/white-logo.svg';
-        }
 
         return Inertia::render('admin/settings/Edit', [
             'logoLight' => $logoLight,
-            'logoDark' => $logoDark,
             'maintenanceMode' => $maintenanceMode,
         ]);
     }
@@ -151,11 +145,6 @@ class SettingsController extends Controller
         if (array_key_exists('logoLight', $validated)) {
             $mediaId = $validated['logoLight'] ? (int) $validated['logoLight'] : null;
             Setting::setMediaId('logo_light', $mediaId);
-        }
-
-        if (array_key_exists('logoDark', $validated)) {
-            $mediaId = $validated['logoDark'] ? (int) $validated['logoDark'] : null;
-            Setting::setMediaId('logo_dark', $mediaId);
         }
 
         // Update maintenance mode setting
