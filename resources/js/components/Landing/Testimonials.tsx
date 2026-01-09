@@ -35,7 +35,12 @@ const Testimonials: React.FC<TestimonialsProps> = ({
   heading = "Kepercayaan Klien",
   items
 }) => {
-  const testimonials = items && items.length > 0 ? items : defaultTestimonials;
+  const testimonials = items && items.length > 0 
+    ? items.map((item, index) => ({
+        ...item,
+        id: item.id || index + 1
+      }))
+    : defaultTestimonials;
 
   return (
     <section id="testimonials" className="py-24 bg-brand-dark">

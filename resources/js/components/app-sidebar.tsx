@@ -33,16 +33,54 @@ const mainNavItems: NavItem[] = [
 ];
 
 const websiteContentItems: NavItem[] = [
+    // Removed Home Page - now split into individual sections under Homepage Management
+];
+
+const homepageManagementItems: NavItem[] = [
     {
-        title: 'Home Page',
-        href: '/dashboard/admin/home',
+        title: 'Hero',
+        href: '/dashboard/admin/home/hero',
         icon: Home,
     },
-
     {
-        title: 'Contact Submissions',
-        href: '/dashboard/admin/contact-submissions',
+        title: 'Stats',
+        href: '/dashboard/admin/home/stats',
+        icon: LayoutGrid,
+    },
+    {
+        title: 'Services',
+        href: '/dashboard/admin/home/services',
+        icon: Package,
+    },
+    {
+        title: 'Why Choose',
+        href: '/dashboard/admin/home/why-choose',
+        icon: Info,
+    },
+    {
+        title: 'Portfolio',
+        href: '/dashboard/admin/home/portfolio',
+        icon: FolderTree,
+    },
+    {
+        title: 'Process',
+        href: '/dashboard/admin/home/process',
+        icon: BookOpen,
+    },
+    {
+        title: 'Testimonials',
+        href: '/dashboard/admin/home/testimonials',
         icon: MessageSquare,
+    },
+    {
+        title: 'Final CTA',
+        href: '/dashboard/admin/home/final-cta',
+        icon: Mail,
+    },
+    {
+        title: 'Footer',
+        href: '/dashboard/admin/home/footer',
+        icon: FileText,
     },
 ];
 
@@ -166,10 +204,10 @@ export function AppSidebar() {
                 <NavMain items={mainNavItems} />
                 
                 <CollapsibleNavGroup 
-                    title="Website Content" 
-                    items={websiteContentItems}
+                    title="Homepage Management" 
+                    items={homepageManagementItems}
                     defaultOpen={true}
-                />                
+                />
 
                 <CollapsibleNavGroup 
                     title="Media & Assets" 

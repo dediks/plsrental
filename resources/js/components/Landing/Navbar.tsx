@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { usePage } from '@inertiajs/react';
+import { type SharedData } from '@/types';
 
 const Navbar: React.FC = () => {
+  const { logoSettings } = usePage<SharedData>().props;
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -20,6 +23,9 @@ const Navbar: React.FC = () => {
     { name: 'Testimoni', href: '#testimonials' },
   ];
 
+  // Get logo (use light logo for dark background)
+  const logoSrc = logoSettings?.logoLight || '/images/white-logo.svg';
+
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
@@ -30,13 +36,12 @@ const Navbar: React.FC = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="#" className="flex flex-col leading-none group">
-              <span className="text-2xl md:text-3xl font-bold tracking-tighter text-white group-hover:text-brand-gold transition-colors">
-                PLS
-              </span>
-              <span className="text-[0.65rem] md:text-xs font-bold tracking-[0.2em] text-neutral-400 uppercase -mt-1 group-hover:text-white transition-colors">
-                Rental Division
-              </span>
+            <a href="#" className="block group">
+              <img 
+                src={logoSrc} 
+                alt="PLS Rental Division" 
+                className="h-8 md:h-9 w-auto transition-transform group-hover:scale-105"
+              />
             </a>
           </div>
 

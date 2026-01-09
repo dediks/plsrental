@@ -35,7 +35,15 @@ const Process: React.FC<ProcessProps> = ({
   subheading = "Proses sederhana untuk hasil maksimal tanpa kerumitan bagi Anda.",
   items
 }) => {
-  const steps = items && items.length > 0 ? items : defaultSteps;
+  const steps = items && items.length > 0 
+    ? items.map((item, index) => ({
+        ...item,
+        id: index + 1
+      }))
+    : defaultSteps.map((item, index) => ({
+        ...item,
+        id: index + 1
+      }));
 
   return (
     <section className="py-20 bg-brand-charcoal border-y border-white/5">
@@ -50,7 +58,7 @@ const Process: React.FC<ProcessProps> = ({
           <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-px bg-white/10 -z-0"></div>
 
           {steps.map((step, index) => (
-            <div key={index} className="relative z-10 flex flex-col items-center text-center">
+            <div key={step.id} className="relative z-10 flex flex-col items-center text-center">
               <div className="w-24 h-24 rounded-full bg-brand-dark border border-white/10 flex items-center justify-center text-3xl font-bold text-brand-gold mb-6 shadow-xl">
                 {step.num}
               </div>

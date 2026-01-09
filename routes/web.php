@@ -61,9 +61,33 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('media/{media}', [MediaController::class, 'destroy'])->name('media.destroy');
         Route::post('media/batch-delete', [MediaController::class, 'batchDestroy'])->name('media.batch-destroy');
 
-        // Home page editor
-        Route::get('home', [AdminHomeController::class, 'edit'])->name('home.edit');
-        Route::put('home', [AdminHomeController::class, 'update'])->name('home.update');
+        // Home page sections
+        Route::get('home/hero', [AdminHomeController::class, 'editHero'])->name('home.hero.edit');
+        Route::put('home/hero', [AdminHomeController::class, 'updateHero'])->name('home.hero.update');
+        
+        Route::get('home/stats', [AdminHomeController::class, 'editStats'])->name('home.stats.edit');
+        Route::put('home/stats', [AdminHomeController::class, 'updateStats'])->name('home.stats.update');
+        
+        Route::get('home/services', [AdminHomeController::class, 'editServices'])->name('home.services.edit');
+        Route::put('home/services', [AdminHomeController::class, 'updateServices'])->name('home.services.update');
+        
+        Route::get('home/why-choose', [AdminHomeController::class, 'editWhyChoose'])->name('home.why-choose.edit');
+        Route::put('home/why-choose', [AdminHomeController::class, 'updateWhyChoose'])->name('home.why-choose.update');
+        
+        Route::get('home/portfolio', [AdminHomeController::class, 'editPortfolio'])->name('home.portfolio.edit');
+        Route::put('home/portfolio', [AdminHomeController::class, 'updatePortfolio'])->name('home.portfolio.update');
+        
+        Route::get('home/process', [AdminHomeController::class, 'editProcess'])->name('home.process.edit');
+        Route::put('home/process', [AdminHomeController::class, 'updateProcess'])->name('home.process.update');
+        
+        Route::get('home/testimonials', [AdminHomeController::class, 'editTestimonials'])->name('home.testimonials.edit');
+        Route::put('home/testimonials', [AdminHomeController::class, 'updateTestimonials'])->name('home.testimonials.update');
+        
+        Route::get('home/final-cta', [AdminHomeController::class, 'editFinalCTA'])->name('home.final-cta.edit');
+        Route::put('home/final-cta', [AdminHomeController::class, 'updateFinalCTA'])->name('home.final-cta.update');
+        
+        Route::get('home/footer', [AdminHomeController::class, 'editFooter'])->name('home.footer.edit');
+        Route::put('home/footer', [AdminHomeController::class, 'updateFooter'])->name('home.footer.update');
 
         // Contact submissions
         Route::get('contact-submissions', [AdminContactSubmissionController::class, 'index'])->name('contact-submissions.index');

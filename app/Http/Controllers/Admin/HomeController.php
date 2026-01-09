@@ -11,69 +11,317 @@ use Inertia\Inertia;
 
 class HomeController extends Controller
 {
-    public function edit()
+    // Hero Section
+    public function editHero()
     {
-        $sections = PageSection::where('page', 'home')
-            ->orderBy('order')
-            ->get()
-            ->keyBy('section_key');
+        $section = PageSection::where('page', 'home')
+            ->where('section_key', 'hero')
+            ->first();
 
-        return Inertia::render('admin/home/Edit', [
-            'hero' => $sections->get('hero')?->content ?? $this->getDefaultHero(),
-            'stats' => $sections->get('stats')?->content ?? $this->getDefaultStats(),
-            'services' => $sections->get('services')?->content ?? $this->getDefaultServices(),
-            'whyChoose' => $sections->get('whyChoose')?->content ?? $this->getDefaultWhyChoose(),
-            'portfolio' => $sections->get('portfolio')?->content ?? $this->getDefaultPortfolio(),
-            'process' => $sections->get('process')?->content ?? $this->getDefaultProcess(),
-            'testimonials' => $sections->get('testimonials')?->content ?? $this->getDefaultTestimonials(),
-            'finalCTA' => $sections->get('finalCTA')?->content ?? $this->getDefaultFinalCTA(),
-            'footer' => $sections->get('footer')?->content ?? $this->getDefaultFooter(),
-            // Keep old ones for now if needed, or just omit if I'm fully replacing. 
-            // I'll keep them to avoid errors if Edit.tsx still expects them until I update Edit.tsx
-            'about' => $sections->get('about')?->content ?? $this->getDefaultAbout(),
-            'partners' => $sections->get('partners')?->content ?? $this->getDefaultPartners(),
+        return Inertia::render('admin/home/Hero', [
+            'hero' => $section?->content ?? $this->getDefaultHero(),
         ]);
     }
 
-    public function update(UpdateHomeRequest $request)
+    public function updateHero(Request $request)
     {
-        $validated = $request->validated();
+        $validated = $request->validate([
+            'hero.heading' => 'nullable|string',
+            'hero.subheading' => 'nullable|string',
+            'hero.carouselImages' => 'nullable|array',
+            'hero.splitLayoutImage' => 'nullable|string',
+            'hero.backgroundVideo' => 'nullable|string',
+            'hero.trustedByText' => 'nullable|string',
+            'hero.showTrustedBy' => 'nullable|boolean',
+            'hero.trustedByAvatars' => 'nullable|array',
+            'hero.autoPlay' => 'nullable|boolean',
+            'hero.autoPlayInterval' => 'nullable|integer',
+            'hero.showBadge' => 'nullable|boolean',
+            'hero.showScrollIndicator' => 'nullable|boolean',
+            'hero.showCarousel' => 'nullable|boolean',
+            'hero.showSplitLayoutImage' => 'nullable|boolean',
+            'hero.showOverlay' => 'nullable|boolean',
+            'hero.overlayOpacity' => 'nullable|integer',
+            'hero.contentMaxWidth' => 'nullable|string',
+            'hero.showHeading' => 'nullable|boolean',
+            'hero.showSubheading' => 'nullable|boolean',
+            'hero.mobileHeading' => 'nullable|string',
+            'hero.mobileSubheading' => 'nullable|string',
+            'hero.showMobileHeading' => 'nullable|boolean',
+            'hero.showMobileSubheading' => 'nullable|boolean',
+        ]);
 
-        // Handle hero media
         $this->handleHeroMedia($validated);
 
-        // Handle whyChoose image
+        PageSection::updateOrCreate(
+            ['page' => 'home', 'section_key' => 'hero'],
+            ['content' => $validated['hero'], 'is_enabled' => true]
+        );
+
+        return redirect()->route('admin.home.hero.edit')
+            ->with('success', 'Hero section updated successfully.');
+    }
+
+    // Stats Section
+    public function editStats()
+    {
+        $section = PageSection::where('page', 'home')
+            ->where('section_key', 'stats')
+            ->first();
+
+        return Inertia::render('admin/home/Stats', [
+            'stats' => $section?->content ?? $this->getDefaultStats(),
+        ]);
+    }
+
+    public function updateStats(Request $request)
+    {
+        $validated = $request->validate([
+            'stats.showStats' => 'nullable|boolean',
+            'stats.items' => 'nullable|array',
+            'stats.items.*.label' => 'nullable|string',
+            'stats.items.*.value' => 'nullable|string',
+        ]);
+
+        PageSection::updateOrCreate(
+            ['page' => 'home', 'section_key' => 'stats'],
+            ['content' => $validated['stats'], 'is_enabled' => true]
+        );
+
+        return redirect()->route('admin.home.stats.edit')
+            ->with('success', 'Stats section updated successfully.');
+    }
+
+    // Services Section
+    public function editServices()
+    {
+        $section = PageSection::where('page', 'home')
+            ->where('section_key', 'services')
+            ->first();
+
+        return Inertia::render('admin/home/Services', [
+            'services' => $section?->content ?? $this->getDefaultServices(),
+        ]);
+    }
+
+    public function updateServices(Request $request)
+    {
+        $validated = $request->validate([
+            'services.heading' => 'nullable|string',
+            'services.subheading' => 'nullable|string',
+            'services.items' => 'nullable|array',
+            'services.items.*.title' => 'nullable|string',
+            'services.items.*.description' => 'nullable|string',
+            'services.items.*.icon' => 'nullable|string',
+        ]);
+
+        PageSection::updateOrCreate(
+            ['page' => 'home', 'section_key' => 'services'],
+            ['content' => $validated['services'], 'is_enabled' => true]
+        );
+
+        return redirect()->route('admin.home.services.edit')
+            ->with('success', 'Services section updated successfully.');
+    }
+
+    // Why Choose Section
+    public function editWhyChoose()
+    {
+        $section = PageSection::where('page', 'home')
+            ->where('section_key', 'whyChoose')
+            ->first();
+
+        return Inertia::render('admin/home/WhyChoose', [
+            'whyChoose' => $section?->content ?? $this->getDefaultWhyChoose(),
+        ]);
+    }
+
+    public function updateWhyChoose(Request $request)
+    {
+        $validated = $request->validate([
+            'whyChoose.subtitle' => 'nullable|string',
+            'whyChoose.heading' => 'nullable|string',
+            'whyChoose.description' => 'nullable|string',
+            'whyChoose.quote' => 'nullable|string',
+            'whyChoose.image' => 'nullable|string',
+            'whyChoose.items' => 'nullable|array',
+            'whyChoose.items.*.title' => 'nullable|string',
+            'whyChoose.items.*.text' => 'nullable|string',
+            'whyChoose.items.*.icon' => 'nullable|string',
+        ]);
+
         $this->handleWhyChooseMedia($validated);
 
-        // Handle portfolio images
+        PageSection::updateOrCreate(
+            ['page' => 'home', 'section_key' => 'whyChoose'],
+            ['content' => $validated['whyChoose'], 'is_enabled' => true]
+        );
+
+        return redirect()->route('admin.home.why-choose.edit')
+            ->with('success', 'Why Choose section updated successfully.');
+    }
+
+    // Portfolio Section
+    public function editPortfolio()
+    {
+        $section = PageSection::where('page', 'home')
+            ->where('section_key', 'portfolio')
+            ->first();
+
+        return Inertia::render('admin/home/Portfolio', [
+            'portfolio' => $section?->content ?? $this->getDefaultPortfolio(),
+        ]);
+    }
+
+    public function updatePortfolio(Request $request)
+    {
+        $validated = $request->validate([
+            'portfolio.heading' => 'nullable|string',
+            'portfolio.subheading' => 'nullable|string',
+            'portfolio.items' => 'nullable|array',
+            'portfolio.items.*.title' => 'nullable|string',
+            'portfolio.items.*.category' => 'nullable|string',
+            'portfolio.items.*.imageUrl' => 'nullable|string',
+        ]);
+
         $this->handlePortfolioMedia($validated);
 
-        // Handle other sections (About/Partners legacy)
-        $this->handleLegacyMedia($validated);
+        PageSection::updateOrCreate(
+            ['page' => 'home', 'section_key' => 'portfolio'],
+            ['content' => $validated['portfolio'], 'is_enabled' => true]
+        );
 
-        $sections = [
-            'hero', 'stats', 'services', 'whyChoose', 'portfolio', 
-            'process', 'testimonials', 'finalCTA', 'footer',
-            'about', 'partners'
-        ];
+        return redirect()->route('admin.home.portfolio.edit')
+            ->with('success', 'Portfolio section updated successfully.');
+    }
 
-        foreach ($sections as $key) {
-            if (isset($validated[$key])) {
-                PageSection::updateOrCreate(
-                    [
-                        'page' => 'home',
-                        'section_key' => $key,
-                    ],
-                    [
-                        'content' => $validated[$key],
-                        'is_enabled' => true,
-                    ]
-                );
-            }
-        }
+    // Process Section
+    public function editProcess()
+    {
+        $section = PageSection::where('page', 'home')
+            ->where('section_key', 'process')
+            ->first();
 
-        return redirect()->route('admin.home.edit')
-            ->with('success', 'Home page sections updated successfully.');
+        return Inertia::render('admin/home/Process', [
+            'process' => $section?->content ?? $this->getDefaultProcess(),
+        ]);
+    }
+
+    public function updateProcess(Request $request)
+    {
+        $validated = $request->validate([
+            'process.heading' => 'nullable|string',
+            'process.subheading' => 'nullable|string',
+            'process.items' => 'nullable|array',
+            'process.items.*.num' => 'nullable|string',
+            'process.items.*.title' => 'nullable|string',
+            'process.items.*.desc' => 'nullable|string',
+        ]);
+
+        PageSection::updateOrCreate(
+            ['page' => 'home', 'section_key' => 'process'],
+            ['content' => $validated['process'], 'is_enabled' => true]
+        );
+
+        return redirect()->route('admin.home.process.edit')
+            ->with('success', 'Process section updated successfully.');
+    }
+
+    // Testimonials Section
+    public function editTestimonials()
+    {
+        $section = PageSection::where('page', 'home')
+            ->where('section_key', 'testimonials')
+            ->first();
+
+        return Inertia::render('admin/home/Testimonials', [
+            'testimonials' => $section?->content ?? $this->getDefaultTestimonials(),
+        ]);
+    }
+
+    public function updateTestimonials(Request $request)
+    {
+        $validated = $request->validate([
+            'testimonials.heading' => 'nullable|string',
+            'testimonials.items' => 'nullable|array',
+            'testimonials.items.*.text' => 'nullable|string',
+            'testimonials.items.*.author' => 'nullable|string',
+            'testimonials.items.*.role' => 'nullable|string',
+            'testimonials.items.*.company' => 'nullable|string',
+        ]);
+
+        PageSection::updateOrCreate(
+            ['page' => 'home', 'section_key' => 'testimonials'],
+            ['content' => $validated['testimonials'], 'is_enabled' => true]
+        );
+
+        return redirect()->route('admin.home.testimonials.edit')
+            ->with('success', 'Testimonials section updated successfully.');
+    }
+
+    // Final CTA Section
+    public function editFinalCTA()
+    {
+        $section = PageSection::where('page', 'home')
+            ->where('section_key', 'finalCTA')
+            ->first();
+
+        return Inertia::render('admin/home/FinalCTA', [
+            'finalCTA' => $section?->content ?? $this->getDefaultFinalCTA(),
+        ]);
+    }
+
+    public function updateFinalCTA(Request $request)
+    {
+        $validated = $request->validate([
+            'finalCTA.heading' => 'nullable|string',
+            'finalCTA.subheading' => 'nullable|string',
+            'finalCTA.buttonText' => 'nullable|string',
+            'finalCTA.buttonLink' => 'nullable|string',
+            'finalCTA.phoneNumber' => 'nullable|string',
+        ]);
+
+        PageSection::updateOrCreate(
+            ['page' => 'home', 'section_key' => 'finalCTA'],
+            ['content' => $validated['finalCTA'], 'is_enabled' => true]
+        );
+
+        return redirect()->route('admin.home.final-cta.edit')
+            ->with('success', 'Final CTA section updated successfully.');
+    }
+
+    // Footer Section
+    public function editFooter()
+    {
+        $section = PageSection::where('page', 'home')
+            ->where('section_key', 'footer')
+            ->first();
+
+        return Inertia::render('admin/home/Footer', [
+            'footer' => $section?->content ?? $this->getDefaultFooter(),
+        ]);
+    }
+
+    public function updateFooter(Request $request)
+    {
+        $validated = $request->validate([
+            'footer.brandName' => 'nullable|string',
+            'footer.brandSubtitle' => 'nullable|string',
+            'footer.description' => 'nullable|string',
+            'footer.instagram' => 'nullable|string',
+            'footer.linkedin' => 'nullable|string',
+            'footer.contactPhone' => 'nullable|string',
+            'footer.contactEmail' => 'nullable|string',
+            'footer.contactAddress' => 'nullable|string',
+        ]);
+
+        PageSection::updateOrCreate(
+            ['page' => 'home', 'section_key' => 'footer'],
+            ['content' => $validated['footer'], 'is_enabled' => true]
+        );
+
+        return redirect()->route('admin.home.footer.edit')
+            ->with('success', 'Footer section updated successfully.');
     }
 
     private function handleHeroMedia(array $validated): void

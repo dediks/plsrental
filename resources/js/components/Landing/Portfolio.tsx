@@ -34,7 +34,12 @@ const Portfolio: React.FC<PortfolioProps> = ({
   subheading = "Menangani berbagai skala acara dengan konsistensi kualitas, mulai dari ruang meeting eksklusif hingga panggung outdoor megah.",
   items
 }) => {
-  const portfolioItems = items && items.length > 0 ? items : defaultPortfolioItems;
+  const portfolioItems = items && items.length > 0 
+    ? items.map((item, index) => ({
+        ...item,
+        id: item.id || index + 1
+      }))
+    : defaultPortfolioItems;
 
   return (
     <section id="portfolio" className="py-24 bg-brand-dark">

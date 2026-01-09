@@ -4,23 +4,27 @@ import { ArrowRight } from 'lucide-react';
 interface HeroProps {
   heading?: string;
   subheading?: string;
+  backgroundImage?: string;
 }
 
 const Hero: React.FC<HeroProps> = ({ 
   heading = "Kualitas Suara Tanpa Kompromi.",
-  subheading = "PLS menghadirkan solusi sound system premium dengan standar eksekusi tinggi untuk event korporat, instansi pemerintah, dan produksi skala besar. Tenang, rapi, dan profesional."
+  subheading = "PLS menghadirkan solusi sound system premium dengan standar eksekusi tinggi untuk event korporat, instansi pemerintah, dan produksi skala besar. Tenang, rapi, dan profesional.",
+  backgroundImage = null
 }) => {
   return (
     <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="https://picsum.photos/id/453/1920/1080" // Dark concert/tech vibe
-          alt="Premium Event Audio Setup"
-          className="w-full h-full object-cover opacity-40 grayscale"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-brand-dark/30"></div>
-      </div>
+      { backgroundImage && (
+        <div className="absolute inset-0 z-0">
+          <img
+            src={backgroundImage}
+            alt="Premium Event Audio Setup"
+            className="w-full h-full object-cover opacity-40 grayscale"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-brand-dark/30"></div>
+        </div>
+      ) }
 
       {/* Content */}
       <div className="relative lg:flex-1 z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center md:text-left pt-20">

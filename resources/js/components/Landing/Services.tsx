@@ -55,8 +55,9 @@ const Services: React.FC<ServicesProps> = ({
 
   // Process items from props
   const services = items && items.length > 0 
-    ? items.map(item => ({
+    ? items.map((item, index) => ({
         ...item,
+        id: item.id || index + 1,
         icon: typeof item.icon === 'string' ? (iconMap[item.icon] || Speaker) : item.icon
       }))
     : defaultServices;
@@ -77,7 +78,7 @@ const Services: React.FC<ServicesProps> = ({
             </p>
           </div>
 
-          <div className="w-full md:w-auto min-w-[300px]">
+          {/* <div className="w-full md:w-auto min-w-[300px]">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Search className="h-5 w-5 text-neutral-500" />
@@ -90,7 +91,7 @@ const Services: React.FC<ServicesProps> = ({
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-          </div>
+          </div> */}
         </div>
 
         {filteredServices.length > 0 ? (
