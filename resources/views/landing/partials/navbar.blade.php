@@ -8,6 +8,9 @@
     
     // Use logo from settings if available, otherwise fallback
     $logoSrc = $logoSettings['logoLight'] ?? '/images/white-logo.svg';
+    
+    // Consultation link (WhatsApp)
+    $consultationLink = $finalCTA['buttonLink'] ?? 'https://wa.me/6282257289604';
 @endphp
 
 <nav
@@ -18,7 +21,7 @@
         <div class="flex items-center justify-between">
             {{-- Logo --}}
             <div class="flex-shrink-0">
-                <a href="#" class="block group">
+                <a href="{{ route('home') }}" class="block group">
                     <img
                         src="{{ $logoSrc }}"
                         alt="PLS Rental Division"
@@ -42,7 +45,9 @@
             {{-- CTA Button --}}
             <div class="hidden md:block">
                 <a
-                    href="#contact"
+                    href="{{ $consultationLink }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     class="px-5 py-2.5 text-sm font-semibold text-brand-dark bg-white hover:bg-neutral-200 transition-colors rounded-sm"
                 >
                     Konsultasi
@@ -74,7 +79,9 @@
                 </a>
             @endforeach
             <a
-                href="#contact"
+                href="{{ $consultationLink }}"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="mobile-nav-link inline-block text-center mt-4 px-5 py-3 text-sm font-semibold text-brand-dark bg-white rounded-sm"
             >
                 Jadwalkan Konsultasi

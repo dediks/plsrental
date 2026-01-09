@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/react';
 export default function ComingSoon() {
     return (
         <>
-            <Head title="Coming Soon - UAP" />
+            <Head title="Coming Soon - PLSRental" />
             <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
                 <div className="flex flex-col items-center justify-center gap-8 text-center">
                     {/* Logo */}

@@ -38,7 +38,7 @@ export default function Login({ status }: LoginProps) {
                                     autoFocus
                                     tabIndex={1}
                                     autoComplete="email"
-                                    placeholder="email@admin@uapsound.com"
+                                    placeholder="admin@plsrental.com"
                                 />
                                 <InputError message={errors.email} />
                             </div>

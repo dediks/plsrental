@@ -10,7 +10,7 @@ it('displays the contact page', function () {
 it('stores a contact submission', function () {
     $data = [
         'name' => 'John Doe',
-        'email' => 'john@admin@uapsound.com',
+        'email' => 'john@admin@plsrental.com',
         'subject' => 'Test Subject',
         'message' => 'This is a test message',
     ];
@@ -22,7 +22,7 @@ it('stores a contact submission', function () {
 
     $this->assertDatabaseHas('contact_submissions', [
         'name' => 'John Doe',
-        'email' => 'john@admin@uapsound.com',
+        'email' => 'john@admin@plsrental.com',
         'subject' => 'Test Subject',
         'message' => 'This is a test message',
     ]);

@@ -86,7 +86,7 @@ If you make a request, we will respond within one month. If you would like to ex
                 'content' => 'If you have questions or comments about this Privacy Policy, please contact us at:
                 JL. Raya Kandangan, Kec. Kare, Madiun
                 Jawa Timur - Indonesia.
-                Email: uapsound@yahoo.com',
+                Email: plsrental@yahoo.com',
             ],
             [
                 'title' => 'Changes to This Privacy Policy',

@@ -634,24 +634,7 @@ class HomeController extends Controller
             'contactAddress' => 'JL.Raya Kandangan . Kare . MADIUN - Jawa Timur.',
         ];
     }
-
-    private function getDefaultAbout(): array
-    {
-        return [
-            'tagline' => 'Acoustic Engineering Excellence',
-            'heading' => 'We Design and Manufacture High-Performance Sound Reinforcement Systems',
-            'paragraphs' => [
-                'Our design philosophy is centered on acoustic engineering that delivers natural sound reproduction at the highest performance level.',
-                'Every system is developed with the objective of achieving maximum resolution, realism, and an exceptional listening experience.',
-            ],
-            'image' => '',
-            'imageAlt' => '',
-            'imagePosition' => 'right',
-            'imagePositionMobile' => 'bottom',
-            'imageFlipHorizontal' => false,
-        ];
-    }
-
+    
     /**
      * Delete media record by URL if it exists in the media library.
      */
@@ -679,40 +662,6 @@ class HomeController extends Controller
         }
         // Note: Static files in public/images/ are not deleted automatically
         // as they may be intentionally placed there and not managed by the media system
-    }
-
-    private function getDefaultPartners(): array
-    {
-        return [
-            'showPartners' => true,
-            'logos' => [
-                [
-                    'src' => 'https://cdn.prod.website-files.com/5dca23595f1e4663d62cab0b/67ceb003cc34c81e63491b37_Mobbin_idHO6ZNvY__0%201.svg',
-                    'alt' => 'Mobbin',
-                    'href' => 'https://mobbin.com',
-                ],
-                [
-                    'src' => 'https://cdn.prod.website-files.com/5dca23595f1e4663d62cab0b/67ceb003cc34c81e63491b3b_idgaNgeFw0_1739946667562%201.svg',
-                    'alt' => 'Partner Company',
-                    'href' => 'https://admin@uapsound.com',
-                ],
-                [
-                    'src' => 'https://cdn.prod.website-files.com/5dca23595f1e4663d62cab0b/67ceb003cc34c81e63491b3a_Gojek%20Indonesia_Logo_0%201.svg',
-                    'alt' => 'Gojek Indonesia',
-                    'href' => 'https://www.gojek.com',
-                ],
-                [
-                    'src' => 'https://cdn.prod.website-files.com/5dca23595f1e4663d62cab0b/67ceb003cc34c81e63491b38_TikTok_Logo_0%201.svg',
-                    'alt' => 'TikTok',
-                    'href' => 'https://www.tiktok.com',
-                ],
-                [
-                    'src' => 'https://cdn.prod.website-files.com/5dca23595f1e4663d62cab0b/67ceb003cc34c81e63491b39_Grab_Logo_0%201.svg',
-                    'alt' => 'Grab',
-                    'href' => 'https://www.grab.com',
-                ],
-            ],
-        ];
     }
 }
 

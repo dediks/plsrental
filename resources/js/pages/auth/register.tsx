@@ -53,7 +53,7 @@ export default function Register() {
                                     tabIndex={2}
                                     autoComplete="email"
                                     name="email"
-                                    placeholder="email@admin@uapsound.com"
+                                    placeholder="admin@plsrental.com"
                                 />
                                 <InputError message={errors.email} />
                             </div>

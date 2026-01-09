@@ -1,6 +1,6 @@
 {
   "name": "PLSRental",
-  "short_name": "UAP",
+  "short_name": "PLSRental",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
