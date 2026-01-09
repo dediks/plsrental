@@ -2,7 +2,12 @@ import React from 'react';
 import { Quote } from 'lucide-react';
 import { TestimonialItem } from './types';
 
-const testimonials: TestimonialItem[] = [
+interface TestimonialsProps {
+  heading?: string;
+  items?: TestimonialItem[];
+}
+
+const defaultTestimonials: TestimonialItem[] = [
   {
     id: 1,
     text: "PLS memberikan standar audio yang sangat bersih. Tidak ada feedback, suara jernih di seluruh ballroom, dan timnya sangat kooperatif mengikuti rundown kami yang padat.",
@@ -26,11 +31,16 @@ const testimonials: TestimonialItem[] = [
   }
 ];
 
-const Testimonials: React.FC = () => {
+const Testimonials: React.FC<TestimonialsProps> = ({ 
+  heading = "Kepercayaan Klien",
+  items
+}) => {
+  const testimonials = items && items.length > 0 ? items : defaultTestimonials;
+
   return (
     <section id="testimonials" className="py-24 bg-brand-dark">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-16 text-center">Kepercayaan Klien</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-16 text-center">{heading}</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((item) => (

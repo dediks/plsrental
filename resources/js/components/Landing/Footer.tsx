@@ -1,7 +1,23 @@
 import React from 'react';
 import { MapPin, Mail, Phone, Instagram, Linkedin } from 'lucide-react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  brandName?: string;
+  brandSubtitle?: string;
+  description?: string;
+  contactPhone?: string;
+  contactEmail?: string;
+  contactAddress?: string;
+}
+
+const Footer: React.FC<FooterProps> = ({
+  brandName = "PLS",
+  brandSubtitle = "Rental Division",
+  description = "Mitra terpercaya penyewaan sound system dan produksi audio visual premium untuk kebutuhan korporat dan instansi.",
+  contactPhone = "0822-5728-9604",
+  contactEmail = "plsrental@yahoo.com",
+  contactAddress = "JL.Raya Kandangan . Kare . MADIUN - Jawa Timur."
+}) => {
   return (
     <footer className="bg-neutral-950 text-neutral-400 pt-16 pb-8 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -10,11 +26,11 @@ const Footer: React.FC = () => {
           {/* Brand Info */}
           <div className="md:col-span-1">
             <a href="#" className="flex flex-col leading-none mb-6">
-              <span className="text-2xl font-bold tracking-tighter text-white">PLS</span>
-              <span className="text-[0.6rem] font-bold tracking-widest text-neutral-500 uppercase">Rental Division</span>
+              <span className="text-2xl font-bold tracking-tighter text-white">{brandName}</span>
+              <span className="text-[0.6rem] font-bold tracking-widest text-neutral-500 uppercase">{brandSubtitle}</span>
             </a>
             <p className="text-sm leading-relaxed mb-6">
-              Mitra terpercaya penyewaan sound system dan produksi audio visual premium untuk kebutuhan korporat dan instansi.
+              {description}
             </p>
             <div className="flex space-x-4">
               <a href="#" className="hover:text-white transition-colors"><Instagram size={20} /></a>
@@ -53,22 +69,22 @@ const Footer: React.FC = () => {
             <ul className="space-y-4 text-sm">
               <li className="flex items-center">
                 <Phone className="mr-3 h-4 w-4 text-brand-gold" />
-                <span>0822-5728-9604</span>
+                <span>{contactPhone}</span>
               </li>
               <li className="flex items-center">
                 <Mail className="mr-3 h-4 w-4 text-brand-gold" />
-                <span>plsrental@yahoo.com</span>
+                <span>{contactEmail}</span>
               </li>
               <li className="flex items-start">
                  <MapPin className="mt-1 mr-3 h-4 w-4 text-brand-gold flex-shrink-0" />
-                 <span>JL.Raya Kandangan . Kare . MADIUN - Jawa Timur.</span>
+                 <span>{contactAddress}</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-white/5 pt-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-xs text-neutral-600">
-          <p>&copy; {new Date().getFullYear()} PLS Rental Division. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} {brandName} {brandSubtitle}. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-neutral-400">Privacy Policy</a>
             <a href="#" className="hover:text-neutral-400">Terms of Service</a>

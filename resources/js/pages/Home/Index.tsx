@@ -1,6 +1,4 @@
 import { Seo } from '@/components/Seo';
-import type { HomeProps } from '@/types/home';
-import React from 'react';
 import Navbar from '@/components/Landing/Navbar';
 import Hero from '@/components/Landing/Hero';
 import Stats from '@/components/Landing/Stats';
@@ -13,22 +11,33 @@ import FinalCTA from '@/components/Landing/FinalCTA';
 import Footer from '@/components/Landing/Footer';
 import { Toaster } from '@/components/ui/toaster';
 
-export default function Home({ seo }: any) {
+export default function Home({ 
+    seo, 
+    hero, 
+    stats, 
+    services, 
+    whyChoose, 
+    portfolio, 
+    process, 
+    testimonials, 
+    finalCTA, 
+    footer 
+}: any) {
     return (
         <div className="min-h-screen flex flex-col font-sans selection:bg-brand-gold selection:text-white bg-brand-dark text-white">
             {seo && <Seo {...seo} />}
             <Navbar />
             <main className="">
-                <Hero />
-                <Stats />
-                <Services />
-                <WhyChoose />
-                <Portfolio />
-                <Process />
-                <Testimonials />
-                <FinalCTA />
+                <Hero {...hero} />
+                <Stats {...stats} />
+                <Services {...services} />
+                <WhyChoose {...whyChoose} />
+                <Portfolio {...portfolio} />
+                <Process {...process} />
+                <Testimonials {...testimonials} />
+                <FinalCTA {...finalCTA} />
             </main>
-            <Footer />
+            <Footer {...footer} />
             <Toaster />
         </div>
     );

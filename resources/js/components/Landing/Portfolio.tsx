@@ -2,7 +2,13 @@ import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { PortfolioItem } from './types';
 
-const portfolioItems: PortfolioItem[] = [
+interface PortfolioProps {
+  heading?: string;
+  subheading?: string;
+  items?: PortfolioItem[];
+}
+
+const defaultPortfolioItems: PortfolioItem[] = [
   {
     id: 1,
     title: "National Leadership Summit 2023",
@@ -23,16 +29,22 @@ const portfolioItems: PortfolioItem[] = [
   },
 ];
 
-const Portfolio: React.FC = () => {
+const Portfolio: React.FC<PortfolioProps> = ({
+  heading = "Pengalaman Nyata di Lapangan",
+  subheading = "Menangani berbagai skala acara dengan konsistensi kualitas, mulai dari ruang meeting eksklusif hingga panggung outdoor megah.",
+  items
+}) => {
+  const portfolioItems = items && items.length > 0 ? items : defaultPortfolioItems;
+
   return (
     <section id="portfolio" className="py-24 bg-brand-dark">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         
         <div className="flex flex-col md:flex-row justify-between items-end mb-12">
           <div className="max-w-xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Pengalaman Nyata di Lapangan</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{heading}</h2>
             <p className="text-neutral-400">
-              Menangani berbagai skala acara dengan konsistensi kualitas, mulai dari ruang meeting eksklusif hingga panggung outdoor megah.
+              {subheading}
             </p>
           </div>
           <a href="#contact" className="hidden md:flex items-center text-brand-gold hover:text-white transition-colors font-medium mt-6 md:mt-0">

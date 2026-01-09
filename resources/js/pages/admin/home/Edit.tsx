@@ -228,30 +228,20 @@ export default function Edit({
                     {activeSection === 'hero' && (
                         <div className="space-y-6">
                              <FormField label="Heading" name="hero.heading" error={errors['hero.heading']}>
-                                <Input value={data.hero.heading} onChange={e => setData('hero', { ...data.hero, heading: e.target.value })} />
+                                <Input 
+                                    value={data.hero.heading || ''} 
+                                    onChange={e => setData('hero', { ...data.hero, heading: e.target.value })} 
+                                    placeholder="Kualitas Suara Tanpa Kompromi."
+                                />
                             </FormField>
                              <FormField label="Subheading" name="hero.subheading" error={errors['hero.subheading']}>
-                                <Textarea value={data.hero.subheading} onChange={e => setData('hero', { ...data.hero, subheading: e.target.value })} />
-                            </FormField>
-                             <FormField label="Carousel Images" name="hero.carouselImages">
-                                <MediaSelector 
-                                    value={heroMediaItems} 
-                                    onChange={items => setData('hero', { ...data.hero, carouselImages: items.map(convertMediaItemToUrl) })}
-                                    maxImages={10} 
+                                <Textarea 
+                                    value={data.hero.subheading || ''} 
+                                    onChange={e => setData('hero', { ...data.hero, subheading: e.target.value })} 
+                                    placeholder="PLS menghadirkan solusi sound system premium..."
+                                    rows={4}
                                 />
                             </FormField>
-                            <FormField label="Split Layout Image" name="hero.splitLayoutImage">
-                                <MediaSelector 
-                                    value={splitLayoutMediaItem} 
-                                    onChange={items => setData('hero', { ...data.hero, splitLayoutImage: items.length ? convertMediaItemToUrl(items[0]) : '' })}
-                                    maxImages={1} 
-                                />
-                            </FormField>
-                            {/* Additional simplified fields for brevity as seen in original file */}
-                            <div className="flex items-center space-x-2">
-                                <Checkbox checked={data.hero.showCarousel} onCheckedChange={c => setData('hero', { ...data.hero, showCarousel: !!c })} />
-                                <span>Show Carousel</span>
-                            </div>
                         </div>
                     )}
 
@@ -452,59 +442,32 @@ export default function Edit({
                     {activeSection === 'footer' && (
                         <div className="space-y-6">
                             <div className="grid grid-cols-2 gap-4">
-                                <FormField label="Brand Name" name="footer.brandName"><Input value={data.footer.brandName} onChange={e => setData('footer', { ...data.footer, brandName: e.target.value })} /></FormField>
-                                {/* brandDescription */}
-                                <FormField label="Brand Description" name="footer.brandDescription"><Textarea value={data.footer.brandDescription} onChange={e => setData('footer', { ...data.footer, brandDescription: e.target.value })} /></FormField>
+                                <FormField label="Brand Name" name="footer.brandName"><Input value={data.footer.brandName || ''} onChange={e => setData('footer', { ...data.footer, brandName: e.target.value })} placeholder="PLS" /></FormField>
+                                <FormField label="Brand Subtitle" name="footer.brandSubtitle"><Input value={data.footer.brandSubtitle || ''} onChange={e => setData('footer', { ...data.footer, brandSubtitle: e.target.value })} placeholder="Rental Division" /></FormField>
                             </div>
                             
-                            <h3 className="font-semibold pt-2">Social Links</h3>
-                            <div className="grid grid-cols-2 gap-4">
-                                <FormField label="Instagram Link" name="footer.socialLinks.instagram">
-                                    <Input 
-                                        value={data.footer.socialLinks?.instagram || ''} 
-                                        onChange={e => setData('footer', { 
-                                            ...data.footer, 
-                                            socialLinks: { ...data.footer.socialLinks, instagram: e.target.value } 
-                                        })} 
-                                    />
-                                </FormField>
-                                <FormField label="LinkedIn Link" name="footer.socialLinks.linkedin">
-                                    <Input 
-                                        value={data.footer.socialLinks?.linkedin || ''} 
-                                        onChange={e => setData('footer', { 
-                                            ...data.footer, 
-                                            socialLinks: { ...data.footer.socialLinks, linkedin: e.target.value } 
-                                        })} 
-                                    />
-                                </FormField>
-                                <FormField label="Facebook Link" name="footer.socialLinks.facebook">
-                                    <Input 
-                                        value={data.footer.socialLinks?.facebook || ''} 
-                                        onChange={e => setData('footer', { 
-                                            ...data.footer, 
-                                            socialLinks: { ...data.footer.socialLinks, facebook: e.target.value } 
-                                        })} 
-                                    />
-                                </FormField>
-                                <FormField label="Twitter Link" name="footer.socialLinks.twitter">
-                                    <Input 
-                                        value={data.footer.socialLinks?.twitter || ''} 
-                                        onChange={e => setData('footer', { 
-                                            ...data.footer, 
-                                            socialLinks: { ...data.footer.socialLinks, twitter: e.target.value } 
-                                        })} 
-                                    />
-                                </FormField>
-                            </div>
+                            <FormField label="Description" name="footer.description">
+                                <Textarea 
+                                    value={data.footer.description || ''} 
+                                    onChange={e => setData('footer', { ...data.footer, description: e.target.value })} 
+                                    placeholder="Mitra terpercaya penyewaan sound system..."
+                                    rows={3}
+                                />
+                            </FormField>
 
                             <h3 className="font-semibold pt-2">Contact Info</h3>
                             <div className="grid grid-cols-2 gap-4">
-                                <FormField label="Phone" name="footer.phone"><Input value={data.footer.phone} onChange={e => setData('footer', { ...data.footer, phone: e.target.value })} /></FormField>
-                                <FormField label="Email" name="footer.email"><Input value={data.footer.email} onChange={e => setData('footer', { ...data.footer, email: e.target.value })} /></FormField>
+                                <FormField label="Phone" name="footer.contactPhone"><Input value={data.footer.contactPhone || ''} onChange={e => setData('footer', { ...data.footer, contactPhone: e.target.value })} placeholder="0822-5728-9604" /></FormField>
+                                <FormField label="Email" name="footer.contactEmail"><Input value={data.footer.contactEmail || ''} onChange={e => setData('footer', { ...data.footer, contactEmail: e.target.value })} placeholder="plsrental@yahoo.com" /></FormField>
                             </div>
-                            <FormField label="Address" name="footer.address"><Textarea value={data.footer.address} onChange={e => setData('footer', { ...data.footer, address: e.target.value })} /></FormField>
-                            
-                             <FormField label="Copyright Text" name="footer.copyrightText"><Input value={data.footer.copyrightText} onChange={e => setData('footer', { ...data.footer, copyrightText: e.target.value })} /></FormField>
+                            <FormField label="Address" name="footer.contactAddress">
+                                <Textarea 
+                                    value={data.footer.contactAddress || ''} 
+                                    onChange={e => setData('footer', { ...data.footer, contactAddress: e.target.value })} 
+                                    placeholder="JL.Raya Kandangan . Kare . MADIUN - Jawa Timur."
+                                    rows={2}
+                                />
+                            </FormField>
                         </div>
                     )}
 

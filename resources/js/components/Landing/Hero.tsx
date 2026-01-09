@@ -1,7 +1,15 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  heading?: string;
+  subheading?: string;
+}
+
+const Hero: React.FC<HeroProps> = ({ 
+  heading = "Kualitas Suara Tanpa Kompromi.",
+  subheading = "PLS menghadirkan solusi sound system premium dengan standar eksekusi tinggi untuk event korporat, instansi pemerintah, dan produksi skala besar. Tenang, rapi, dan profesional."
+}) => {
   return (
     <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -22,12 +30,11 @@ const Hero: React.FC = () => {
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 tracking-tight">
-            Kualitas Suara <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-200 to-neutral-500">Tanpa Kompromi.</span>
+            {heading}
           </h1>
           
           <p className="text-lg md:text-xl text-neutral-400 mb-10 max-w-2xl leading-relaxed font-light">
-            PLS menghadirkan solusi sound system premium dengan standar eksekusi tinggi untuk event korporat, instansi pemerintah, dan produksi skala besar. Tenang, rapi, dan profesional.
+            {subheading}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">

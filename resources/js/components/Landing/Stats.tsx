@@ -1,7 +1,16 @@
 import React from 'react';
 
-const Stats: React.FC = () => {
-  const stats = [
+interface StatItem {
+  label: string;
+  value: string;
+}
+
+interface StatsProps {
+  items?: StatItem[];
+}
+
+const Stats: React.FC<StatsProps> = ({ items }) => {
+  const stats = items && items.length > 0 ? items : [
     { label: "Tahun Pengalaman", value: "10+" },
     { label: "Event Sukses", value: "500+" },
     { label: "Klien Korporat & Instansi", value: "200+" },

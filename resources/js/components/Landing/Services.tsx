@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { Speaker, Mic2, Users, Settings, Radio, Search } from 'lucide-react';
 import { ServiceItem } from './types';
 
-const services: ServiceItem[] = [
+interface ServicesProps {
+  heading?: string;
+  subheading?: string;
+  items?: ServiceItem[];
+}
+
+const defaultServices: ServiceItem[] = [
   {
     id: 1,
     title: "Rental Sound System Premium",
@@ -35,8 +41,25 @@ const services: ServiceItem[] = [
   }
 ];
 
-const Services: React.FC = () => {
+// Map icon strings to components
+const iconMap: Record<string, any> = {
+  Speaker, Mic2, Users, Settings, Radio
+};
+
+const Services: React.FC<ServicesProps> = ({ 
+  heading = "Solusi Audio Terintegrasi",
+  subheading = "Kami menyediakan lebih dari sekadar peralatan. PLS memberikan ketenangan pikiran melalui layanan teknis yang komprehensif.",
+  items
+}) => {
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Process items from props
+  const services = items && items.length > 0 
+    ? items.map(item => ({
+        ...item,
+        icon: typeof item.icon === 'string' ? (iconMap[item.icon] || Speaker) : item.icon
+      }))
+    : defaultServices;
 
   const filteredServices = services.filter((service) =>
     service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -48,9 +71,9 @@ const Services: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-8">
           <div className="md:text-left max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Solusi Audio Terintegrasi</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">{heading}</h2>
             <p className="text-neutral-400 text-lg">
-              Kami menyediakan lebih dari sekadar peralatan. PLS memberikan ketenangan pikiran melalui layanan teknis yang komprehensif.
+              {subheading}
             </p>
           </div>
 

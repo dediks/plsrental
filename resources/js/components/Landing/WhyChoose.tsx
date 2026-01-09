@@ -1,30 +1,66 @@
 import React from 'react';
 import { CheckCircle2, ShieldCheck, Clock, Activity } from 'lucide-react';
 
-const reasons = [
+interface ReasonItem {
+  icon: string;
+  title: string;
+  text: string;
+}
+
+interface WhyChooseProps {
+  subtitle?: string;
+  heading?: string;
+  description?: string;
+  image?: string;
+  quote?: string;
+  items?: ReasonItem[];
+}
+
+const iconMap: Record<string, any> = {
+  ShieldCheck, CheckCircle2, Clock, Activity
+};
+
+const defaultReasons = [
   {
-    icon: ShieldCheck,
+    icon: "ShieldCheck",
     title: "Tim Teknis Berpengalaman",
     text: "Didukung oleh SDM yang memahami etika kerja profesional dan teknis audio mendalam."
   },
   {
-    icon: CheckCircle2,
+    icon: "CheckCircle2",
     title: "Peralatan Terawat & Ready",
     text: "Unit selalu melalui maintenance rutin. Kebersihan dan fungsi alat adalah prioritas kami."
   },
   {
-    icon: Clock,
+    icon: "Clock",
     title: "Tepat Waktu & Rapi",
     text: "Setup dilakukan jauh sebelum acara dimulai. Manajemen kabel yang rapi untuk estetika venue."
   },
   {
-    icon: Activity,
+    icon: "Activity",
     title: "Monitoring Penuh",
     text: "Standby operator selama acara berlangsung untuk antisipasi dan penanganan teknis instan."
   }
 ];
 
-const WhyChoose: React.FC = () => {
+const WhyChoose: React.FC<WhyChooseProps> = ({
+  subtitle = "Mengapa PLS?",
+  heading = "Standar Tinggi untuk Acara Penting Anda.",
+  description = "Kami mengerti bahwa dalam event korporat dan kenegaraan, tidak ada ruang untuk kesalahan teknis. PLS hadir sebagai mitra teknis yang memprioritaskan detail dan kesempurnaan.",
+  image = "https://picsum.photos/id/431/800/1000",
+  quote = "\"Keberhasilan acara Anda adalah reputasi kami.\"",
+  items
+}) => {
+  const reasons = items && items.length > 0
+    ? items.map(item => ({
+        ...item,
+        icon: iconMap[item.icon] || ShieldCheck
+      }))
+    : defaultReasons.map(item => ({
+        ...item,
+        icon: iconMap[item.icon] || ShieldCheck
+      }));
+
   return (
     <section id="why-us" className="py-24 bg-neutral-900 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -32,10 +68,10 @@ const WhyChoose: React.FC = () => {
           
           {/* Text Content */}
           <div>
-            <span className="text-brand-gold font-semibold tracking-wider text-sm uppercase">Mengapa PLS?</span>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mt-3 mb-8">Standar Tinggi untuk Acara Penting Anda.</h2>
+            <span className="text-brand-gold font-semibold tracking-wider text-sm uppercase">{subtitle}</span>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mt-3 mb-8">{heading}</h2>
             <p className="text-neutral-400 text-lg mb-10 leading-relaxed">
-              Kami mengerti bahwa dalam event korporat dan kenegaraan, tidak ada ruang untuk kesalahan teknis. PLS hadir sebagai mitra teknis yang memprioritaskan detail dan kesempurnaan.
+              {description}
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
@@ -56,13 +92,13 @@ const WhyChoose: React.FC = () => {
           {/* Image/Visual */}
           <div className="relative h-[500px] w-full bg-neutral-800 rounded-sm overflow-hidden">
              <img 
-               src="https://picsum.photos/id/431/800/1000" 
+               src={image} 
                alt="Sound Engineer Working" 
                className="w-full h-full object-cover opacity-80"
              />
              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-8">
                <div className="border-l-4 border-brand-gold pl-6">
-                 <p className="text-white text-xl font-medium italic">"Keberhasilan acara Anda adalah reputasi kami."</p>
+                 <p className="text-white text-xl font-medium italic">{quote}</p>
                </div>
              </div>
           </div>

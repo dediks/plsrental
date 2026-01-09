@@ -1,6 +1,18 @@
 import React from 'react';
 
-const steps = [
+interface ProcessStep {
+  num: string;
+  title: string;
+  desc: string;
+}
+
+interface ProcessProps {
+  heading?: string;
+  subheading?: string;
+  items?: ProcessStep[];
+}
+
+const defaultSteps = [
   {
     num: "01",
     title: "Konsultasi Kebutuhan",
@@ -18,13 +30,19 @@ const steps = [
   }
 ];
 
-const Process: React.FC = () => {
+const Process: React.FC<ProcessProps> = ({
+  heading = "Alur Kerja Profesional",
+  subheading = "Proses sederhana untuk hasil maksimal tanpa kerumitan bagi Anda.",
+  items
+}) => {
+  const steps = items && items.length > 0 ? items : defaultSteps;
+
   return (
     <section className="py-20 bg-brand-charcoal border-y border-white/5">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-white mb-4">Alur Kerja Profesional</h2>
-          <p className="text-neutral-400">Proses sederhana untuk hasil maksimal tanpa kerumitan bagi Anda.</p>
+          <h2 className="text-3xl font-bold text-white mb-4">{heading}</h2>
+          <p className="text-neutral-400">{subheading}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">

@@ -184,10 +184,15 @@ export interface SocialLinks {
 
 export interface FooterConfig {
     brandName?: string;
-    brandDescription?: string;
-    address?: string;
-    phone?: string;
-    email?: string;
+    brandSubtitle?: string;
+    description?: string;
+    brandDescription?: string;  // Legacy field
+    contactPhone?: string;
+    contactEmail?: string;
+    contactAddress?: string;
+    address?: string;  // Legacy field
+    phone?: string;  // Legacy field
+    email?: string;  // Legacy field
     socialLinks?: SocialLinks;
     copyrightText?: string;
 }
