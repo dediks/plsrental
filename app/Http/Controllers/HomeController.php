@@ -138,6 +138,7 @@ class HomeController extends Controller
                 'logoLight' => $this->getLogoUrl('logo_light', '/images/black-logo.svg'),
                 'logoDark' => $this->getLogoUrl('logo_dark', '/images/white-logo.svg'),
             ],
+            'socialMedia' => \App\Models\SocialMedia::where('is_active', true)->orderBy('order')->get(),
         ];
     }
 
