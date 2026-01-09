@@ -20,12 +20,6 @@ const websiteContentSections = [
         href: '/dashboard/admin/home',
         icon: Home,
     },
-    {
-        title: 'Contact Submissions',
-        description: 'View and manage contact form submissions',
-        href: '/dashboard/admin/contact-submissions',
-        icon: MessageSquare,
-    },
 ];
 
 
