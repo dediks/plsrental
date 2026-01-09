@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import InputError from '@/components/input-error';
-import { Upload, X, Loader2, GripVertical, Image as ImageIcon, Search } from 'lucide-react';
+import { Upload, X, Loader2, GripVertical, Image as ImageIcon, Search, Pencil } from 'lucide-react';
 import { useState, useEffect, useId } from 'react';
 import {
     Dialog,
@@ -50,6 +50,7 @@ export function MediaSelector({
     const [libraryMedia, setLibraryMedia] = useState<MediaItem[]>([]);
     const [loadingLibrary, setLoadingLibrary] = useState<boolean>(false);
     const [searchQuery, setSearchQuery] = useState<string>('');
+    const [replacingIndex, setReplacingIndex] = useState<number | null>(null);
 
     // Update media when value changes
     useEffect(() => {
@@ -64,6 +65,47 @@ export function MediaSelector({
             return decodeURIComponent(parts.pop()?.split(';').shift() || '');
         }
         return '';
+    };
+
+    const handleMediaSelection = (selectedItem: MediaItem) => {
+        // Check for duplicates
+        // Allow selection if we are replacing the item with ITSELF (edge case) or if it's a new item
+        // Strict check: if this ID exists at ANY index other than the one we are replacing
+        const existingIndex = media.findIndex(m => m.id === selectedItem.id);
+        if (existingIndex !== -1) {
+             if (replacingIndex === null) {
+                 // Adding new item, but ID exists -> Duplicate
+                 setUploadError('This image is already selected');
+                 return;
+             } else if (existingIndex !== replacingIndex) {
+                 // Replacing item at X, but this media exists at Y -> Duplicate
+                 setUploadError('This image is already selected');
+                 return;
+             }
+             // If existingIndex === replacingIndex, we are just re-selecting the same image. Proceed (update data if changed).
+        }
+
+        const newMediaItem: MediaItem = {
+            ...selectedItem,
+            order: replacingIndex !== null ? replacingIndex : media.length,
+        };
+
+        let newMedia: MediaItem[];
+        if (replacingIndex !== null) {
+            newMedia = [...media];
+            newMedia[replacingIndex] = newMediaItem;
+        } else {
+            newMedia = [...media, newMediaItem];
+        }
+
+        setMedia(newMedia);
+        onChange(newMedia);
+        
+        // Reset flows
+        setReplacingIndex(null);
+        setShowMediaLibrary(false);
+        setSearchQuery('');
+        setUploadError(null); // Clear any previous errors
     };
 
     const uploadFile = async (file: File) => {
@@ -92,18 +134,16 @@ export function MediaSelector({
 
             const data = await response.json();
             
-            const newMediaItem: MediaItem = {
+            const uploadedItem: MediaItem = {
                 id: data.media.id,
                 path: data.media.path,
-                url: data.media.url || '', // Backend should guarantee url, but fallback to empty string just in case
+                url: data.media.url || '',
                 alt_text: data.media.alt_text || '',
                 caption: data.media.caption || '',
-                order: media.length,
+                order: 0, // Order will be set in handleMediaSelection
             };
             
-            const newMedia = [...media, newMediaItem];
-            setMedia(newMedia);
-            onChange(newMedia);
+            handleMediaSelection(uploadedItem);
             
             // Refresh library if it's open to show the newly uploaded image
             if (showMediaLibrary) {
@@ -142,8 +182,8 @@ export function MediaSelector({
             return;
         }
 
-        // Check max images
-        if (media.length >= maxImages) {
+        // Check max images only if not replacing
+        if (replacingIndex === null && media.length >= maxImages) {
             setUploadError(`Maximum ${maxImages} images allowed`);
             return;
         }
@@ -237,31 +277,20 @@ export function MediaSelector({
             }, 300); // Debounce search by 300ms
             
             return () => clearTimeout(timeoutId);
+        } else {
+            // Reset replacing index when dialog closes
+            setReplacingIndex(null);
         }
     }, [showMediaLibrary, searchQuery]);
 
     const handleSelectFromLibrary = (libraryItem: MediaItem) => {
-        if (media.length >= maxImages) {
+        // Check max images (only if not replacing)
+        if (replacingIndex === null && media.length >= maxImages) {
             setUploadError(`Maximum ${maxImages} images allowed`);
             return;
         }
 
-        // Check if already selected
-        if (media.some(m => m.id === libraryItem.id)) {
-            setUploadError('This image is already selected');
-            return;
-        }
-
-        const newMediaItem: MediaItem = {
-            ...libraryItem,
-            order: media.length,
-        };
-
-        const newMedia = [...media, newMediaItem];
-        setMedia(newMedia);
-        onChange(newMedia);
-        setShowMediaLibrary(false);
-        setSearchQuery('');
+        handleMediaSelection(libraryItem);
     };
 
     return (
@@ -275,17 +304,18 @@ export function MediaSelector({
                 </Label>
             )}
             
+            <Input
+                type="file"
+                accept={context === 'product' ? 'image/png,image/webp,image/jpeg,image/jpg' : 'image/*'}
+                onChange={handleFileChange}
+                className="hidden"
+                id={uploadInputId}
+                disabled={uploading}
+            />
+
             {/* Upload and Browse Buttons */}
             {media.length < maxImages && (
                 <div className="mb-4 flex gap-2">
-                    <Input
-                        type="file"
-                        accept={context === 'product' ? 'image/png,image/webp,image/jpeg,image/jpg' : 'image/*'}
-                        onChange={handleFileChange}
-                        className="hidden"
-                        id={uploadInputId}
-                        disabled={uploading}
-                    />
                     <Button
                         type="button"
                         variant="outline"
@@ -329,16 +359,31 @@ export function MediaSelector({
                         </DialogDescription>
                     </DialogHeader>
                     
-                    {/* Search */}
-                    <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                            type="text"
-                            placeholder="Search media..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-10"
-                        />
+                    {/* Search and Upload */}
+                    <div className="flex gap-2 mb-4">
+                        <div className="relative flex-1">
+                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input
+                                type="text"
+                                placeholder="Search media..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="pl-10"
+                            />
+                        </div>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => document.getElementById(uploadInputId)?.click()}
+                            disabled={uploading}
+                        >
+                            {uploading ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                                <Upload className="h-4 w-4 mr-2" />
+                            )}
+                            <span className="hidden sm:inline">Upload</span>
+                        </Button>
                     </div>
 
                     {/* Media Grid */}
@@ -427,7 +472,21 @@ export function MediaSelector({
 
                                 {/* Actions Overlay */}
                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors flex items-center justify-center gap-2 z-10">
-                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+                                        <Button
+                                            type="button"
+                                            variant="secondary"
+                                            size="sm"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setReplacingIndex(index);
+                                                setShowMediaLibrary(true);
+                                            }}
+                                            className="h-8 w-8 p-0"
+                                            title="Change Image"
+                                        >
+                                            <Pencil className="h-4 w-4" />
+                                        </Button>
                                         <Button
                                             type="button"
                                             variant="destructive"
@@ -437,6 +496,7 @@ export function MediaSelector({
                                                 handleRemove(index);
                                             }}
                                             className="h-8 w-8 p-0"
+                                            title="Remove Image"
                                         >
                                             <X className="h-4 w-4" />
                                         </Button>
