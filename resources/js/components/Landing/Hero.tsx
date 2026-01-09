@@ -5,12 +5,14 @@ interface HeroProps {
   heading?: string;
   subheading?: string;
   backgroundImage?: string;
+  badgeText?: string;
 }
 
 const Hero: React.FC<HeroProps> = ({ 
   heading = "Kualitas Suara Tanpa Kompromi.",
   subheading = "PLS menghadirkan solusi sound system premium dengan standar eksekusi tinggi untuk event korporat, instansi pemerintah, dan produksi skala besar. Tenang, rapi, dan profesional.",
-  backgroundImage = null
+  backgroundImage = null,
+  badgeText = "Professional Audio Production"
 }) => {
   return (
     <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
@@ -30,7 +32,7 @@ const Hero: React.FC<HeroProps> = ({
       <div className="relative lg:flex-1 z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center md:text-left pt-20">
         <div className="max-w-3xl">
           <div className="inline-block px-3 py-1 mb-6 border border-brand-gold/30 rounded-full bg-brand-gold/10 backdrop-blur-sm">
-            <span className="text-xs font-semibold tracking-wider text-brand-gold uppercase">Professional Audio Production</span>
+            <span className="text-xs font-semibold tracking-wider text-brand-gold uppercase">{badgeText}</span>
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 tracking-tight">

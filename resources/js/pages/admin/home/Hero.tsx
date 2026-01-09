@@ -104,6 +104,14 @@ export default function Hero({ hero }: HeroProps) {
                             />
                         </FormField>
                         
+                        <FormField label="Badge Text" name="hero.badgeText" error={errors['hero.badgeText']}>
+                            <Input 
+                                value={data.hero.badgeText || ''} 
+                                onChange={e => setData('hero', { ...data.hero, badgeText: e.target.value })} 
+                                placeholder="Professional Audio Production"
+                            />
+                        </FormField>
+                        
                         <FormField label="Background Image" name="hero.splitLayoutImage" error={errors['hero.splitLayoutImage']}>
                             <MediaSelector 
                                 value={splitLayoutImageItem} 

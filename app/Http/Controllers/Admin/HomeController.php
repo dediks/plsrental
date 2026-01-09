@@ -28,6 +28,7 @@ class HomeController extends Controller
         $validated = $request->validate([
             'hero.heading' => 'nullable|string',
             'hero.subheading' => 'nullable|string',
+            'hero.badgeText' => 'nullable|string',
             'hero.carouselImages' => 'nullable|array',
             'hero.splitLayoutImage' => 'nullable|string',
             'hero.backgroundVideo' => 'nullable|string',

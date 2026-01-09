@@ -50,6 +50,7 @@ export interface HeroConfig {
     contentMaxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full';
     heading?: string;
     subheading?: string;
+    badgeText?: string;
     showHeading?: boolean;
     showSubheading?: boolean;
     mobileHeading?: string;
