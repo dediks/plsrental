@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Media;
 use App\Models\PageSection;
+use App\Models\Setting;
 
 use App\Services\MediaService;
 use App\Services\SeoService;
@@ -12,32 +13,19 @@ use Inertia\Inertia;
 
 class HomeController extends Controller
 {
-    public function index()
-    {
-        $featuredProducts = collect([]);
-        $featuredArticles = collect([]);
 
+
+    public function indexBlade()
+    {
+        $data = $this->getHomeData();
+        return view('landing.index', $data);
+    }
+
+    private function getHomeData()
+    {
         // Load section content
-        $hero = PageSection::getContent('home', 'hero', [
-            'carouselImages' => [
-                '/images/hero/hero-speakers-1.jpg',
-                '/images/hero/hero-speakers-2.jpg',
-                '/images/hero/hero-speakers-3.jpg',
-            ],
-            'splitLayoutImage' => '/images/hero/hero-uap.webp',
-            'backgroundVideo' => '',
-            'trustedByText' => 'Trusted by 100+ rentals',
-            'showTrustedBy' => true,
-            'trustedByAvatars' => [],
-            'autoPlay' => true,
-            'autoPlayInterval' => 5000,
+        $hero = PageSection::getContent('home', 'hero', [          
             'showBadge' => true,
-            'showScrollIndicator' => true,
-            'showCarousel' => true,
-            'showSplitLayoutImage' => true,
-            'showOverlay' => true,
-            'overlayOpacity' => 80,
-            'contentMaxWidth' => '4xl',
             'heading' => 'Acoustic Engineering Excellence',
             'subheading' => 'Professional loudspeaker systems that deliver unparalleled clarity, precision, and power for the world\'s most demanding audio environments.',
         ]);
@@ -134,9 +122,7 @@ class HomeController extends Controller
         $about = PageSection::getContent('home', 'about', []);
         $partners = PageSection::getContent('home', 'partners', []);
 
-        return Inertia::render('Home/Index', [
-            'featuredProducts' => $featuredProducts,
-            'featuredArticles' => $featuredArticles,
+        return [
             'hero' => $hero,
             'stats' => $stats,
             'services' => $services,
@@ -149,7 +135,11 @@ class HomeController extends Controller
             'about' => $about, // Legacy
             'partners' => $partners, // Legacy
             'seo' => SeoService::forHome(),
-        ]);
+            'logoSettings' => [
+                'logoLight' => $this->getLogoUrl('logo_light', '/images/black-logo.svg'),
+                'logoDark' => $this->getLogoUrl('logo_dark', '/images/white-logo.svg'),
+            ],
+        ];
     }
 
     /**
@@ -203,5 +193,33 @@ class HomeController extends Controller
 
         // Return original if no media found
         return $imageData;
+    }
+
+    /**
+     * Get logo URL from settings (handles both media IDs and legacy paths).
+     */
+    private function getLogoUrl(string $key, string $fallbackPath): string
+    {
+        // Get media URL using the Setting model's helper method
+        $url = Setting::getMediaUrl($key, $fallbackPath);
+
+        // Ensure URL is properly formatted
+        if (!$url) {
+            return $fallbackPath;
+        }
+
+        // If it's an absolute URL, extract the path for frontend compatibility
+        if (str_starts_with($url, 'http://') || str_starts_with($url, 'https://')) {
+            $parsed = parse_url($url);
+            return $parsed['path'] ?? $url;
+        }
+
+        // If it already starts with /, return as is
+        if (str_starts_with($url, '/')) {
+            return $url;
+        }
+
+        // Otherwise, assume it's a storage path
+        return '/storage/' . ltrim($url, '/');
     }
 }

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 // Public routes
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'indexBlade'])->name('home');
 
 
 Route::get('/privacy', [PrivacyController::class, 'index'])->name('privacy');

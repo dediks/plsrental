@@ -9,27 +9,30 @@ import { initializeTheme } from './hooks/use-appearance';
 
 const appName = import.meta.env.VITE_APP_NAME || 'PLSRental';
 
-createInertiaApp({
-    title: (title) => (title ? `${title} - ${appName}` : appName),
-    resolve: (name) =>
-        resolvePageComponent(
-            `./pages/${name}.tsx`,
-            import.meta.glob('./pages/**/*.tsx'),
-        ),
-    setup({ el, App, props }) {
-        const root = createRoot(el);
+const appElement = document.getElementById('app');
+if (appElement) {
+    createInertiaApp({
+        title: (title) => (title ? `${title} - ${appName}` : appName),
+        resolve: (name) =>
+            resolvePageComponent(
+                `./pages/${name}.tsx`,
+                import.meta.glob('./pages/**/*.tsx'),
+            ),
+        setup({ el, App, props }) {
+            const root = createRoot(el);
 
-        root.render(
-            <StrictMode>
-                <App {...props} />
-                <Toaster />
-            </StrictMode>,
-        );
-    },
-    progress: {
-        color: '#4B5563',
-    },
-});
+            root.render(
+                <StrictMode>
+                    <App {...props} />
+                    <Toaster />
+                </StrictMode>,
+            );
+        },
+        progress: {
+            color: '#4B5563',
+        },
+    });
+}
 
 // This will set light / dark mode on load...
 initializeTheme();
