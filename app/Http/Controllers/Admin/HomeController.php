@@ -30,6 +30,7 @@ class HomeController extends Controller
             'hero.subheading' => 'nullable|string',
             'hero.badgeText' => 'nullable|string',
             'hero.carouselImages' => 'nullable|array',
+            'hero.backgroundImage' => 'nullable|string',
             'hero.splitLayoutImage' => 'nullable|string',
             'hero.backgroundVideo' => 'nullable|string',
             'hero.trustedByText' => 'nullable|string',
@@ -353,6 +354,13 @@ class HomeController extends Controller
             if ($old && $old !== $new) $this->deleteMediaByUrl($old);
         }
 
+        // Background Image
+        if (isset($heroSection->content['backgroundImage'])) {
+            $old = $heroSection->content['backgroundImage'] ?? '';
+            $new = $validated['hero']['backgroundImage'] ?? '';
+            if ($old && $old !== $new) $this->deleteMediaByUrl($old);
+        }
+
         // Background Video
         if (isset($heroSection->content['backgroundVideo'])) {
             $old = $heroSection->content['backgroundVideo'] ?? '';
@@ -434,6 +442,7 @@ class HomeController extends Controller
             'contentMaxWidth' => '4xl',
             'heading' => 'Acoustic Engineering Excellence',
             'subheading' => 'Professional loudspeaker systems that deliver unparalleled clarity, precision, and power for the world\'s most demanding audio environments.',
+            'backgroundImage' => '',
             'showHeading' => true,
             'showSubheading' => true,
             'mobileHeading' => '',

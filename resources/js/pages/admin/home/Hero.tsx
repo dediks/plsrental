@@ -61,10 +61,10 @@ export default function Hero({ hero }: HeroProps) {
         return item.path || '';
     };
 
-    const splitLayoutImageItem = useMemo(() => {
-        if (!data.hero.splitLayoutImage) return [];
-        return [convertUrlToMediaItem(data.hero.splitLayoutImage, 0, 999)];
-    }, [data.hero.splitLayoutImage]);
+    const backgroundImageItem = useMemo(() => {
+        if (!data.hero.backgroundImage) return [];
+        return [convertUrlToMediaItem(data.hero.backgroundImage, 0, 999)];
+    }, [data.hero.backgroundImage]);
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -112,10 +112,10 @@ export default function Hero({ hero }: HeroProps) {
                             />
                         </FormField>
                         
-                        <FormField label="Background Image" name="hero.splitLayoutImage" error={errors['hero.splitLayoutImage']}>
+                        <FormField label="Background Image" name="hero.backgroundImage" error={errors['hero.backgroundImage']}>
                             <MediaSelector 
-                                value={splitLayoutImageItem} 
-                                onChange={items => setData('hero', { ...data.hero, splitLayoutImage: items.length ? convertMediaItemToUrl(items[0]) : '' })}
+                                value={backgroundImageItem} 
+                                onChange={items => setData('hero', { ...data.hero, backgroundImage: items.length ? convertMediaItemToUrl(items[0]) : '' })}
                                 maxImages={1} 
                             />
                         </FormField>

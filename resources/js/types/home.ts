@@ -35,6 +35,7 @@ export interface FeaturedArticle {
 export interface HeroConfig {
     carouselImages?: string[];
     splitLayoutImage?: string;
+    backgroundImage?: string;
     backgroundVideo?: string;
     trustedByText?: string;
     showTrustedBy?: boolean;

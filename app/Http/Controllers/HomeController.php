@@ -13,8 +13,6 @@ use Inertia\Inertia;
 
 class HomeController extends Controller
 {
-
-
     public function indexBlade()
     {
         $data = $this->getHomeData();
@@ -28,6 +26,7 @@ class HomeController extends Controller
             'showBadge' => true,
             'heading' => 'Acoustic Engineering Excellence',
             'subheading' => 'Professional loudspeaker systems that deliver unparalleled clarity, precision, and power for the world\'s most demanding audio environments.',
+            'backgroundImage' => Setting::getMediaUrl('hero_background_image', '/images/hero/hero-background.jpg'),
         ]);
 
         $stats = PageSection::getContent('home', 'stats', [
