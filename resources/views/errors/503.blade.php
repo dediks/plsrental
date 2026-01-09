@@ -50,21 +50,16 @@
                     <div class="scale-150 sm:scale-[1.75] md:scale-[2]">
                         <div class="flex items-center">
                             <img
-                                src="/images/black-logo.svg"
+                                src="/images/logo.png"
                                 alt="PLSRental"
-                                class="h-10 w-auto dark:hidden"
-                            />
-                            <img
-                                src="/images/white-logo.svg"
-                                alt="PLSRental"
-                                class="h-10 w-auto hidden dark:block"
+                                class="h-10 w-auto"
                             />
                         </div>
                     </div>
                 </div>
 
                 {{-- Coming Soon Heading --}}
-                <h1 class="h1 text-foreground">
+                <h1 class="h1 text-foreground mt-12">
                     Coming Soon
                 </h1>
 

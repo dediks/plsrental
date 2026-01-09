@@ -65,10 +65,10 @@ export function Logo({
     const defaultDarkLogo = '/images/white-logo.svg';
     
     const logoLight = logoSettings?.logoLight || defaultLightLogo;
+    const logoDark = logoSettings?.logoDark || defaultDarkLogo;
 
     // Determine logo source based on theme and inverted prop
-    // Use the single configured logo (logoLight) for all contexts
-    const logoSrc = logoLight;
+    const logoSrc = (isDark || inverted) ? logoDark : logoLight;
 
     const logoImage = (
         <img

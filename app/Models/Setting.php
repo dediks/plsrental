@@ -127,6 +127,29 @@ class Setting extends Model
     }
 
     /**
+     * Get logo URL with special handling for paths.
+     */
+    public static function getLogoUrl(string $key, string $fallbackPath): string
+    {
+        $url = self::getMediaUrl($key, $fallbackPath);
+
+        if (!$url) {
+            return $fallbackPath;
+        }
+
+        if (str_starts_with($url, 'http://') || str_starts_with($url, 'https://')) {
+            $parsed = parse_url($url);
+            return $parsed['path'] ?? $url;
+        }
+
+        if (str_starts_with($url, '/')) {
+            return $url;
+        }
+
+        return '/storage/' . ltrim($url, '/');
+    }
+
+    /**
      * Migrate a path-based setting to media ID-based storage.
      * Attempts to find a Media record by path and update the setting.
      *
