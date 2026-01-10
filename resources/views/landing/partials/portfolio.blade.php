@@ -37,10 +37,10 @@
                     {{ $subheading }}
                 </p>
             </div>
-            <!-- <a href="#contact" class="hidden md:flex items-center text-brand-gold hover:text-white transition-colors font-medium mt-6 md:mt-0">
+            <a href="/portfolio" class="hidden md:flex items-center text-brand-gold hover:text-white transition-colors font-medium mt-6 md:mt-0">
                 Lihat Pengalaman Kami 
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right ml-2 w-4 h-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a> -->
+            </a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -20,7 +20,11 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 // Public routes
+
+use App\Http\Controllers\PortfolioController;
+
 Route::get('/', [HomeController::class, 'indexBlade'])->name('home');
+Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
 
 
 Route::get('/privacy', [PrivacyController::class, 'index'])->name('privacy');

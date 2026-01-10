@@ -1,9 +1,9 @@
 @php
     $navLinks = [
-        ['name' => 'Layanan', 'href' => '#services'],
-        ['name' => 'Keunggulan', 'href' => '#why-us'],
-        ['name' => 'Portfolio', 'href' => '#portfolio'],
-        ['name' => 'Testimoni', 'href' => '#testimonials'],
+        ['name' => 'Layanan', 'href' => route('home') . '#services'],
+        ['name' => 'Keunggulan', 'href' => route('home') . '#why-us'],
+        ['name' => 'Portfolio', 'href' => route('portfolio.index')],
+        ['name' => 'Testimoni', 'href' => route('home') . '#testimonials'],
     ];
     
     // Use logo from settings if available, otherwise fallback
