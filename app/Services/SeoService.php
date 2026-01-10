@@ -33,6 +33,9 @@ class SeoService
         // Ensure URL is absolute
         $absoluteUrl = self::makeAbsoluteUrl($url) ?: $url;
 
+        // Default robots tag
+        $robots = $data['robots'] ?? 'index, follow';
+
         return [
             'title' => $title,
             'description' => self::truncateDescription($description),
@@ -45,6 +48,7 @@ class SeoService
             'structuredData' => $structuredData,
             'ogTitle' => $ogTitle,
             'ogDescription' => $ogDescription,
+            'robots' => $robots,
         ];
     }
 
@@ -89,7 +93,8 @@ class SeoService
     {
         $title = Setting::get('home_meta_title') ?: 'Premium Sound for Remarkable Events';
         $description = Setting::get('home_meta_description') ?: 'Professional loudspeaker systems that deliver unparalleled clarity, precision, and power for the world\'s most demanding audio environments.';
-        $image = '/images/og-image.jpg';
+        // $image = '/images/og-image.jpg';
+        $image = Setting::getMediaUrl('og_image', '/images/logo.png');
         $url = self::makeAbsoluteUrl(route('home'));
 
         $structuredData = [
