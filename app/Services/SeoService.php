@@ -92,7 +92,7 @@ class SeoService
     public static function forHome(): array
     {
         $title = Setting::get('home_meta_title') ?: 'Premium Sound for Remarkable Events';
-        $description = Setting::get('home_meta_description') ?: 'Professional loudspeaker systems that deliver unparalleled clarity, precision, and power for the world\'s most demanding audio environments.';
+        $description = Setting::get('home_meta_description') ?: 'PLS Rental hadirkan solusi sound system premium dengan standar eksekusi tinggi untuk event korporat, instansi pemerintah, dan produksi skala besar. Tenang, rapi, dan profesional.';
         // $image = '/images/og-image.jpg';
         $image = Setting::getMediaUrl('og_image', '/images/logo.png');
         $url = self::makeAbsoluteUrl(route('home'));
