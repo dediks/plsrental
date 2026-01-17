@@ -49,7 +49,7 @@
                     href="{{ $consultationLink }}"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="px-5 py-2.5 text-sm font-semibold text-brand-dark bg-white hover:bg-neutral-200 transition-colors rounded-sm"
+                    class="px-5 py-2.5 text-sm font-semibold text-brand-dark bg-brand-accent hover:bg-brand-accent-light transition-all rounded-sm shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]"
                 >
                     Konsultasi
                 </a>
@@ -59,7 +59,7 @@
             <div class="md:hidden">
                 <button
                     id="mobile-menu-btn"
-                    class="text-white hover:text-brand-gold transition-colors"
+                    class="text-white hover:text-brand-accent-light transition-colors"
                 >
                     <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
                     <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 18 18"/></svg>
@@ -69,7 +69,7 @@
     </div>
 
     {{-- Mobile Menu Overlay --}}
-    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-brand-charcoal border-b border-white/10 shadow-2xl">
+    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-brand-charcoal border-b border-brand-accent/20 shadow-2xl">
         <div class="px-6 py-8 space-y-4 flex flex-col">
             @foreach($navLinks as $link)
                 <a
@@ -83,7 +83,7 @@
                 href="{{ $consultationLink }}"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="mobile-nav-link inline-block text-center mt-4 px-5 py-3 text-sm font-semibold text-brand-dark bg-white rounded-sm"
+                class="mobile-nav-link inline-block text-center mt-4 px-5 py-3 text-sm font-semibold text-brand-dark bg-brand-accent hover:bg-brand-accent-light rounded-sm"
             >
                 Jadwalkan Konsultasi
             </a>
@@ -141,10 +141,10 @@
         // Scroll effect
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                navbar.classList.add('bg-brand-dark/95', 'backdrop-blur-md', 'border-b', 'border-white/5', 'py-3');
+                navbar.classList.add('bg-brand-dark/95', 'backdrop-blur-md', 'border-b', 'border-brand-accent/10', 'py-3');
                 navbar.classList.remove('bg-transparent', 'py-5');
             } else {
-                navbar.classList.remove('bg-brand-dark/95', 'backdrop-blur-md', 'border-b', 'border-white/5', 'py-3');
+                navbar.classList.remove('bg-brand-dark/95', 'backdrop-blur-md', 'border-b', 'border-brand-accent/10', 'py-3');
                 navbar.classList.add('bg-transparent', 'py-5');
             }
         });

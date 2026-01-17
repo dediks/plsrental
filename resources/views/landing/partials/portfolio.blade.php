@@ -33,11 +33,11 @@
         <div class="flex flex-col md:flex-row justify-between items-end mb-12">
             <div class="max-w-xl">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{{ $heading }}</h2>
-                <p class="text-neutral-400">
+                <p class="text-neutral-300">
                     {{ $subheading }}
                 </p>
             </div>
-            <a href="/portfolio" class="hidden md:flex items-center text-brand-gold hover:text-white transition-colors font-medium mt-6 md:mt-0">
+            <a href="/portfolio" class="hidden md:flex items-center text-brand-accent-light hover:text-brand-accent transition-colors font-medium mt-6 md:mt-0">
                 Lihat Pengalaman Kami 
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right ml-2 w-4 h-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
@@ -54,7 +54,7 @@
                         />
                     </div>
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-brand-gold text-xs font-semibold uppercase tracking-wider mb-2">{{ $item['category'] }}</span>
+                        <span class="text-brand-accent-light text-xs font-semibold uppercase tracking-wider mb-2">{{ $item['category'] }}</span>
                         <h3 class="text-white text-xl font-bold">{{ $item['title'] }}</h3>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
         </div>
 
         <div class="mt-8 md:hidden text-center">
-           <a href="#contact" class="inline-flex items-center text-brand-gold font-medium">
+           <a href="#contact" class="inline-flex items-center text-brand-accent-light hover:text-brand-accent font-medium">
             Lihat Pengalaman Kami 
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right ml-2 w-4 h-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>

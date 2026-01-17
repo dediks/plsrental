@@ -37,7 +37,7 @@
 
             @foreach($items as $step)
                 <div class="relative z-10 flex flex-col items-center text-center">
-                    <div class="w-24 h-24 rounded-full bg-brand-dark border border-white/10 flex items-center justify-center text-3xl font-bold text-brand-gold mb-6 shadow-xl">
+                    <div class="w-24 h-24 rounded-full bg-brand-dark border border-white/10 flex items-center justify-center text-3xl font-bold text-brand-accent mb-6 shadow-xl">
                         {{ $step['num'] }}
                     </div>
                     <h3 class="text-xl font-semibold text-white mb-3">{{ $step['title'] }}</h3>

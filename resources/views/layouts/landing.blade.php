@@ -47,7 +47,7 @@
     @viteReactRefresh
     @vite(['resources/css/app.css', 'resources/js/app.tsx'])
 </head>
-<body class="font-sans antialiased text-white bg-brand-dark selection:bg-brand-gold selection:text-white">
+<body class="font-sans antialiased text-white bg-brand-dark selection:bg-brand-accent selection:text-white">
     <div class="min-h-screen flex flex-col">
         {{-- Navbar - logoSettings is injected via View Composer --}}
         @include('landing.partials.navbar', ['logoSettings' => $logoSettings])

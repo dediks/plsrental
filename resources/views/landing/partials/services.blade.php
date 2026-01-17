@@ -44,7 +44,7 @@
         <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-8">
             <div class="md:text-left max-w-2xl">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">{{ $heading }}</h2>
-                <p class="text-neutral-400 text-lg">
+                <p class="text-neutral-300 text-lg">
                     {{ $subheading }}
                 </p>
             </div>
@@ -55,8 +55,8 @@
         @if(count($items) > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($items as $index => $service)
-                    <div class="group p-8 bg-brand-charcoal border border-white/5 hover:border-brand-gold/30 transition-all duration-300 rounded-sm hover:-translate-y-1 animate-fade-in-up" style="animation-delay: {{ $index * 100 }}ms">
-                        <div class="w-12 h-12 bg-neutral-800 rounded-sm flex items-center justify-center mb-6 text-brand-gold group-hover:bg-brand-gold group-hover:text-black transition-colors">
+                    <div class="group p-8 bg-brand-charcoal border border-brand-accent/20 hover:border-brand-accent/50 transition-all duration-300 rounded-sm hover:-translate-y-1 hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] animate-fade-in-up" style="animation-delay: {{ $index * 100 }}ms">
+                        <div class="w-12 h-12 bg-brand-gray rounded-sm flex items-center justify-center mb-6 text-brand-accent-light group-hover:bg-brand-accent group-hover:text-brand-dark transition-colors">
                             @switch($service['icon'])
                                 @case('Mic2')
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mic-2"><path d="m12 8-9.04 9.06a2.82 2.82 0 1 0 3.98 3.98L16 12"/><path d="m19 15 2 2"/><path d="m22 2-7 20-4-9-9-4Z"/></svg>
@@ -76,7 +76,7 @@
                             @endswitch
                         </div>
                         <h3 class="text-xl font-semibold text-white mb-3">{{ $service['title'] }}</h3>
-                        <p class="text-neutral-400 leading-relaxed text-sm">{{ $service['description'] }}</p>
+                        <p class="text-neutral-300 leading-relaxed text-sm">{{ $service['description'] }}</p>
                     </div>
                 @endforeach
             </div>

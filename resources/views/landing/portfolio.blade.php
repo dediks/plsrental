@@ -9,7 +9,7 @@
             </div>
             
             <div class="relative max-w-7xl mx-auto text-center">
-                <span class="inline-block py-1 px-3 rounded-full bg-brand-gold/10 border border-brand-gold/20 text-brand-gold text-sm font-medium mb-6">
+                <span class="inline-block py-1 px-3 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-sm font-medium mb-6">
                     Portofolio
                 </span>
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
@@ -30,7 +30,7 @@
             @else
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($portfolio['items'] as $item)
-                        <div class="group relative overflow-hidden rounded-sm bg-neutral-900 border border-white/5 hover:border-brand-gold/20 transition-all duration-300">
+                        <div class="group relative overflow-hidden rounded-sm bg-neutral-900 border border-white/5 hover:border-brand-accent/20 transition-all duration-300">
                             {{-- Image --}}
                             <div class="aspect-[4/3] w-full overflow-hidden">
                                 @if(!empty($item['imageUrl']))
@@ -49,7 +49,7 @@
                             {{-- Content --}}
                             <div class="p-6">
                                 <div class="flex items-center justify-between mb-3">
-                                    <span class="text-xs font-medium text-brand-gold uppercase tracking-wider">
+                                    <span class="text-xs font-medium text-brand-accent uppercase tracking-wider">
                                         {{ $item['category'] ?? 'Event' }}
                                     </span>
                                     @if(!empty($item['date']))
@@ -58,7 +58,7 @@
                                         </span>
                                     @endif
                                 </div>
-                                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-brand-gold transition-colors">
+                                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-brand-accent transition-colors">
                                     {{ $item['title'] }}
                                 </h3>
                                 @if(!empty($item['description']))

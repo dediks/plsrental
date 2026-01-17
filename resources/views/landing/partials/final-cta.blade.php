@@ -6,7 +6,7 @@
     $phoneNumber = $finalCTA['phoneNumber'] ?? "0822-5728-9604";
 @endphp
 
-<section id="contact" class="py-24 bg-brand-gold relative overflow-hidden">
+<section id="contact" class="py-24 bg-brand-accent relative overflow-hidden">
     {{-- Pattern Overlay --}}
     <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 mix-blend-multiply"></div>
     
@@ -23,7 +23,7 @@
                 href="{{ $buttonLink }}" 
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-brand-dark hover:bg-black transition-all rounded-sm shadow-xl hover:-translate-y-1"
+                class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-brand-dark hover:bg-brand-charcoal transition-all rounded-sm shadow-[0_10px_40px_rgba(10,22,40,0.3)] hover:shadow-[0_15px_50px_rgba(10,22,40,0.5)] hover:-translate-y-1"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square mr-3 h-5 w-5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                 {{ $buttonText }}

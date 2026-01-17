@@ -32,15 +32,15 @@
     }
 @endphp
 
-<section id="why-us" class="py-24 bg-neutral-900 border-t border-white/5">
+<section id="why-us" class="py-24 bg-brand-navy-light border-t border-brand-accent/20">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
             {{-- Text Content --}}
             <div>
-                <span class="text-brand-gold font-semibold tracking-wider text-sm uppercase">{{ $subtitle }}</span>
+                <span class="text-brand-accent-light font-semibold tracking-wider text-sm uppercase">{{ $subtitle }}</span>
                 <h2 class="text-3xl md:text-5xl font-bold text-white mt-3 mb-8">{{ $heading }}</h2>
-                <p class="text-neutral-400 text-lg mb-10 leading-relaxed">
+                <p class="text-neutral-300 text-lg mb-10 leading-relaxed">
                     {{ $description }}
                 </p>
 
@@ -48,7 +48,7 @@
                     @foreach($items as $reason)
                         <div class="flex flex-col">
                             <div class="flex items-center mb-3 text-white font-semibold text-lg">
-                                <div class="text-brand-gold mr-3 h-5 w-5">
+                                <div class="text-brand-accent-light mr-3 h-5 w-5">
                                     @switch($reason['icon'])
                                         @case('ShieldCheck')
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
@@ -68,7 +68,7 @@
                                 </div>
                                 {{ $reason['title'] }}
                             </div>
-                            <p class="text-sm text-neutral-500 pl-8 leading-relaxed">
+                            <p class="text-sm text-neutral-400 pl-8 leading-relaxed">
                                 {{ $reason['text'] }}
                             </p>
                         </div>
@@ -84,7 +84,7 @@
                     class="w-full h-full object-cover opacity-80"
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-8">
-                    <div class="border-l-4 border-brand-gold pl-6">
+                    <div class="border-l-4 border-brand-accent-light pl-6">
                         <p class="text-white text-xl font-medium italic">{{ $quote }}</p>
                     </div>
                 </div>

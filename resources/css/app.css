@@ -71,10 +71,19 @@
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
 
-    --color-brand-gold: #D4AF37;
-    --color-brand-dark: #0A0A0A;
-    --color-brand-charcoal: #171717;
-    --color-brand-gray: #262626;
+    /* Premium Luxury (Navy & Gold) */
+    --color-brand-accent: #D4AF37;
+    /* Premium Gold */
+    --color-brand-dark: #0A1628;
+    /* Deep Navy */
+    --color-brand-charcoal: #1A1F2E;
+    /* Rich Charcoal */
+    --color-brand-gray: #2C3444;
+    /* Slate Gray */
+    --color-brand-accent-light: #E8C86D;
+    /* Light Gold */
+    --color-brand-navy-light: #1E2A3F;
+    /* Navy Light */
 }
 
 :root {
