@@ -53,9 +53,10 @@
         </div>
 
         @if(count($items) > 0)
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {{-- Mobile: Horizontal scroll, Desktop: Grid layout --}}
+            <div class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:overflow-visible md:mx-0 md:px-0 md:pb-0" style="scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch;">
                 @foreach($items as $index => $service)
-                    <div class="group p-8 bg-brand-charcoal border border-brand-accent/20 hover:border-brand-accent/50 transition-all duration-300 rounded-sm hover:-translate-y-1 hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] animate-fade-in-up" style="animation-delay: {{ $index * 100 }}ms">
+                    <div class="flex-shrink-0 w-[280px] snap-start md:w-auto md:flex-shrink group p-8 bg-brand-charcoal border border-brand-accent/20 hover:border-brand-accent/50 transition-all duration-300 rounded-sm hover:-translate-y-1 hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] animate-fade-in-up" style="animation-delay: {{ $index * 100 }}ms">
                         <div class="w-12 h-12 bg-brand-gray rounded-sm flex items-center justify-center mb-6 text-brand-accent-light group-hover:bg-brand-accent group-hover:text-brand-dark transition-colors">
                             @switch($service['icon'])
                                 @case('Mic2')

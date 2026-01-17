@@ -33,9 +33,10 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <h2 class="text-3xl md:text-4xl font-bold text-white mb-16 text-center">{{ $heading }}</h2>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {{-- Mobile: Horizontal scroll, Desktop: Grid layout --}}
+        <div class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:mx-0 md:px-0 md:pb-0" style="scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch;">
             @foreach($items as $item)
-                <div class="bg-brand-charcoal/50 p-8 rounded-sm border border-brand-accent/10 hover:border-brand-accent/30 transition-all relative">
+                <div class="flex-shrink-0 w-[80vw] snap-start md:w-auto md:flex-shrink bg-brand-charcoal/50 p-8 rounded-sm border border-brand-accent/10 hover:border-brand-accent/30 transition-all relative">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-quote absolute top-8 right-8 text-brand-accent-light/20 h-8 w-8"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1Z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1Z"/></svg>
                     <p class="text-neutral-300 italic mb-8 leading-relaxed">"{{ $item['text'] }}"</p>
                     <div class="border-t border-brand-accent/10 pt-6">
