@@ -2,10 +2,7 @@
 
 namespace App\Services;
 
-
-use App\Models\Rental;
 use App\Models\Setting;
-use App\Models\Supplier;
 
 class SeoService
 {
@@ -52,39 +49,6 @@ class SeoService
         ];
     }
 
-    /**
-     * Generate SEO data for a product.
-     */
-
-
-    /**
-     * Generate SEO data for an article.
-     */
-
-
-    /**
-     * Generate SEO data for a supplier.
-     */
-    public static function forSupplier(Supplier $supplier): array
-    {
-        $title = $supplier->meta_title ?: $supplier->name;
-        $description = $supplier->meta_description ?: $supplier->description;
-        $image = $supplier->og_image;
-        $url = self::makeAbsoluteUrl(route('suppliers.show', $supplier->slug));
-
-        $structuredData = [
-            self::generateOrganizationStructuredData(),
-        ];
-
-        return self::generate([
-            'title' => $title,
-            'description' => $description,
-            'image' => $image,
-            'url' => $url,
-            'type' => 'website',
-            'structuredData' => $structuredData,
-        ]);
-    }
 
     /**
      * Generate SEO data for home page.
@@ -112,105 +76,6 @@ class SeoService
         ]);
     }
 
-    /**
-     * Generate SEO data for products index.
-     */
-
-
-    /**
-     * Generate SEO data for articles index.
-     */
-
-
-    /**
-     * Generate SEO data for suppliers index.
-     */
-    public static function forSuppliersIndex(): array
-    {
-        $title = Setting::get('suppliers_meta_title') ?: 'Suppliers';
-        $description = Setting::get('suppliers_meta_description') ?: 'Find authorized PLSRental distributors, dealers, and partners near you, ensuring trusted service, genuine products, and professional audio solutions.';
-        $url = self::makeAbsoluteUrl(route('suppliers.index'));
-
-        $structuredData = [
-            self::generateOrganizationStructuredData(),
-        ];
-
-        return self::generate([
-            'title' => $title,
-            'description' => $description,
-            'url' => $url,
-            'type' => 'website',
-            'structuredData' => $structuredData,
-        ]);
-    }
-
-    /**
-     * Generate SEO data for a rental.
-     */
-    public static function forRental(Rental $rental): array
-    {
-        $title = $rental->meta_title ?: $rental->name;
-        $description = $rental->meta_description ?: $rental->description;
-        $image = $rental->og_image;
-        $url = self::makeAbsoluteUrl(route('rentals.show', $rental->slug));
-
-        $structuredData = [
-            self::generateOrganizationStructuredData(),
-        ];
-
-        return self::generate([
-            'title' => $title,
-            'description' => $description,
-            'image' => $image,
-            'url' => $url,
-            'type' => 'website',
-            'structuredData' => $structuredData,
-        ]);
-    }
-
-    /**
-     * Generate SEO data for rentals index.
-     */
-    public static function forRentalsIndex(): array
-    {
-        $title = Setting::get('rentals_meta_title') ?: 'Rentals';
-        $description = Setting::get('rentals_meta_description') ?: 'Find trusted PLSRental rental partners near you, offering professional loudspeaker systems and audio equipment for events, installations, and productions.';
-        $url = self::makeAbsoluteUrl(route('rentals.index'));
-
-        $structuredData = [
-            self::generateOrganizationStructuredData(),
-        ];
-
-        return self::generate([
-            'title' => $title,
-            'description' => $description,
-            'url' => $url,
-            'type' => 'website',
-            'structuredData' => $structuredData,
-        ]);
-    }
-
-    /**
-     * Generate SEO data for gallery page.
-     */
-    public static function forGallery(): array
-    {
-        $title = Setting::get('gallery_meta_title') ?: 'Gallery';
-        $description = Setting::get('gallery_meta_description') ?: 'View our product gallery and installations.';
-        $url = self::makeAbsoluteUrl(route('gallery.index'));
-
-        $structuredData = [
-            self::generateOrganizationStructuredData(),
-        ];
-
-        return self::generate([
-            'title' => $title,
-            'description' => $description,
-            'url' => $url,
-            'type' => 'website',
-            'structuredData' => $structuredData,
-        ]);
-    }
 
     /**
      * Generate SEO data for contact page.
