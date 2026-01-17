@@ -51,7 +51,7 @@ class PortfolioController extends Controller
             'finalCTA' => PageSection::getContent('home', 'finalCTA', [
                  'heading' => 'Siap Wujudkan Event Berkelas?',
                  'subheading' => 'Dapatkan penawaran terbaik...',
-                 'buttonText' => 'Jadwalkan Konsultasi',
+                 'buttonText' => 'Konsultasi Sekarang',
                  'buttonLink' => 'https://wa.me/6282257289604',
                  'phoneNumber' => '0822-5728-9604',
              ]),

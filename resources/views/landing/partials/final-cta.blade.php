@@ -1,7 +1,7 @@
 @php
     $heading = $finalCTA['heading'] ?? "Siap Wujudkan Event Berkelas?";
     $subheading = $finalCTA['subheading'] ?? "Dapatkan penawaran terbaik dan konsultasi teknis gratis untuk kesuksesan acara Anda. Respon cepat dan profesional.";
-    $buttonText = $finalCTA['buttonText'] ?? "Jadwalkan Konsultasi";
+    $buttonText = $finalCTA['buttonText'] ?? "Konsultasi Sekarang";
     $buttonLink = $finalCTA['buttonLink'] ?? "https://wa.me/6282257289604";
     $phoneNumber = $finalCTA['phoneNumber'] ?? "0822-5728-9604";
 @endphp

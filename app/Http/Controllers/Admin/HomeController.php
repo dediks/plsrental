@@ -690,7 +690,7 @@ class HomeController extends Controller
         return [
             'heading' => 'Siap Wujudkan Event Berkelas?',
             'subheading' => 'Dapatkan penawaran terbaik dan konsultasi teknis gratis untuk kesuksesan acara Anda. Respon cepat dan profesional.',
-            'buttonText' => 'Jadwalkan Konsultasi',
+            'buttonText' => 'Konsultasi Sekarang',
             'buttonLink' => 'https://wa.me/6282257289604',
             'phoneNumber' => '0822-5728-9604',
         ];
