@@ -3,14 +3,7 @@
     
     // Default clients list if not provided
     $clientsList = !empty($clients['logos']) ? $clients['logos'] : [
-        ['name' => 'Nusa Tekno', 'logo' => '/images/clients/nusa-tekno.svg'],
-        ['name' => 'Bangun Karya', 'logo' => '/images/clients/bangun-karya.svg'],
-        ['name' => 'Badan Publik Indonesia', 'logo' => '/images/clients/badan-publik.svg'],
-        ['name' => 'Harmoni Mart', 'logo' => '/images/clients/harmoni-mart.svg'],
-        ['name' => 'Modal Kilat', 'logo' => '/images/clients/modal-kilat.svg'],
-        ['name' => 'Industri Maju', 'logo' => '/images/clients/industri-maju.svg'],
-        ['name' => 'Sinyal Nusantara', 'logo' => '/images/clients/sinyal-nusantara.svg'],
-        ['name' => 'Pesona Hotel & Resort', 'logo' => '/images/clients/pesona-hotel.svg'],
+        ['name' => 'UAProfessional', 'logo' => '/images/clients/nusa-tekno.svg'],
     ];
     
     $heading = $clients['heading'] ?? 'Dipercaya Oleh';
@@ -44,7 +37,7 @@
                             <div class="w-full h-full flex items-center justify-center">
                                 @if(!empty($client['logo']))
                                     {{-- Display uploaded logo image --}}
-                                    <img src="{{ $client['logo'] }}" alt="{{ $client['name'] }}" class="max-w-full max-h-full object-contain filter brightness-0 invert opacity-80" />
+                                    <img src="{{ $client['logo'] }}" alt="{{ $client['name'] }}" class="max-w-full max-h-full object-contain opacity-80" />
                                 @else
                                     {{-- Fallback to text display --}}
                                     <svg class="w-full h-full" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
@@ -65,7 +58,7 @@
                             <div class="w-full h-full flex items-center justify-center">
                                 @if(!empty($client['logo']))
                                     {{-- Display uploaded logo image --}}
-                                    <img src="{{ $client['logo'] }}" alt="{{ $client['name'] }}" class="max-w-full max-h-full object-contain filter brightness-0 invert opacity-80" />
+                                    <img src="{{ $client['logo'] }}" alt="{{ $client['name'] }}" class="max-w-full max-h-full object-contain opacity-80" />
                                 @else
                                     {{-- Fallback to text display --}}
                                     <svg class="w-full h-full" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
@@ -97,7 +90,14 @@
     }
 
     .animate-marquee-slow {
-        animation: marquee-slow 60s linear infinite;
+        animation: marquee-slow 90s linear infinite;
+    }
+
+    /* Faster animation on larger screens */
+    @media (min-width: 768px) {
+        .animate-marquee-slow {
+            animation: marquee-slow 60s linear infinite;
+        }
     }
 
     /* Pause animation on hover */

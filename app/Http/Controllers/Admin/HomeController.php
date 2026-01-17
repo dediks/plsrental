@@ -109,11 +109,16 @@ class HomeController extends Controller
     public function updateClients(Request $request)
     {
         $validated = $request->validate([
-            'clients.heading' => 'nullable|string',
-            'clients.subheading' => 'nullable|string',
-            'clients.logos' => 'nullable|array',
-            'clients.logos.*.name' => 'nullable|string',
-            'clients.logos.*.logo' => 'nullable|string',
+            'clients.heading' => 'nullable|string|max:100',
+            'clients.subheading' => 'nullable|string|max:200',
+            'clients.logos' => 'nullable|array|max:20',
+            'clients.logos.*.name' => 'required|string|max:100',
+            'clients.logos.*.logo' => 'nullable|string|max:500',
+        ], [
+            'clients.logos.*.name.required' => 'Client name is required',
+            'clients.logos.*.name.max' => 'Client name must not exceed 100 characters',
+            'clients.logos.*.logo.max' => 'Logo URL must not exceed 500 characters',
+            'clients.logos.max' => 'Maximum 20 clients allowed',
         ]);
 
         $this->handleClientsMedia($validated);

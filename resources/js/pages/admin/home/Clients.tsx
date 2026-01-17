@@ -45,9 +45,14 @@ export default function Clients({ clients }: ClientsProps) {
     };
 
     const addClient = () => {
+        const currentLogos = data.clients.logos || [];
+        if (currentLogos.length >= 20) {
+            toastError('Maximum 20 clients allowed');
+            return;
+        }
         setData('clients', {
             ...data.clients,
-            logos: [...(data.clients.logos || []), { name: '', logo: '' }]
+            logos: [...currentLogos, { name: '', logo: '' }]
         });
     };
 
@@ -124,11 +129,21 @@ export default function Clients({ clients }: ClientsProps) {
                             {(data.clients.logos || []).map((client: any, index: number) => (
                                 <div key={index} className="flex gap-4 items-start border p-4 rounded-md">
                                     <div className="grid gap-3 flex-1">
-                                        <Input 
-                                            placeholder="Client Name" 
-                                            value={client.name || ''} 
-                                            onChange={e => updateClient(index, 'name', e.target.value)} 
-                                        />
+                                        <div>
+                                            <Input 
+                                                placeholder="Client Name *" 
+                                                value={client.name || ''} 
+                                                onChange={e => updateClient(index, 'name', e.target.value)} 
+                                                className={errors[`clients.logos.${index}.name`] ? 'border-destructive' : ''}
+                                                required
+                                                maxLength={100}
+                                            />
+                                            {errors[`clients.logos.${index}.name`] && (
+                                                <p className="text-sm text-destructive mt-1">
+                                                    {errors[`clients.logos.${index}.name`]}
+                                                </p>
+                                            )}
+                                        </div>
                                         <div>
                                             <label className="text-xs mb-1 block">Logo (optional)</label>
                                             <MediaSelector 
@@ -136,7 +151,16 @@ export default function Clients({ clients }: ClientsProps) {
                                                 onChange={items => updateClient(index, 'logo', items.length ? convertMediaItemToUrl(items[0]) : '')}
                                                 maxImages={1}
                                                 context="logo"
+                                                error={errors[`clients.logos.${index}.logo`]}
                                             />
+                                            <p className="text-xs text-muted-foreground mt-1">
+                                                Recommended: 400×200px or 2:1 ratio. Formats: SVG, PNG, WebP
+                                            </p>
+                                            {errors[`clients.logos.${index}.logo`] && (
+                                                <p className="text-sm text-destructive mt-1">
+                                                    {errors[`clients.logos.${index}.logo`]}
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
                                     <Button type="button" variant="destructive" size="icon" onClick={() => removeClient(index)}>
@@ -147,6 +171,9 @@ export default function Clients({ clients }: ClientsProps) {
                             <Button type="button" variant="outline" onClick={addClient}>
                                 <Plus className="mr-2 h-4 w-4" /> Add Client
                             </Button>
+                            {(data.clients.logos?.length || 0) >= 20 && (
+                                <p className="text-sm text-muted-foreground">Maximum 20 clients allowed</p>
+                            )}
                         </div>
                     </div>
 
