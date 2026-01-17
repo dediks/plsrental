@@ -12,9 +12,9 @@
             <img
                 src="{{ $backgroundImage }}"
                 alt="Premium Event Audio Setup"
-                class="w-full h-full object-cover opacity-80 grayscale"
+                class="w-full h-full object-cover opacity-90"
             />
-            <div class="absolute inset-0 bg-gradient-to-br from-brand-dark via-brand-charcoal/90 to-brand-navy-light/40"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-brand-dark via-brand-charcoal/90 md:to-transparent to-brand-navy-light/40"></div>
         </div>
     @endif
 
