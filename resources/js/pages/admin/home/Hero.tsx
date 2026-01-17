@@ -57,6 +57,11 @@ export default function Hero({ hero }: HeroProps) {
         return [convertUrlToMediaItem(data.hero.backgroundImage, 0, 999)];
     }, [data.hero.backgroundImage]);
 
+    const supportingBrandLogoItem = useMemo(() => {
+        if (!data.hero.supportingBrandLogo) return [];
+        return [convertUrlToMediaItem(data.hero.supportingBrandLogo, 0, 998)];
+    }, [data.hero.supportingBrandLogo]);
+
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
         put('/dashboard/admin/home/hero', {
@@ -110,6 +115,37 @@ export default function Hero({ hero }: HeroProps) {
                                 maxImages={1} 
                             />
                         </FormField>
+
+                        <div className="border-t pt-6 mt-6">
+                            <h3 className="text-lg font-semibold mb-4">Supporting Brand</h3>
+                            <p className="text-sm text-muted-foreground mb-4">Displays "Part of [Brand Name]" below the CTA buttons (e.g., UAProfessional)</p>
+                            
+                            <div className="space-y-4">
+                                <FormField label="Brand Name" name="hero.supportingBrandName" error={errors['hero.supportingBrandName']}>
+                                    <Input 
+                                        value={data.hero.supportingBrandName || ''} 
+                                        onChange={e => setData('hero', { ...data.hero, supportingBrandName: e.target.value })} 
+                                        placeholder="UAProfessional"
+                                    />
+                                </FormField>
+                                
+                                <FormField label="Brand Logo" name="hero.supportingBrandLogo" error={errors['hero.supportingBrandLogo']}>
+                                    <MediaSelector 
+                                        value={supportingBrandLogoItem} 
+                                        onChange={items => setData('hero', { ...data.hero, supportingBrandLogo: items.length ? convertMediaItemToUrl(items[0]) : '' })}
+                                        maxImages={1} 
+                                    />
+                                </FormField>
+                                
+                                <FormField label="Brand Link" name="hero.supportingBrandLink" error={errors['hero.supportingBrandLink']}>
+                                    <Input 
+                                        value={data.hero.supportingBrandLink || ''} 
+                                        onChange={e => setData('hero', { ...data.hero, supportingBrandLink: e.target.value })} 
+                                        placeholder="https://uaprofessional.com"
+                                    />
+                                </FormField>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="flex justify-end sticky bottom-0 bg-background pt-4 pb-4 border-t z-10">

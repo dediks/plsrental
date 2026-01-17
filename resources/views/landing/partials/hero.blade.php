@@ -3,6 +3,9 @@
     $subheading = $hero['subheading'] ?? "PLS menghadirkan solusi sound system premium dengan standar eksekusi tinggi untuk event korporat, instansi pemerintah, dan produksi skala besar. Tenang, rapi, dan profesional.";
     $backgroundImage = $hero['backgroundImage'] ?? null;
     $badgeText = $hero['badgeText'] ?? "Professional Audio Production";
+    $supportingBrandLogo = $hero['supportingBrandLogo'] ?? null;
+    $supportingBrandName = $hero['supportingBrandName'] ?? "UAProfessional";
+    $supportingBrandLink = $hero['supportingBrandLink'] ?? null;
 @endphp
 
 <section class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
@@ -48,6 +51,24 @@
                     Lihat Portfolio
                 </a>
             </div>
+
+            {{-- Supporting Brand --}}
+            @if($supportingBrandLogo)
+            <div class="mt-8 flex items-center gap-2 justify-center md:justify-start text-white/70">
+                <span class="text-sm">Part of</span>
+                @if($supportingBrandLink)
+                <a href="{{ $supportingBrandLink }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:text-white transition-colors">
+                    <img src="{{ $supportingBrandLogo }}" alt="{{ $supportingBrandName }}" class="h-6 w-auto" />
+                    <span class="text-sm">{{ $supportingBrandName }}</span>
+                </a>
+                @else
+                <span class="inline-flex items-center gap-2">
+                    <img src="{{ $supportingBrandLogo }}" alt="{{ $supportingBrandName }}" class="h-6 w-auto" />
+                    <span class="text-sm">{{ $supportingBrandName }}</span>
+                </span>
+                @endif
+            </div>
+            @endif
         </div>
     </div>
 </section>

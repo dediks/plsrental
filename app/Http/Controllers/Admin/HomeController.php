@@ -51,6 +51,9 @@ class HomeController extends Controller
             'hero.mobileSubheading' => 'nullable|string',
             'hero.showMobileHeading' => 'nullable|boolean',
             'hero.showMobileSubheading' => 'nullable|boolean',
+            'hero.supportingBrandLogo' => 'nullable|string',
+            'hero.supportingBrandName' => 'nullable|string',
+            'hero.supportingBrandLink' => 'nullable|string',
         ]);
 
         $this->handleHeroMedia($validated);
@@ -404,6 +407,13 @@ class HomeController extends Controller
         if (isset($heroSection->content['backgroundVideo'])) {
             $old = $heroSection->content['backgroundVideo'] ?? '';
             $new = $validated['hero']['backgroundVideo'] ?? '';
+            if ($old && $old !== $new) $this->deleteMediaByUrl($old);
+        }
+
+        // Supporting Brand Logo
+        if (isset($heroSection->content['supportingBrandLogo'])) {
+            $old = $heroSection->content['supportingBrandLogo'] ?? '';
+            $new = $validated['hero']['supportingBrandLogo'] ?? '';
             if ($old && $old !== $new) $this->deleteMediaByUrl($old);
         }
     }

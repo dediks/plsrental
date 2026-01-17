@@ -58,6 +58,9 @@ export interface HeroConfig {
     mobileSubheading?: string;
     showMobileHeading?: boolean;
     showMobileSubheading?: boolean;
+    supportingBrandLogo?: string;
+    supportingBrandName?: string;
+    supportingBrandLink?: string;
 }
 
 export interface AboutConfig {
