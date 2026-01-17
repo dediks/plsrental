@@ -3,7 +3,7 @@ import { type BreadcrumbItem } from '@/types';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { FileText, Package, Building2, Images, FolderTree, Image as ImageIcon, Home, Share2, Info, Settings, Mail, MessageSquare, KeyRound } from 'lucide-react';
+import { FileText, Package, Building2, Images, FolderTree, Image as ImageIcon, Home, Share2, Info, Settings, Mail, MessageSquare, KeyRound, LayoutGrid, BookOpen } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -15,10 +15,64 @@ const breadcrumbs: BreadcrumbItem[] = [
 // Organize sections to match the sidebar navigation structure
 const websiteContentSections = [
     {
-        title: 'Home Page',
-        description: 'Edit home page content',
-        href: '/dashboard/admin/home',
+        title: 'Hero',
+        description: 'Edit hero section content',
+        href: '/dashboard/admin/home/hero',
         icon: Home,
+    },
+    {
+        title: 'Stats',
+        description: 'Manage statistics display',
+        href: '/dashboard/admin/home/stats',
+        icon: LayoutGrid,
+    },
+    {
+        title: 'Clients',
+        description: 'Manage client logos',
+        href: '/dashboard/admin/home/clients',
+        icon: Building2,
+    },
+    {
+        title: 'Services',
+        description: 'Edit services section',
+        href: '/dashboard/admin/home/services',
+        icon: Package,
+    },
+    {
+        title: 'Why Choose',
+        description: 'Edit why choose us section',
+        href: '/dashboard/admin/home/why-choose',
+        icon: Info,
+    },
+    {
+        title: 'Portfolio',
+        description: 'Manage portfolio items',
+        href: '/dashboard/admin/home/portfolio',
+        icon: FolderTree,
+    },
+    {
+        title: 'Process',
+        description: 'Edit process steps',
+        href: '/dashboard/admin/home/process',
+        icon: BookOpen,
+    },
+    {
+        title: 'Testimonials',
+        description: 'Manage testimonials',
+        href: '/dashboard/admin/home/testimonials',
+        icon: MessageSquare,
+    },
+    {
+        title: 'Final CTA',
+        description: 'Edit final call to action',
+        href: '/dashboard/admin/home/final-cta',
+        icon: Mail,
+    },
+    {
+        title: 'Footer',
+        description: 'Edit footer content',
+        href: '/dashboard/admin/home/footer',
+        icon: FileText,
     },
 ];
 
