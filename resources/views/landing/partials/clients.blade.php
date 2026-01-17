@@ -25,7 +25,7 @@
             </div>
 
             {{-- Right: Marquee Container --}}
-            <div id="clients-scroll-container" class="relative overflow-x-auto flex-1 no-scrollbar group" style="scrollbar-width: none; -ms-overflow-style: none;">
+            <div id="clients-scroll-container" class="relative overflow-x-auto flex-1 w-full min-w-0 no-scrollbar group" style="scrollbar-width: none; -ms-overflow-style: none;">
                 <style>
                     #clients-scroll-container::-webkit-scrollbar {
                         display: none;
@@ -69,88 +69,152 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('clients-scroll-container');
-        if (!container) return;
+        const track = document.getElementById('clients-track');
+        if (!container || !track) return;
 
-        let scrollSpeed = 0.5;
+        // Animation state
+        const scrollSpeed = 0.8;
         let isPaused = false;
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-        let animationId;
+        let isDragging = false;
+        let isTouching = false;
+        let animationId = null;
+        let startX = 0;
+        let scrollLeftStart = 0;
+        let resumeTimeout = null;
+        let singleSetWidth = 0;
 
-        // --- Mouse Drag Logic ---
-        container.addEventListener('mousedown', (e) => {
-            isDown = true;
+        // Calculate single set width (we have 6 duplicated sets)
+        const totalSets = 6;
+        
+        function calculateDimensions() {
+            // Force layout recalculation
+            singleSetWidth = track.scrollWidth / totalSets;
+        }
+
+        // Core animation function
+        function animate() {
+            if (!isPaused && !isDragging && !isTouching && singleSetWidth > 0) {
+                container.scrollLeft += scrollSpeed;
+                
+                // Seamless loop: when we've scrolled past one set, jump back
+                if (container.scrollLeft >= singleSetWidth) {
+                    container.scrollLeft -= singleSetWidth;
+                }
+            }
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // Start/stop animation helpers
+        function startAnimation() {
+            if (animationId === null) {
+                calculateDimensions();
+                animationId = requestAnimationFrame(animate);
+            }
+        }
+
+        function stopAnimation() {
+            if (animationId !== null) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+        }
+
+        function pause() {
             isPaused = true;
-            container.classList.add('active:cursor-grabbing');
-            startX = e.pageX - container.offsetLeft;
-            scrollLeft = container.scrollLeft;
-            cancelAnimationFrame(animationId); // Stop auto-scroll immediately
+            if (resumeTimeout) {
+                clearTimeout(resumeTimeout);
+                resumeTimeout = null;
+            }
+        }
+
+        function resume(delay = 0) {
+            if (resumeTimeout) clearTimeout(resumeTimeout);
+            resumeTimeout = setTimeout(() => {
+                if (!isDragging && !isTouching) {
+                    isPaused = false;
+                }
+            }, delay);
+        }
+
+        // --- Hover Events (desktop only) ---
+        container.addEventListener('mouseenter', () => {
+            if (!isDragging && !isTouching) pause();
         });
 
         container.addEventListener('mouseleave', () => {
-            isDown = false;
-            isPaused = false;
-            requestAnimationFrame(autoScroll); // Resume
+            if (!isDragging && !isTouching) resume(100);
         });
 
-        container.addEventListener('mouseup', () => {
-            isDown = false;
-            // Delay resume slightly key for UX
-            setTimeout(() => {
-                if (!isDown) {
-                    isPaused = false;
-                    requestAnimationFrame(autoScroll); 
-                }
-            }, 500);
-        });
-
-        container.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - container.offsetLeft;
-            const walk = (x - startX) * 2; // Scroll-fast
-            container.scrollLeft = scrollLeft - walk;
-        });
-
-        // --- Touch Logic ---
-        container.addEventListener('touchstart', () => {
-            isPaused = true;
-            cancelAnimationFrame(animationId);
-        }, { passive: true });
-        
-        container.addEventListener('touchend', () => {
-            setTimeout(() => {
-                isPaused = false;
-                requestAnimationFrame(autoScroll);
-            }, 1000);
-        });
-
-        // --- Hover Pause ---
-        container.addEventListener('mouseenter', () => {
-            if (!isDown) isPaused = true;
-        });
-
-        // --- Infinite Scroll Logic ---
-        function autoScroll() {
-            if (!isPaused && !isDown) {
-                // We have 6 sets. Reset when we pass the first set.
-                // Estimating single set width based on total scrollWidth
-                const totalSets = 6;
-                const singleSetWidth = container.scrollWidth / totalSets;
-
-                if (container.scrollLeft >= singleSetWidth) {
-                    // Seamlessly jump back
-                    container.scrollLeft -= singleSetWidth;
-                } else {
-                    container.scrollLeft += scrollSpeed;
-                }
+        // --- Touch Events (mobile) ---
+        container.addEventListener('touchstart', (e) => {
+            isTouching = true;
+            pause();
+            if (e.touches.length > 0) {
+                startX = e.touches[0].pageX;
+                scrollLeftStart = container.scrollLeft;
             }
-            animationId = requestAnimationFrame(autoScroll);
-        }
+        }, { passive: true });
 
-        // Initialize
-        container.scrollLeft = 0;
-        animationId = requestAnimationFrame(autoScroll);
+        container.addEventListener('touchmove', (e) => {
+            if (!isTouching || e.touches.length === 0) return;
+            const x = e.touches[0].pageX;
+            const walk = (x - startX) * 1.2;
+            container.scrollLeft = scrollLeftStart - walk;
+        }, { passive: true });
+
+        container.addEventListener('touchend', () => {
+            isTouching = false;
+            resume(1500);
+        }, { passive: true });
+
+        // --- Mouse Drag (desktop) ---
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            pause();
+            startX = e.pageX;
+            scrollLeftStart = container.scrollLeft;
+            container.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX;
+            const walk = (x - startX) * 1.5;
+            container.scrollLeft = scrollLeftStart - walk;
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                container.style.cursor = 'grab';
+                resume(500);
+            }
+        });
+
+        // --- Wheel scroll (convert vertical to horizontal) ---
+        container.addEventListener('wheel', (e) => {
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+            e.preventDefault();
+            container.scrollLeft += e.deltaY;
+            pause();
+            resume(1500);
+        }, { passive: false });
+
+        // --- Handle resize ---
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                calculateDimensions();
+            }, 200);
+        });
+
+        // --- Initialize with delay to ensure DOM is ready ---
+        setTimeout(() => {
+            container.scrollLeft = 0;
+            calculateDimensions();
+            startAnimation();
+        }, 100);
     });
 </script>
