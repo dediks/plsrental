@@ -10,6 +10,19 @@
         {{-- Preconnect to Google Tag Manager for faster third-party script loading --}}
         <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+        <!-- Preload fonts to avoid render blocking -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+        
+        <noscript>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+        </noscript>
 
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>

@@ -1,7 +1,4 @@
-/* Import Inter font from Google Fonts - must be first */
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-/* Import Outfit font for headings */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+/* Fonts are imported in the layout file (landing.blade.php) to avoid render blocking */
 
 @import 'tailwindcss';
 
