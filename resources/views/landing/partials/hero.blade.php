@@ -20,7 +20,7 @@
 
     {{-- Content --}}
     <div class="relative lg:flex-1 z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center md:text-left pt-20">
-        <div class="max-w-3xl">
+        <div class="max-w-3xl animate-fade-in-up">
             <div class="inline-block px-3 py-1 mb-6 border border-brand-gold/30 rounded-full bg-brand-gold/10 backdrop-blur-sm">
                 <span class="text-xs font-semibold tracking-wider text-brand-gold uppercase">{{ $badgeText }}</span>
             </div>

@@ -38,7 +38,7 @@
 
             /* Critical CSS for LCP element - ensures h2 renders immediately */
             h2.text-foreground {
-                font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+                font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
                 font-size: 2rem;
                 line-height: 1.2;
                 font-weight: 600;

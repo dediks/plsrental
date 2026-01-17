@@ -1,9 +1,10 @@
 @php
+    $isHome = request()->routeIs('home');
     $navLinks = [
-        ['name' => 'Layanan', 'href' => route('home') . '#services'],
-        ['name' => 'Keunggulan', 'href' => route('home') . '#why-us'],
+        ['name' => 'Layanan', 'href' => $isHome ? '#services' : route('home') . '#services'],
+        ['name' => 'Keunggulan', 'href' => $isHome ? '#why-us' : route('home') . '#why-us'],
         ['name' => 'Portfolio', 'href' => route('portfolio.index')],
-        ['name' => 'Testimoni', 'href' => route('home') . '#testimonials'],
+        ['name' => 'Testimoni', 'href' => $isHome ? '#testimonials' : route('home') . '#testimonials'],
     ];
     
     // Use logo from settings if available, otherwise fallback
@@ -98,6 +99,44 @@
         const menuIcon = document.getElementById('menu-icon');
         const closeIcon = document.getElementById('close-icon');
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        const desktopNavLinks = document.querySelectorAll('.desktop-nav-link'); // Add class to desktop links too
+
+        // Smooth scroll implementation
+        const handleSmoothScroll = (e) => {
+            const link = e.currentTarget;
+            const url = new URL(link.href);
+
+            // Check if it's a link to the current page with a hash
+            if (url.origin === window.location.origin && 
+                url.pathname === window.location.pathname && 
+                url.hash) {
+                
+                const targetId = url.hash.substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    e.preventDefault();
+
+                    // Mobile menu closing logic
+                    if (!mobileMenu.classList.contains('hidden')) {
+                         mobileMenu.classList.add('hidden');
+                         menuIcon.classList.remove('hidden');
+                         closeIcon.classList.add('hidden');
+                    }
+
+                    // Smooth scroll
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Offset for header
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        };
+
+        // Attach scroll handler to all links with hashes
+        document.querySelectorAll('a[href*="#"]').forEach(link => {
+            link.addEventListener('click', handleSmoothScroll);
+        });
 
         // Scroll effect
         window.addEventListener('scroll', () => {
@@ -122,15 +161,6 @@
                 menuIcon.classList.remove('hidden');
                 closeIcon.classList.add('hidden');
             }
-        });
-
-        // Close mobile menu on link click
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                menuIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-            });
         });
     });
 </script>

@@ -54,8 +54,8 @@
 
         @if(count($items) > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @foreach($items as $service)
-                    <div class="group p-8 bg-brand-charcoal border border-white/5 hover:border-brand-gold/30 transition-all duration-300 rounded-sm hover:-translate-y-1">
+                @foreach($items as $index => $service)
+                    <div class="group p-8 bg-brand-charcoal border border-white/5 hover:border-brand-gold/30 transition-all duration-300 rounded-sm hover:-translate-y-1 animate-fade-in-up" style="animation-delay: {{ $index * 100 }}ms">
                         <div class="w-12 h-12 bg-neutral-800 rounded-sm flex items-center justify-center mb-6 text-brand-gold group-hover:bg-brand-gold group-hover:text-black transition-colors">
                             @switch($service['icon'])
                                 @case('Mic2')

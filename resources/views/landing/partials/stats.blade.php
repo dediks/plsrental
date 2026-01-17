@@ -15,8 +15,8 @@
 <section class="bg-brand-charcoal border-y border-white/5">
     <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-16">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center md:text-left">
-            @foreach($items as $stat)
-                <div class="flex flex-col">
+            @foreach($items as $index => $stat)
+                <div class="flex flex-col animate-fade-in-up" style="animation-delay: {{ $index * 100 }}ms">
                     <span class="text-3xl md:text-4xl font-bold text-white mb-1 tracking-tight">{{ $stat['value'] }}</span>
                     <span class="text-sm uppercase tracking-wide text-neutral-500 font-medium">{{ $stat['label'] }}</span>
                 </div>

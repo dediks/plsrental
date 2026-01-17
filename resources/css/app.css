@@ -1,5 +1,7 @@
-/* Import Manrope font from Google Fonts - must be first */
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+/* Import Inter font from Google Fonts - must be first */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+/* Import Outfit font for headings */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 @import 'tailwindcss';
 
@@ -10,102 +12,17 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Cormorant Garamond - Serif font for headings */
-/* Only load critical weight 600 initially - other weights loaded on demand */
-@font-face {
-    font-family: 'Cormorant Garamond';
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    /* Critical font - swap prevents blocking while allowing font to load */
-    src: url('../fonts/cormorant-garamond/cormorant-garamond-600.woff2') format('woff2');
-}
-
-/* Non-critical weights - loaded only when needed, won't block render */
-@font-face {
-    font-family: 'Cormorant Garamond';
-    font-style: normal;
-    font-weight: 400;
-    font-display: optional;
-    /* Won't block - only loads if already available */
-    src: url('../fonts/cormorant-garamond/cormorant-garamond-400.woff2') format('woff2');
-}
-
-@font-face {
-    font-family: 'Cormorant Garamond';
-    font-style: normal;
-    font-weight: 500;
-    font-display: optional;
-    src: url('../fonts/cormorant-garamond/cormorant-garamond-500.woff2') format('woff2');
-}
-
-@font-face {
-    font-family: 'Cormorant Garamond';
-    font-style: normal;
-    font-weight: 700;
-    font-display: optional;
-    src: url('../fonts/cormorant-garamond/cormorant-garamond-700.woff2') format('woff2');
-}
-
-/* Montserrat - Sans-serif font for body text */
-/* Critical weights load with swap, non-critical with optional to reduce blocking */
-@font-face {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    /* Critical - body text, swap prevents blocking */
-    src: url('../fonts/montserrat/montserrat-400.woff2') format('woff2');
-}
-
-@font-face {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    /* Critical - semibold used frequently, swap prevents blocking */
-    src: url('../fonts/montserrat/montserrat-600.woff2') format('woff2');
-}
-
-/* Non-critical weights - won't block render, may cause minor layout shift */
-@font-face {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 300;
-    font-display: optional;
-    /* Only used occasionally */
-    src: url('../fonts/montserrat/montserrat-300.woff2') format('woff2');
-}
-
-@font-face {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 500;
-    font-display: swap;
-    /* font-medium banyak digunakan, ubah ke swap */
-    src: url('../fonts/montserrat/montserrat-500.woff2') format('woff2');
-}
-
-@font-face {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 700;
-    font-display: optional;
-    /* Only used occasionally */
-    src: url('../fonts/montserrat/montserrat-700.woff2') format('woff2');
-}
-
 @theme {
     --font-sans:
-        'Manrope', ui-sans-serif, system-ui, sans-serif,
+        'Inter', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
 
     --font-serif:
-        'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+        'Outfit', ui-sans-serif, system-ui, sans-serif;
 
     --font-body:
-        'Manrope', ui-sans-serif, system-ui, sans-serif;
+        'Inter', ui-sans-serif, system-ui, sans-serif;
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -480,15 +397,11 @@
         display: none;
     }
 
-    /* Smooth scroll behavior - disable on mobile for better performance */
+    /* Smooth scroll behavior - enabled globally */
     html {
         scroll-behavior: smooth;
-    }
-
-    @media (max-width: 768px) {
-        html {
-            scroll-behavior: auto;
-        }
+        scroll-padding-top: 80px;
+        /* Offset for fixed header */
     }
 
     /* Respect reduced motion preference */

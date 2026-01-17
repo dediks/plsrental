@@ -44,8 +44,8 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @foreach($items as $item)
-                <div class="group relative overflow-hidden rounded-sm cursor-pointer">
+            @foreach($items as $index => $item)
+                <div class="group relative overflow-hidden rounded-sm cursor-pointer animate-fade-in-up" style="animation-delay: {{ $index * 100 }}ms">
                     <div class="aspect-[4/3] w-full bg-neutral-800">
                         <img 
                             src="{{ $item['imageUrl'] }}" 
