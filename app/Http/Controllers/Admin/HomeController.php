@@ -94,6 +94,39 @@ class HomeController extends Controller
             ->with('success', 'Stats section updated successfully.');
     }
 
+    // Clients Section
+    public function editClients()
+    {
+        $section = PageSection::where('page', 'home')
+            ->where('section_key', 'clients')
+            ->first();
+
+        return Inertia::render('admin/home/Clients', [
+            'clients' => $section?->content ?? $this->getDefaultClients(),
+        ]);
+    }
+
+    public function updateClients(Request $request)
+    {
+        $validated = $request->validate([
+            'clients.heading' => 'nullable|string',
+            'clients.subheading' => 'nullable|string',
+            'clients.logos' => 'nullable|array',
+            'clients.logos.*.name' => 'nullable|string',
+            'clients.logos.*.logo' => 'nullable|string',
+        ]);
+
+        $this->handleClientsMedia($validated);
+
+        PageSection::updateOrCreate(
+            ['page' => 'home', 'section_key' => 'clients'],
+            ['content' => $validated['clients'], 'is_enabled' => true]
+        );
+
+        return redirect()->route('admin.home.clients.edit')
+            ->with('success', 'Clients section updated successfully.');
+    }
+
     // Services Section
     public function editServices()
     {
@@ -400,6 +433,25 @@ class HomeController extends Controller
         }
     }
 
+    private function handleClientsMedia(array $validated): void
+    {
+        $section = PageSection::where('page', 'home')->where('section_key', 'clients')->first();
+        if (!$section) return;
+
+        if (isset($section->content['logos']) && isset($validated['clients']['logos'])) {
+            $oldLogos = $section->content['logos'] ?? [];
+            $newLogos = $validated['clients']['logos'] ?? [];
+            
+            $oldUrls = array_column($oldLogos, 'logo');
+            $newUrls = array_column($newLogos, 'logo');
+            
+            $removedUrls = array_diff($oldUrls, $newUrls);
+            foreach ($removedUrls as $removedUrl) {
+                if ($removedUrl) $this->deleteMediaByUrl($removedUrl);
+            }
+        }
+    }
+
     private function handleLegacyMedia(array $validated): void
     {
         // About Image
@@ -461,6 +513,24 @@ class HomeController extends Controller
                 ['label' => "Event Sukses", 'value' => "500+"],
                 ['label' => "Klien Korporat & Instansi", 'value' => "200+"],
                 ['label' => "Keandalan Teknis", 'value' => "100%"],
+            ],
+        ];
+    }
+
+    private function getDefaultClients(): array
+    {
+        return [
+            'heading' => 'Dipercaya Oleh',
+            'subheading' => 'Klien Korporat & Instansi Terkemuka',
+            'logos' => [
+                ['name' => 'Nusa Tekno', 'logo' => ''],
+                ['name' => 'Bangun Karya', 'logo' => ''],
+                ['name' => 'Badan Publik Indonesia', 'logo' => ''],
+                ['name' => 'Harmoni Mart', 'logo' => ''],
+                ['name' => 'Modal Kilat', 'logo' => ''],
+                ['name' => 'Industri Maju', 'logo' => ''],
+                ['name' => 'Sinyal Nusantara', 'logo' => ''],
+                ['name' => 'Pesona Hotel & Resort', 'logo' => ''],
             ],
         ];
     }

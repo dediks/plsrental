@@ -4,6 +4,9 @@
     {{-- Hero Section --}}
     @include('landing.partials.hero', ['hero' => $hero ?? []])
 
+    {{-- Clients Section --}}
+    @include('landing.partials.clients', ['clients' => $clients ?? []])
+
     {{-- Stats Section --}}
     @include('landing.partials.stats', ['stats' => $stats ?? []])
 

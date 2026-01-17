@@ -12,7 +12,7 @@ import { Plus, Trash2 } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import { toastSuccess, toastError } from '@/lib/toast';
-import { HomeProps, HeroConfig, StatsConfig, ServicesConfig, WhyChooseConfig, PortfolioConfig, ProcessConfig, TestimonialsConfig, FinalCTAConfig, FooterConfig, AboutConfig, PartnersConfig } from '@/types/home';
+import { HomeProps, HeroConfig, StatsConfig, ClientsConfig, ServicesConfig, WhyChooseConfig, PortfolioConfig, ProcessConfig, TestimonialsConfig, FinalCTAConfig, FooterConfig, AboutConfig, PartnersConfig } from '@/types/home';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
@@ -26,6 +26,7 @@ type EditProps = HomeProps;
 interface HomeFormData {
     hero: HeroConfig;
     stats: StatsConfig;
+    clients: ClientsConfig;
     services: ServicesConfig;
     whyChoose: WhyChooseConfig;
     portfolio: PortfolioConfig;
@@ -57,13 +58,14 @@ interface VideoItem {
 }
 
 export default function Edit({ 
-    hero, stats, services, whyChoose, portfolio, process, testimonials, finalCTA, footer, about, partners 
+    hero, stats, clients, services, whyChoose, portfolio, process, testimonials, finalCTA, footer, about, partners 
 }: EditProps) {
     const [activeSection, setActiveSection] = useState<string>('hero');
 
     const { data, setData, put, processing, errors } = useForm<HomeFormData>({
         hero: hero || {},
         stats: stats || {},
+        clients: clients || {},
         services: services || {},
         whyChoose: whyChoose || {},
         portfolio: portfolio || {},
@@ -148,6 +150,7 @@ export default function Edit({
     const sections = [
         { key: 'hero', label: 'Hero' },
         { key: 'stats', label: 'Stats' },
+        { key: 'clients', label: 'Clients' },
         { key: 'services', label: 'Services' },
         { key: 'whyChoose', label: 'Why Choose' },
         { key: 'portfolio', label: 'Portfolio' },
@@ -267,6 +270,56 @@ export default function Edit({
                                 ))}
                                 <Button type="button" variant="outline" onClick={() => addItem('stats', 'items', { label: '', value: '' })}>
                                     <Plus className="mr-2 h-4 w-4" /> Add Stat
+                                </Button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Clients Section */}
+                    {activeSection === 'clients' && (
+                        <div className="space-y-6">
+                            <FormField label="Heading" name="clients.heading">
+                                <Input 
+                                    value={data.clients.heading || ''} 
+                                    onChange={e => setData('clients', { ...data.clients, heading: e.target.value })} 
+                                    placeholder="Dipercaya Oleh"
+                                />
+                            </FormField>
+                            <FormField label="Subheading" name="clients.subheading">
+                                <Input 
+                                    value={data.clients.subheading || ''} 
+                                    onChange={e => setData('clients', { ...data.clients, subheading: e.target.value })} 
+                                    placeholder="Klien Korporat & Instansi Terkemuka"
+                                />
+                            </FormField>
+
+                            <div className="space-y-4">
+                                <h3 className="font-semibold">Client Logos</h3>
+                                {(data.clients.logos || []).map((client: any, index: number) => (
+                                    <div key={index} className="flex gap-4 items-start border p-4 rounded-md">
+                                        <div className="grid gap-3 flex-1">
+                                            <Input 
+                                                placeholder="Client Name" 
+                                                value={client.name || ''} 
+                                                onChange={e => updateItem('clients', 'logos', index, 'name', e.target.value)} 
+                                            />
+                                            <div>
+                                                <label className="text-xs mb-1 block">Logo (optional)</label>
+                                                <MediaSelector 
+                                                    value={client.logo ? [convertUrlToMediaItem(client.logo, 0, 7000 + index)] : []}
+                                                    onChange={items => updateItem('clients', 'logos', index, 'logo', items.length ? convertMediaItemToUrl(items[0]) : '')}
+                                                    maxImages={1}
+                                                    context="logo"
+                                                />
+                                            </div>
+                                        </div>
+                                        <Button type="button" variant="destructive" size="icon" onClick={() => removeItem('clients', 'logos', index)}>
+                                            <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                    </div>
+                                ))}
+                                <Button type="button" variant="outline" onClick={() => addItem('clients', 'logos', { name: '', logo: '' })}>
+                                    <Plus className="mr-2 h-4 w-4" /> Add Client
                                 </Button>
                             </div>
                         </div>

@@ -75,6 +75,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('home/stats', [AdminHomeController::class, 'editStats'])->name('home.stats.edit');
         Route::put('home/stats', [AdminHomeController::class, 'updateStats'])->name('home.stats.update');
         
+        Route::get('home/clients', [AdminHomeController::class, 'editClients'])->name('home.clients.edit');
+        Route::put('home/clients', [AdminHomeController::class, 'updateClients'])->name('home.clients.update');
+        
         Route::get('home/services', [AdminHomeController::class, 'editServices'])->name('home.services.edit');
         Route::put('home/services', [AdminHomeController::class, 'updateServices'])->name('home.services.update');
         

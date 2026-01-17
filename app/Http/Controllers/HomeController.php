@@ -40,6 +40,21 @@ class HomeController extends Controller
             ],
         ]);
 
+        $clients = PageSection::getContent('home', 'clients', [
+            'heading' => 'Dipercaya Oleh',
+            'subheading' => null,
+            'logos' => [
+                ['name' => 'Nusa Tekno'],
+                ['name' => 'Bangun Karya'],
+                ['name' => 'Badan Publik Indonesia'],
+                ['name' => 'Harmoni Mart'],
+                ['name' => 'Modal Kilat'],
+                ['name' => 'Industri Maju'],
+                ['name' => 'Sinyal Nusantara'],
+                ['name' => 'Pesona Hotel & Resort'],
+            ],
+        ]);
+
         $services = PageSection::getContent('home', 'services', [
             'heading' => 'Solusi Audio Terintegrasi',
             'subheading' => 'Kami menyediakan lebih dari sekadar peralatan. PLS memberikan ketenangan pikiran melalui layanan teknis yang komprehensif.',
@@ -125,6 +140,7 @@ class HomeController extends Controller
         return [
             'hero' => $hero,
             'stats' => $stats,
+            'clients' => $clients,
             'services' => $services,
             'whyChoose' => $whyChoose,
             'portfolio' => $portfolio,

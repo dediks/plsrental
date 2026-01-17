@@ -184,6 +184,17 @@ export interface SocialLinks {
     linkedin?: string;
 }
 
+export interface ClientLogoDef {
+    name: string;
+    logo?: string;
+}
+
+export interface ClientsConfig {
+    heading?: string;
+    subheading?: string;
+    logos?: ClientLogoDef[];
+}
+
 export interface FooterConfig {
     brandName?: string;
     brandSubtitle?: string;
@@ -206,6 +217,7 @@ export interface HomeProps {
     about: AboutConfig; // Keeping for backward compatibility if needed, though replaced
     partners: PartnersConfig; // Keeping for backward compatibility
     stats?: StatsConfig;
+    clients?: ClientsConfig;
     services?: ServicesConfig;
     whyChoose?: WhyChooseConfig;
     portfolio?: PortfolioConfig;

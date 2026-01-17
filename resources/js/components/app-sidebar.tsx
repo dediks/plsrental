@@ -48,6 +48,11 @@ const homepageManagementItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
+        title: 'Clients',
+        href: '/dashboard/admin/home/clients',
+        icon: Building2,
+    },
+    {
         title: 'Services',
         href: '/dashboard/admin/home/services',
         icon: Package,
