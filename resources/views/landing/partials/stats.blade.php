@@ -13,12 +13,12 @@
 @endphp
 
 <section class="bg-brand-charcoal border-y border-brand-accent/20">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-16">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center md:text-left">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12 text-center md:text-left">
             @foreach($items as $index => $stat)
-                <div class="flex flex-col animate-fade-in-up" style="animation-delay: {{ $index * 100 }}ms">
-                    <span class="text-3xl md:text-4xl font-bold text-white mb-1 tracking-tight">{{ $stat['value'] }}</span>
-                    <span class="text-sm uppercase tracking-wide text-brand-accent-light font-medium">{{ $stat['label'] }}</span>
+                <div class="flex flex-col justify-center animate-fade-in-up" style="animation-delay: {{ $index * 100 }}ms">
+                    <span class="text-4xl sm:text-5xl md:text-4xl font-bold text-white mb-2 tracking-tight">{{ $stat['value'] }}</span>
+                    <span class="text-xs sm:text-sm uppercase tracking-wide text-brand-accent-light font-medium leading-relaxed px-1">{{ $stat['label'] }}</span>
                 </div>
             @endforeach
         </div>

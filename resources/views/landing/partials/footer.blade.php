@@ -109,9 +109,9 @@
 
         <div class="border-t border-brand-accent/10 pt-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500">
             <p>&copy; {{ date('Y') }} {{ $brandName }} {{ $brandSubtitle }}. All rights reserved.</p>
-            <div class="flex space-x-6 mt-4 md:mt-0">
-                <a href="#" class="hover:text-brand-accent-light">Privacy Policy</a>
-                <a href="#" class="hover:text-brand-accent-light">Terms of Service</a>
+            <div class="flex items-center mt-2 space-x-1">
+                <span>Designed by</span>
+                <a href="https://kodingus.com" target="_blank" rel="nofollow" class="hover:text-brand-accent-light">kodingus</a>
             </div>
         </div>
     </div>
