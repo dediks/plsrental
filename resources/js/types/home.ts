@@ -190,6 +190,7 @@ export interface ClientLogoDef {
 }
 
 export interface ClientsConfig {
+    showClients?: boolean;
     heading?: string;
     subheading?: string;
     logos?: ClientLogoDef[];

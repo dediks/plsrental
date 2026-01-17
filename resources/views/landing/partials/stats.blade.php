@@ -12,6 +12,7 @@
     }
 @endphp
 
+@if($stats['showStats'] ?? false)
 <section class="bg-brand-charcoal border-y border-brand-accent/20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12 text-center md:text-left">
@@ -24,3 +25,4 @@
         </div>
     </div>
 </section>
+@endif

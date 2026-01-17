@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { FormField } from '@/components/admin/FormField';
 import { MediaSelector } from '@/components/admin/MediaSelector';
+import { Switch } from '@/components/ui/switch';
 import { Plus, Trash2 } from 'lucide-react';
 import { toastSuccess, toastError } from '@/lib/toast';
 import { ClientsConfig } from '@/types/home';
@@ -109,6 +110,14 @@ export default function Clients({ clients }: ClientsProps) {
 
                 <form onSubmit={submit} className="space-y-6">
                     <div className="space-y-6">
+                        <div className="flex items-center space-x-2">
+                            <Switch 
+                                checked={data.clients.showClients ?? true} 
+                                onCheckedChange={c => setData('clients', { ...data.clients, showClients: c })} 
+                            />
+                            <span>Show Clients Section</span>
+                        </div>
+                        
                         <FormField label="Heading" name="clients.heading">
                             <Input 
                                 value={data.clients.heading || ''} 

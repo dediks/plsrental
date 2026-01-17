@@ -10,6 +10,7 @@
     $subheading = $clients['subheading'] ?? null;
 @endphp
 
+@if($clients['showClients'] ?? false)
 <section class="py-12 md:py-16 bg-gradient-to-b from-brand-dark via-brand-charcoal/30 to-brand-dark relative overflow-hidden">
     {{-- Subtle decorative glow --}}
     <div class="absolute inset-0 bg-gradient-to-r from-transparent via-brand-accent/5 to-transparent pointer-events-none"></div>
@@ -77,6 +78,7 @@
         </div>
     </div>
 </section>
+@endif
 
 <style>
     /* Marquee animation - smooth infinite scroll */

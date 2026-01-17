@@ -109,6 +109,7 @@ class HomeController extends Controller
     public function updateClients(Request $request)
     {
         $validated = $request->validate([
+            'clients.showClients' => 'nullable|boolean',
             'clients.heading' => 'nullable|string|max:100',
             'clients.subheading' => 'nullable|string|max:200',
             'clients.logos' => 'nullable|array|max:20',
@@ -525,6 +526,7 @@ class HomeController extends Controller
     private function getDefaultClients(): array
     {
         return [
+            'showClients' => true,
             'heading' => 'Dipercaya Oleh',
             'subheading' => 'Klien Korporat & Instansi Terkemuka',
             'logos' => [
