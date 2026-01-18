@@ -77,7 +77,7 @@
             </div>
 
             {{-- Image/Visual --}}
-            <div class="relative h-[500px] w-full bg-neutral-800 rounded-sm overflow-hidden">
+            <div class="relative h-[350px] md:h-[450px] lg:h-[500px] -mx-6 lg:mx-0 w-[calc(100%+3rem)] lg:w-full bg-neutral-800 rounded-none lg:rounded-sm overflow-hidden">
                 <img 
                     src="{{ $image }}"
                     alt="Sound Engineer Working" 
