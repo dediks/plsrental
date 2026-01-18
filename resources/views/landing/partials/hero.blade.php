@@ -1,10 +1,10 @@
 @php
-    $heading = $hero['heading'] ?? "Kualitas Suara Tanpa Kompromi.";
-    $subheading = $hero['subheading'] ?? "PLS menghadirkan solusi sound system premium dengan standar eksekusi tinggi untuk event korporat, instansi pemerintah, dan produksi skala besar. Tenang, rapi, dan profesional.";
+    $heading = $hero['heading'] ?? null;
+    $subheading = $hero['subheading'] ?? null;
     $backgroundImage = $hero['backgroundImage'] ?? null;
-    $badgeText = $hero['badgeText'] ?? "Professional Audio Production";
+    $badgeText = $hero['badgeText'] ?? null;
     $supportingBrandLogo = $hero['supportingBrandLogo'] ?? null;
-    $supportingBrandName = $hero['supportingBrandName'] ?? "UAProfessional";
+    $supportingBrandName = $hero['supportingBrandName'] ?? null;
     $supportingBrandLink = $hero['supportingBrandLink'] ?? null;
     $secondaryBrandLogo = $hero['secondaryBrandLogo'] ?? null;
     $secondaryBrandName = $hero['secondaryBrandName'] ?? null;
