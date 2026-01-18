@@ -62,6 +62,11 @@ export default function Hero({ hero }: HeroProps) {
         return [convertUrlToMediaItem(data.hero.supportingBrandLogo, 0, 998)];
     }, [data.hero.supportingBrandLogo]);
 
+    const secondaryBrandLogoItem = useMemo(() => {
+        if (!data.hero.secondaryBrandLogo) return [];
+        return [convertUrlToMediaItem(data.hero.secondaryBrandLogo, 0, 997)];
+    }, [data.hero.secondaryBrandLogo]);
+
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
         put('/dashboard/admin/home/hero', {
@@ -142,6 +147,29 @@ export default function Hero({ hero }: HeroProps) {
                                         value={data.hero.supportingBrandLink || ''} 
                                         onChange={e => setData('hero', { ...data.hero, supportingBrandLink: e.target.value })} 
                                         placeholder="https://uaprofessional.com"
+                                    />
+                                </FormField>
+                            </div>
+                        </div>
+
+                        <div className="border-t pt-6 mt-6">
+                            <h3 className="text-lg font-semibold mb-4">Secondary Brand (Partner)</h3>
+                            <p className="text-sm text-muted-foreground mb-4">Displays after the "x" separator next to the supporting brand</p>
+                            
+                            <div className="space-y-4">
+                                <FormField label="Brand Name" name="hero.secondaryBrandName" error={errors['hero.secondaryBrandName']}>
+                                    <Input 
+                                        value={data.hero.secondaryBrandName || ''} 
+                                        onChange={e => setData('hero', { ...data.hero, secondaryBrandName: e.target.value })} 
+                                        placeholder="Partner Brand"
+                                    />
+                                </FormField>
+                                
+                                <FormField label="Brand Logo" name="hero.secondaryBrandLogo" error={errors['hero.secondaryBrandLogo']}>
+                                    <MediaSelector 
+                                        value={secondaryBrandLogoItem} 
+                                        onChange={items => setData('hero', { ...data.hero, secondaryBrandLogo: items.length ? convertMediaItemToUrl(items[0]) : '' })}
+                                        maxImages={1} 
                                     />
                                 </FormField>
                             </div>

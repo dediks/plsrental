@@ -54,6 +54,8 @@ class HomeController extends Controller
             'hero.supportingBrandLogo' => 'nullable|string',
             'hero.supportingBrandName' => 'nullable|string',
             'hero.supportingBrandLink' => 'nullable|string',
+            'hero.secondaryBrandLogo' => 'nullable|string',
+            'hero.secondaryBrandName' => 'nullable|string',
         ]);
 
         $this->handleHeroMedia($validated);
@@ -414,6 +416,13 @@ class HomeController extends Controller
         if (isset($heroSection->content['supportingBrandLogo'])) {
             $old = $heroSection->content['supportingBrandLogo'] ?? '';
             $new = $validated['hero']['supportingBrandLogo'] ?? '';
+            if ($old && $old !== $new) $this->deleteMediaByUrl($old);
+        }
+
+        // Secondary Brand Logo
+        if (isset($heroSection->content['secondaryBrandLogo'])) {
+            $old = $heroSection->content['secondaryBrandLogo'] ?? '';
+            $new = $validated['hero']['secondaryBrandLogo'] ?? '';
             if ($old && $old !== $new) $this->deleteMediaByUrl($old);
         }
     }

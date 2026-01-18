@@ -61,6 +61,8 @@ export interface HeroConfig {
     supportingBrandLogo?: string;
     supportingBrandName?: string;
     supportingBrandLink?: string;
+    secondaryBrandLogo?: string;
+    secondaryBrandName?: string;
 }
 
 export interface AboutConfig {

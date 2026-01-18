@@ -6,6 +6,8 @@
     $supportingBrandLogo = $hero['supportingBrandLogo'] ?? null;
     $supportingBrandName = $hero['supportingBrandName'] ?? "UAProfessional";
     $supportingBrandLink = $hero['supportingBrandLink'] ?? null;
+    $secondaryBrandLogo = $hero['secondaryBrandLogo'] ?? null;
+    $secondaryBrandName = $hero['secondaryBrandName'] ?? null;
 @endphp
 
 <section class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
@@ -54,17 +56,24 @@
 
             {{-- Supporting Brand --}}
             @if($supportingBrandLogo)
-            <div class="mt-8 flex items-center gap-2 justify-center md:justify-start text-white/70">
-                <span class="text-sm">Part of</span>
+            <div class="mt-8 flex items-center gap-2 justify-center md:justify-start text-neutral-400">
+                <span class="text-sm font-light">Supported by</span>
                 @if($supportingBrandLink)
-                <a href="{{ $supportingBrandLink }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:text-white transition-colors">
-                    <img src="{{ $supportingBrandLogo }}" alt="{{ $supportingBrandName }}" class="h-6 w-auto" />
+                <a href="{{ $supportingBrandLink }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-neutral-300 hover:text-white transition-colors">
+                    <img src="{{ $supportingBrandLogo }}" alt="{{ $supportingBrandName }}" class="h-5 w-auto" />
                     <span class="text-sm">{{ $supportingBrandName }}</span>
                 </a>
                 @else
-                <span class="inline-flex items-center gap-2">
-                    <img src="{{ $supportingBrandLogo }}" alt="{{ $supportingBrandName }}" class="h-6 w-auto" />
+                <span class="inline-flex items-center gap-1.5 text-neutral-300">
+                    <img src="{{ $supportingBrandLogo }}" alt="{{ $supportingBrandName }}" class="h-5 w-auto" />
                     <span class="text-sm">{{ $supportingBrandName }}</span>
+                </span>
+                @endif
+                @if($secondaryBrandLogo)
+                <span class="text-neutral-500">&</span>
+                <span class="inline-flex items-center gap-1.5 text-neutral-300">
+                    <img src="{{ $secondaryBrandLogo }}" alt="{{ $secondaryBrandName }}" class="h-5 w-auto" />
+                    <span class="text-sm">{{ $secondaryBrandName }}</span>
                 </span>
                 @endif
             </div>
