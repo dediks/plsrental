@@ -30,6 +30,16 @@ class HomeController extends Controller
             'backgroundImage' => Setting::getMediaUrl('hero_background_image', '/images/hero/hero-background.jpg'),
         ]);
 
+        // Format hero background image with responsive data
+        if (!empty($hero['backgroundImage'])) {
+            $formattedBg = $this->formatImageWithResponsive([
+                'image' => $hero['backgroundImage'],
+                'alt' => 'Hero Background',
+            ]);
+            if (isset($formattedBg['image'])) $hero['backgroundImage'] = $formattedBg['image'];
+            if (isset($formattedBg['srcset'])) $hero['backgroundImageSrcset'] = $formattedBg['srcset'];
+        }
+
         $stats = PageSection::getContent('home', 'stats', [
             'showStats' => true,
             'items' => [
@@ -54,6 +64,20 @@ class HomeController extends Controller
                 ['name' => 'Pesona Hotel & Resort'],
             ],
         ]);
+
+        // Format client logos with responsive data
+        if (!empty($clients['logos'])) {
+            foreach ($clients['logos'] as &$client) {
+                if (!empty($client['logo'])) {
+                    $formattedLogo = $this->formatImageWithResponsive([
+                        'image' => $client['logo'],
+                        'alt' => $client['name'] ?? '',
+                    ]);
+                    if (isset($formattedLogo['image'])) $client['logo'] = $formattedLogo['image'];
+                    if (isset($formattedLogo['srcset'])) $client['srcset'] = $formattedLogo['srcset'];
+                }
+            }
+        }
 
         $services = PageSection::getContent('home', 'services', [
             'heading' => 'Solusi Audio Terintegrasi',

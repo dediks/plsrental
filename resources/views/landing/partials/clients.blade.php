@@ -44,7 +44,18 @@
                                 <div class="w-full h-full flex items-center justify-center pointer-events-none">
                                     @if(!empty($client['logo']))
                                         {{-- Display uploaded logo image --}}
-                                        <img src="{{ $client['logo'] }}" alt="{{ $client['name'] }}" class="max-w-full max-h-full object-contain opacity-80" />
+                                        @php
+                                            $clientSrcset = $client['srcset'] ?? '';
+                                        @endphp
+                                        <img 
+                                            src="{{ $client['logo'] }}" 
+                                            @if($clientSrcset)
+                                            srcset="{{ $clientSrcset }}"
+                                            sizes="(max-width: 768px) 128px, 192px"
+                                            @endif
+                                            alt="{{ $client['name'] }}" 
+                                            class="max-w-full max-h-full object-contain opacity-80" 
+                                        />
                                     @else
                                         {{-- Fallback to text display --}}
                                         <svg class="w-full h-full" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">

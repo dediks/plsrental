@@ -13,9 +13,16 @@
 <section class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
     {{-- Background Image with Overlay --}}
     @if($backgroundImage)
+        @php
+            $backgroundSrcset = $hero['backgroundImageSrcset'] ?? '';
+        @endphp
         <div class="absolute inset-0 z-0">
             <img
                 src="{{ $backgroundImage }}"
+                @if($backgroundSrcset)
+                srcset="{{ $backgroundSrcset }}"
+                sizes="100vw"
+                @endif
                 alt="Premium Event Audio Setup"
                 class="w-full h-full object-cover opacity-90"
             />
