@@ -49,7 +49,7 @@
                     href="{{ $consultationLink }}"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="px-5 py-2.5 text-sm font-semibold text-brand-dark bg-brand-accent hover:bg-brand-accent-light transition-all rounded-sm shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]"
+                    class="bg-white px-5 py-2.5 text-sm font-semibold text-brand-dark bg-brand-accent hover:bg-brand-accent-light transition-all rounded-sm shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]"
                 >
                     Konsultasi
                 </a>
