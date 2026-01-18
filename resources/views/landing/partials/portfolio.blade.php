@@ -47,8 +47,15 @@
             @foreach($items as $index => $item)
                 <div class="group relative overflow-hidden rounded-sm cursor-pointer animate-fade-in-up" style="animation-delay: {{ $index * 100 }}ms">
                     <div class="aspect-[4/3] w-full bg-neutral-800">
+                        @php
+                            $itemSrcset = $item['srcset'] ?? '';
+                        @endphp
                         <img 
                             src="{{ $item['imageUrl'] }}" 
+                            @if($itemSrcset)
+                            srcset="{{ $itemSrcset }}"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 33vw, 400px"
+                            @endif
                             alt="{{ $item['title'] }}" 
                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
                         />

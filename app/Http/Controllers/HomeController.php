@@ -100,7 +100,7 @@ class HomeController extends Controller
                         'alt' => $item['title'] ?? '',
                     ]);
                     if (isset($formattedImage['image'])) $item['imageUrl'] = $formattedImage['image'];
-                    // We could add srcset to item if frontend uses it
+                    if (isset($formattedImage['srcset'])) $item['srcset'] = $formattedImage['srcset'];
                 }
             }
         }
