@@ -40,6 +40,25 @@ class HomeController extends Controller
             if (isset($formattedBg['srcset'])) $hero['backgroundImageSrcset'] = $formattedBg['srcset'];
         }
 
+        // Format supporting brand logos with responsive data
+        if (!empty($hero['supportingBrandLogo'])) {
+            $formattedLogo = $this->formatImageWithResponsive([
+                'image' => $hero['supportingBrandLogo'],
+                'alt' => $hero['supportingBrandName'] ?? 'Supporting Brand',
+            ]);
+            if (isset($formattedLogo['image'])) $hero['supportingBrandLogo'] = $formattedLogo['image'];
+            if (isset($formattedLogo['srcset'])) $hero['supportingBrandLogoSrcset'] = $formattedLogo['srcset'];
+        }
+
+        if (!empty($hero['secondaryBrandLogo'])) {
+            $formattedLogo = $this->formatImageWithResponsive([
+                'image' => $hero['secondaryBrandLogo'],
+                'alt' => $hero['secondaryBrandName'] ?? 'Secondary Brand',
+            ]);
+            if (isset($formattedLogo['image'])) $hero['secondaryBrandLogo'] = $formattedLogo['image'];
+            if (isset($formattedLogo['srcset'])) $hero['secondaryBrandLogoSrcset'] = $formattedLogo['srcset'];
+        }
+
         $stats = PageSection::getContent('home', 'stats', [
             'showStats' => true,
             'items' => [
