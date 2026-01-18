@@ -81,7 +81,7 @@
                 <img 
                     src="{{ $image }}"
                     alt="Sound Engineer Working" 
-                    class="w-full h-full object-cover opacity-100"
+                    class="w-full h-full object-cover object-center opacity-100"
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end p-8">
                     <div class="border-l-4 border-brand-accent-light pl-6">
