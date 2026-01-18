@@ -61,16 +61,16 @@
                 @if($supportingBrandLink)
                 <a href="{{ $supportingBrandLink }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-neutral-300 hover:text-white transition-colors">
                     <img src="{{ $supportingBrandLogo }}" alt="{{ $supportingBrandName }}" class="h-5 w-auto" />
-                    <span class="text-sm">{{ $supportingBrandName }}</span>
+                    @if($supportingBrandName)<span class="text-sm">{{ $supportingBrandName }}</span>@endif
                 </a>
                 @else
                 <span class="inline-flex items-center gap-1.5 text-neutral-300">
                     <img src="{{ $supportingBrandLogo }}" alt="{{ $supportingBrandName }}" class="h-5 w-auto" />
-                    <span class="text-sm">{{ $supportingBrandName }}</span>
+                    @if($supportingBrandName)<span class="text-sm">{{ $supportingBrandName }}</span>@endif
                 </span>
                 @endif
                 @if($secondaryBrandLogo)
-                <span class="text-neutral-500">&</span>
+                <span class="text-neutral-500">|</span>
                 <span class="inline-flex items-center gap-1.5 text-neutral-300">
                     <img src="{{ $secondaryBrandLogo }}" alt="{{ $secondaryBrandName }}" class="h-5 w-auto" />
                     <span class="text-sm">{{ $secondaryBrandName }}</span>
