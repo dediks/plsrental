@@ -78,8 +78,15 @@
 
             {{-- Image/Visual --}}
             <div class="relative h-[350px] md:h-[450px] lg:h-[500px] -mx-6 lg:mx-0 w-[calc(100%+3rem)] lg:w-full bg-neutral-800 rounded-none lg:rounded-sm overflow-hidden">
+                @php
+                    $srcset = $whyChoose['srcset'] ?? '';
+                @endphp
                 <img 
                     src="{{ $image }}"
+                    @if($srcset)
+                    srcset="{{ $srcset }}"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
+                    @endif
                     alt="Sound Engineer Working" 
                     class="w-full h-full object-cover object-center opacity-100"
                 />
