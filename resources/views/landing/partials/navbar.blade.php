@@ -26,7 +26,7 @@
                     <img
                         src="{{ $logoSrc }}"
                         alt="PLS Rental Division"
-                        class="h-8 md:h-9 w-auto transition-transform group-hover:scale-105"
+                        class="h-6 md:h-9 w-auto transition-transform group-hover:scale-105"
                     />
                 </a>
             </div>
